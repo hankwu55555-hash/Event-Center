@@ -37,20 +37,25 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 .header-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .cal-wrap{position:relative;}
 /* Country selector */
-.country-sel{display:flex;align-items:center;gap:5px;}
-.country-btn{
-  background:var(--sf);border:1px solid var(--bd);
-  border-radius:50%;width:36px;height:36px;
-  cursor:pointer;font-size:1.25rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .2s;padding:0;
+.country-sel{display:flex;align-items:center;}
+.country-wrap{
+  position:relative;display:inline-flex;align-items:center;
 }
-.country-btn:hover{background:var(--sf2);border-color:var(--ac2);transform:scale(1.12);}
-.country-btn.on{
+.country-wrap::after{
+  content:"▾";position:absolute;right:12px;
+  color:#1a0a00;font-size:.9rem;pointer-events:none;font-weight:bold;
+}
+.country-select{
+  appearance:none;-webkit-appearance:none;
   background:linear-gradient(135deg,#f59e0b,#fde047);
-  border-color:#fde047;box-shadow:0 0 10px rgba(245,158,11,.5);
-  transform:scale(1.15);
+  color:#1a0a00;border:none;
+  padding:8px 36px 8px 14px;
+  border-radius:20px;cursor:pointer;
+  font-size:.95rem;font-weight:bold;
+  box-shadow:0 0 14px rgba(245,158,11,.5);
+  transition:all .2s;outline:none;
 }
+.country-select:hover{box-shadow:0 0 22px rgba(245,158,11,.8);}
 /* Rank badges */
 .header-center{
   display:flex;align-items:center;gap:10px;
@@ -224,12 +229,15 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   </div>
   <div class="header-right">
     <div class="country-sel">
-      <button class="country-btn on" data-c="TW" onclick="selectCountry('TW')">&#127481;&#127484;</button>
-      <button class="country-btn" data-c="US" onclick="selectCountry('US')">&#127482;&#127480;</button>
-      <button class="country-btn" data-c="JP" onclick="selectCountry('JP')">&#127471;&#127477;</button>
-      <button class="country-btn" data-c="UK" onclick="selectCountry('UK')">&#127468;&#127463;</button>
+      <div class="country-wrap">
+        <select class="country-select" id="countrySelect" onchange="selectCountry(this.value)">
+          <option value="TW">&#127481;&#127484; 台灣</option>
+          <option value="US">&#127482;&#127480; 美國</option>
+          <option value="JP">&#127471;&#127477; 日本</option>
+          <option value="UK">&#127468;&#127463; 英國</option>
+        </select>
+      </div>
     </div>
-    <span class="upd">最後更新：2026-05-27 05:51:02</span>
     <div class="cal-wrap" id="calWrap">
       <button class="cal-btn" id="calBtn" onclick="toggleCal()">
         <span id="calBtnTxt">選擇日期</span>
@@ -272,9 +280,8 @@ let curCountry = 'TW';
 
 function selectCountry(c) {
   curCountry = c;
-  document.querySelectorAll('.country-btn').forEach(b=>b.classList.remove('on'));
-  const btn = document.querySelector(`.country-btn[data-c='${c}']`);
-  if(btn) btn.classList.add('on');
+  const sel = document.getElementById('countrySelect');
+  if(sel) sel.value = c;
   updateRankings();
 }
 
