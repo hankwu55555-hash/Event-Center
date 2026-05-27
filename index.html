@@ -58,11 +58,11 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   cursor:pointer;font-size:.9rem;transition:all .2s;
   display:flex;align-items:center;gap:8px;
 }
-.at:hover{background:var(--sf2);color:var(--tx);border-color:var(--ac2);}
+.at:hover{background:#78350f;color:#fff;border-color:#fde047;}
 .at.on{
-  background:linear-gradient(135deg,var(--ac2),var(--ac));
-  color:#fff;border-color:var(--ac);font-weight:bold;
-  box-shadow:0 0 14px var(--glow);
+  background:linear-gradient(135deg,#f59e0b,#fde047);
+  color:#1a0a00;border-color:#fde047;font-weight:bold;
+  box-shadow:0 0 14px rgba(245,158,11,.5);
 }
 .cnt{
   background:rgba(255,255,255,.2);
@@ -80,8 +80,8 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   min-height:60vh;
 }
 .arrow{
-  background:linear-gradient(135deg,var(--sf2),var(--sf));
-  border:2px solid var(--bd);color:var(--ac3);
+  background:linear-gradient(135deg,#92400e,#78350f);
+  border:2px solid #fde047;color:#fff176;
   width:52px;height:52px;border-radius:50%;
   font-size:1.4rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
@@ -89,9 +89,9 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   box-shadow:0 2px 12px rgba(0,0,0,.4);
 }
 .arrow:hover{
-  background:linear-gradient(135deg,var(--ac2),var(--ac));
-  border-color:var(--ac);
-  box-shadow:0 0 20px var(--glow);
+  background:linear-gradient(135deg,#f59e0b,#fde047);
+  border-color:#fde047;
+  box-shadow:0 0 20px rgba(245,158,11,.5);
   transform:scale(1.1);
 }
 .arrow.hidden{opacity:0;pointer-events:none;}
@@ -108,9 +108,10 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   background:var(--sf);
 }
 .counter{
-  font-size:.88rem;color:var(--tx2);
-  background:var(--sf);border:1px solid var(--bd);
+  font-size:.88rem;color:#1a0a00;font-weight:bold;
+  background:linear-gradient(135deg,#f59e0b,#fde047);border:1px solid #fde047;
   padding:4px 16px;border-radius:20px;
+  box-shadow:0 0 10px rgba(245,158,11,.4);
 }
 
 /* Thumbnail strip */
@@ -137,7 +138,7 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 
 <header>
   <h1>CF Gallery</h1>
-  <span class="upd">最後更新：2026-05-27 11:21:41</span>
+  <span class="upd">最後更新：2026-05-27 03:40:28</span>
 </header>
 
 <div class="dtbar"><button class="dt on" onclick="switchDate('20260527')" id="dt-20260527">2026/05/27</button></div>
