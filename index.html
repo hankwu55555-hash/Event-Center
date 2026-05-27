@@ -51,11 +51,12 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   appearance:none;-webkit-appearance:none;
   background:linear-gradient(135deg,#f59e0b,#fde047);
   color:#1a0a00;border:none;
-  padding:8px 36px 8px 14px;
+  padding:0 36px 0 14px;
   border-radius:20px;cursor:pointer;
   font-size:.95rem;font-weight:bold;
   box-shadow:0 0 14px rgba(245,158,11,.5);
   transition:all .2s;outline:none;
+  height:40px;box-sizing:border-box;
 }
 .country-select:hover{box-shadow:0 0 22px rgba(245,158,11,.8);}
 /* Rank badges */
@@ -67,7 +68,8 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 .rank-badge{
   display:flex;align-items:center;gap:7px;
   background:var(--sf);border:1px solid var(--bd);
-  border-radius:16px;padding:5px 15px;
+  border-radius:20px;padding:0 15px;
+  height:40px;box-sizing:border-box;
   transition:all .25s;
 }
 .rank-badge .s-icon{width:20px;height:20px;flex-shrink:0;}
@@ -80,11 +82,12 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 .cal-btn{
   background:linear-gradient(135deg,#f59e0b,#fde047);
   color:#1a0a00;border:none;
-  padding:8px 20px;border-radius:20px;
+  padding:0 20px;border-radius:20px;
   cursor:pointer;font-size:.9rem;font-weight:bold;
   display:flex;align-items:center;gap:8px;
   box-shadow:0 0 14px rgba(245,158,11,.5);
   transition:all .2s;white-space:nowrap;
+  height:40px;box-sizing:border-box;
 }
 .cal-btn:hover{box-shadow:0 0 22px rgba(245,158,11,.8);transform:scale(1.04);}
 .cal-popup{
@@ -227,7 +230,7 @@ header .upd{font-size:.75rem;color:var(--tx2);}
       <span class="r-num" id="rApple">--</span>
     </div>
     <div class="rank-badge" id="rankAndroid">
-      <svg class="s-icon" viewBox="0 0 24 24" fill="#a8ff78"><path d="M17.523 15.341c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999-.448 1-.999 1m-11.046 0c-.551 0-.999-.449-.999-1s.448-.999.999-.999.999.448.999.999-.448 1-.999 1m11.405-6.02l1.997-3.459a.416.416 0 00-.152-.568.416.416 0 00-.568.152l-2.022 3.503C15.59 8.244 13.853 7.851 12 7.851s-3.59.393-5.137 1.098L4.841 5.421a.416.416 0 00-.568-.152.416.416 0 00-.152.568l1.997 3.459C3.644 10.192 2.167 12.39 2 14.895h20c-.167-2.505-1.644-4.703-4.118-5.574z"/></svg>
+      <svg class="s-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M3.18 1.06a1.5 1.5 0 00-.88 1.44v19c0 .65.37 1.2.88 1.44L13.6 12z"/><path fill="#FBBC05" d="M20.82 10.7l-3.1-1.78-3.32 3.08 3.32 3.08 3.1-1.78a1.5 1.5 0 000-2.6z"/><path fill="#EA4335" d="M3.18 1.06L13.6 12l4.12-3.08L5.08.4a1.5 1.5 0 00-1.9.66z"/><path fill="#34A853" d="M3.18 22.94L13.6 12l4.12 3.08L5.08 23.6a1.5 1.5 0 01-1.9-.66z"/></svg>
       <span class="s-name">Google Play</span>
       <span class="r-num" id="rAndroid">--</span>
     </div>
