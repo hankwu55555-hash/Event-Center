@@ -33,21 +33,58 @@ header{
 header h1{font-size:1.5rem;color:var(--ac3);letter-spacing:3px;text-shadow:0 0 20px var(--glow);}
 header .upd{font-size:.75rem;color:var(--tx2);}
 
-/* Date tabs */
-.dtbar{
-  background:var(--bg2);
-  padding:10px 28px 0;
-  border-bottom:1px solid var(--bd);
-  display:flex;gap:4px;flex-wrap:wrap;
+/* Calendar picker */
+.header-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.cal-wrap{position:relative;}
+.cal-btn{
+  background:linear-gradient(135deg,#f59e0b,#fde047);
+  color:#1a0a00;border:none;
+  padding:8px 20px;border-radius:20px;
+  cursor:pointer;font-size:.9rem;font-weight:bold;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 0 14px rgba(245,158,11,.5);
+  transition:all .2s;white-space:nowrap;
 }
-.dt{
-  background:transparent;color:var(--tx2);border:none;
-  border-bottom:3px solid transparent;
-  padding:8px 20px;cursor:pointer;font-size:.9rem;
-  border-radius:var(--r) var(--r) 0 0;transition:all .2s;white-space:nowrap;
+.cal-btn:hover{box-shadow:0 0 22px rgba(245,158,11,.8);transform:scale(1.04);}
+.cal-popup{
+  display:none;position:absolute;right:0;top:calc(100% + 10px);
+  background:var(--sf2);border:2px solid var(--ac);
+  border-radius:var(--r);padding:18px;min-width:290px;
+  box-shadow:0 8px 40px rgba(168,85,247,.5);z-index:999;
 }
-.dt:hover{background:var(--sf);color:var(--tx);}
-.dt.on{color:var(--ac3);border-bottom-color:var(--ac);font-weight:bold;}
+.cal-popup.open{display:block;}
+.cal-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.cal-nav button{
+  background:var(--sf);border:1px solid var(--bd);color:var(--tx);
+  width:32px;height:32px;border-radius:8px;cursor:pointer;
+  font-size:1.2rem;line-height:1;transition:all .2s;
+}
+.cal-nav button:hover{background:var(--ac2);border-color:var(--ac);color:#fff;}
+.cal-nav span{font-weight:bold;color:var(--ac3);font-size:1rem;}
+.cal-dow{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  text-align:center;margin-bottom:6px;
+}
+.cal-dow span{font-size:.72rem;color:var(--tx2);padding:2px 0;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-cell{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;font-size:.85rem;cursor:default;
+  color:rgba(255,255,255,.2);transition:all .2s;
+}
+.cal-cell.has-data{
+  background:rgba(168,85,247,.25);color:var(--tx);cursor:pointer;
+  border:1px solid var(--bd);font-weight:600;
+}
+.cal-cell.has-data:hover{background:var(--ac2);border-color:var(--ac);color:#fff;box-shadow:0 0 8px var(--glow);}
+.cal-cell.selected{
+  background:linear-gradient(135deg,#f59e0b,#fde047)!important;
+  color:#1a0a00!important;border-color:#fde047!important;font-weight:bold;
+  box-shadow:0 0 12px rgba(245,158,11,.6);
+}
 
 /* Activity tabs */
 .ats{display:flex;gap:8px;flex-wrap:wrap;padding:18px 28px 0;justify-content:center;}
@@ -138,10 +175,28 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 
 <header>
   <h1>CF Gallery</h1>
-  <span class="upd">最後更新：2026-05-27 05:13:14</span>
+  <div class="header-right">
+    <span class="upd">最後更新：2026-05-27 05:31:21</span>
+    <div class="cal-wrap" id="calWrap">
+      <button class="cal-btn" id="calBtn" onclick="toggleCal()">
+        <span id="calBtnTxt">選擇日期</span>
+        &#128197;
+      </button>
+      <div class="cal-popup" id="calPopup">
+        <div class="cal-nav">
+          <button onclick="changeMonth(-1)">&#8249;</button>
+          <span id="calMonthLabel"></span>
+          <button onclick="changeMonth(1)">&#8250;</button>
+        </div>
+        <div class="cal-dow">
+          <span>日</span><span>一</span><span>二</span><span>三</span>
+          <span>四</span><span>五</span><span>六</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+    </div>
+  </div>
 </header>
-
-<div class="dtbar"><button class="dt on" onclick="switchDate('20260527')" id="dt-20260527">2026/05/27</button><button class="dt " onclick="switchDate('20260526')" id="dt-20260526">2026/05/26</button></div>
 
 <div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">公告<span class="cnt">5</span></button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告<span class="cnt">5</span></button></div></div></div>
 
@@ -158,20 +213,90 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 
 <script>
 const IMGS = {"20260527": {"tab1": ["20260527/tab1_1.png", "20260527/tab1_2.png", "20260527/tab1_3.png", "20260527/tab1_4.png", "20260527/tab1_5.png", "20260527/tab1_6.png", "20260527/tab1_7.png", "20260527/tab1_8.png", "20260527/tab1_9.png", "20260527/tab1_10.png"], "tab2": ["20260527/tab2_1.png", "20260527/tab2_2.png", "20260527/tab2_3.png", "20260527/tab2_4.png", "20260527/tab2_5.png", "20260527/tab2_6.png", "20260527/tab2_7.png", "20260527/tab2_8.png"], "tab3": ["20260527/tab3_1.png", "20260527/tab3_2.png", "20260527/tab3_3.png", "20260527/tab3_4.png", "20260527/tab3_5.png"]}, "20260526": {"tab1": ["20260526/tab1_1.png", "20260526/tab1_2.png", "20260526/tab1_3.png", "20260526/tab1_4.png", "20260526/tab1_5.png", "20260526/tab1_6.png", "20260526/tab1_7.png", "20260526/tab1_8.png", "20260526/tab1_9.png", "20260526/tab1_10.png"], "tab2": ["20260526/tab2_1.png", "20260526/tab2_2.png", "20260526/tab2_3.png", "20260526/tab2_4.png", "20260526/tab2_5.png", "20260526/tab2_6.png", "20260526/tab2_7.png", "20260526/tab2_8.png"], "tab3": ["20260526/tab3_1.png", "20260526/tab3_2.png", "20260526/tab3_3.png", "20260526/tab3_4.png", "20260526/tab3_5.png"]}};
+const AVAIL_DATES = ["20260527", "20260526"];
 let curDate = '20260527';
 let curTab = '';
 let curIdx = 0;
+let calYear = 0, calMonth = 0;
 
-function switchDate(d) {
-  document.querySelectorAll('.dt').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.dp').forEach(p=>p.classList.remove('on'));
-  document.getElementById('dt-'+d).classList.add('on');
-  document.getElementById('dp-'+d).classList.add('on');
+function fmtDateBtn(s) {
+  return s.slice(0,4)+'/'+s.slice(4,6)+'/'+s.slice(6,8);
+}
+
+function toggleCal() {
+  const p = document.getElementById('calPopup');
+  if(p.classList.contains('open')) {
+    p.classList.remove('open');
+  } else {
+    // Init calendar to current selected date's month
+    const d = curDate || AVAIL_DATES[0];
+    calYear  = parseInt(d.slice(0,4));
+    calMonth = parseInt(d.slice(4,6))-1;
+    renderCal();
+    p.classList.add('open');
+  }
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if(calMonth < 0)  { calMonth = 11; calYear--; }
+  if(calMonth > 11) { calMonth = 0;  calYear++; }
+  renderCal();
+}
+
+function renderCal() {
+  const months = ['1月','2月','3月','4月','5月','6月',
+                  '7月','8月','9月','10月','11月','12月'];
+  document.getElementById('calMonthLabel').textContent =
+    calYear + ' 年 ' + months[calMonth];
+
+  const grid = document.getElementById('calGrid');
+  const first = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+  const days  = new Date(calYear, calMonth+1, 0).getDate();
+  let html = '';
+
+  // Leading blanks
+  for(let i=0; i<first; i++) html += '<div class="cal-cell"></div>';
+
+  for(let d=1; d<=days; d++) {
+    const mm = String(calMonth+1).padStart(2,'0');
+    const dd = String(d).padStart(2,'0');
+    const key = `${calYear}${mm}${dd}`;
+    const hasData = AVAIL_DATES.includes(key);
+    const isSel   = key === curDate;
+    let cls = 'cal-cell';
+    if(hasData) cls += ' has-data';
+    if(isSel)   cls += ' selected';
+    const click = hasData ? `onclick="selectDate('${key}')"` : '';
+    html += `<div class="${cls}" ${click}>${d}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+function selectDate(d) {
   curDate = d;
-  // activate first tab of this date
+  document.getElementById('calBtnTxt').textContent = fmtDateBtn(d);
+  document.getElementById('calPopup').classList.remove('open');
+  // Show this date's panel
+  document.querySelectorAll('.dp').forEach(p=>p.classList.remove('on'));
+  const panel = document.getElementById('dp-'+d);
+  if(panel) panel.classList.add('on');
+  // Activate first tab
   const firstTab = Object.keys(IMGS[d])[0];
   switchAct(d, firstTab);
 }
+
+function switchDate(d) {
+  selectDate(d);
+}
+
+// Close calendar when clicking outside
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('calWrap');
+  if(wrap && !wrap.contains(e.target)) {
+    document.getElementById('calPopup').classList.remove('open');
+  }
+});
 
 function switchAct(d, k) {
   document.querySelectorAll('.at').forEach(b=>b.classList.remove('on'));
