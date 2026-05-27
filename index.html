@@ -137,12 +137,12 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 
 <header>
   <h1>CF Gallery</h1>
-  <span class="upd">最後更新：2026-05-27 00:05:04</span>
+  <span class="upd">最後更新：2026-05-27 11:21:41</span>
 </header>
 
-<div class="dtbar"><button class="dt on" onclick="switchDate('20260526')" id="dt-20260526">2026/05/26</button></div>
+<div class="dtbar"><button class="dt on" onclick="switchDate('20260527')" id="dt-20260527">2026/05/27</button></div>
 
-<div id="panels"><div class="dp on" id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告<span class="cnt">6</span></button></div></div></div>
+<div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">公告<span class="cnt">5</span></button></div></div></div>
 
 <div class="viewer">
   <button class="arrow" id="btnPrev" onclick="navigate(-1)">&#8249;</button>
@@ -156,8 +156,8 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 <div class="thumbs" id="thumbs"></div>
 
 <script>
-const IMGS = {"20260526": {"tab1": ["20260526/tab1_1.png", "20260526/tab1_2.png", "20260526/tab1_3.png", "20260526/tab1_4.png", "20260526/tab1_5.png", "20260526/tab1_6.png", "20260526/tab1_7.png", "20260526/tab1_8.png", "20260526/tab1_9.png", "20260526/tab1_10.png"], "tab2": ["20260526/tab2_1.png", "20260526/tab2_2.png", "20260526/tab2_3.png", "20260526/tab2_4.png", "20260526/tab2_5.png", "20260526/tab2_6.png", "20260526/tab2_7.png", "20260526/tab2_8.png"], "tab3": ["20260526/tab3_1.png", "20260526/tab3_2.png", "20260526/tab3_3.png", "20260526/tab3_4.png", "20260526/tab3_5.png", "20260526/tab3_6.png"]}};
-let curDate = '20260526';
+const IMGS = {"20260527": {"tab1": ["20260527/tab1_1.png", "20260527/tab1_2.png", "20260527/tab1_3.png", "20260527/tab1_4.png", "20260527/tab1_5.png", "20260527/tab1_6.png", "20260527/tab1_7.png", "20260527/tab1_8.png", "20260527/tab1_9.png", "20260527/tab1_10.png"], "tab2": ["20260527/tab2_1.png", "20260527/tab2_2.png", "20260527/tab2_3.png", "20260527/tab2_4.png", "20260527/tab2_5.png", "20260527/tab2_6.png", "20260527/tab2_7.png", "20260527/tab2_8.png"], "tab3": ["20260527/tab3_1.png", "20260527/tab3_2.png", "20260527/tab3_3.png", "20260527/tab3_4.png", "20260527/tab3_5.png"]}};
+let curDate = '20260527';
 let curTab = '';
 let curIdx = 0;
 
@@ -226,7 +226,7 @@ document.addEventListener('keydown', e => {
 });
 
 // Init
-const firstDate = '20260526';
+const firstDate = '20260527';
 const firstTab = Object.keys(IMGS[firstDate])[0];
 curTab = firstTab;
 renderViewer();
