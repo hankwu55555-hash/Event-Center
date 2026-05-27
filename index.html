@@ -30,7 +30,9 @@ header{
   display:flex;align-items:center;justify-content:space-between;
   box-shadow:0 2px 20px rgba(168,85,247,.3);
 }
-header h1{font-size:1.5rem;color:var(--ac3);letter-spacing:3px;text-shadow:0 0 20px var(--glow);}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo img{width:44px;height:44px;border-radius:10px;box-shadow:0 0 12px rgba(168,85,247,.5);}
+.logo span{font-size:1.4rem;font-weight:bold;color:#fde047;letter-spacing:2px;text-shadow:0 0 16px rgba(253,224,71,.6);}
 header .upd{font-size:.75rem;color:var(--tx2);}
 
 /* Calendar picker */
@@ -213,7 +215,10 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 <body>
 
 <header>
-  <h1>CF Gallery</h1>
+  <div class="logo">
+    <img src="basic/icon.png" alt="Cash Frenzy"/>
+    <span>Cash Frenzy</span>
+  </div>
   <div class="header-center">
     <span class="rank-label">類別排名</span>
     <div class="rank-badge" id="rankApple">
