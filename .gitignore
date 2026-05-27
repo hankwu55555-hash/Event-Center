@@ -1,0 +1,5 @@
+generate_gallery.py
+tab_names_cache.json
+gallery.html
+__pycache__/
+*.pyc
