@@ -40,25 +40,24 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 .cal-wrap{position:relative;}
 /* Country selector */
 .country-sel{display:flex;align-items:center;}
-.country-wrap{
-  position:relative;display:inline-flex;align-items:center;
+.csel-wrap{position:relative;}
+.csel-popup{
+  display:none;position:absolute;left:0;top:calc(100% + 10px);
+  background:var(--sf2);border:2px solid var(--ac);
+  border-radius:var(--r);padding:8px;min-width:140px;
+  box-shadow:0 8px 40px rgba(168,85,247,.5);z-index:999;
 }
-.country-wrap::after{
-  content:"▾";position:absolute;right:14px;
-  color:#1a0a00;font-size:.85rem;pointer-events:none;font-weight:bold;
+.csel-popup.open{display:block;}
+.csel-opt{
+  padding:9px 16px;border-radius:8px;cursor:pointer;
+  color:var(--tx);font-size:.9rem;font-weight:600;
+  transition:all .15s;white-space:nowrap;
 }
-.country-select{
-  appearance:none;-webkit-appearance:none;
+.csel-opt:hover{background:var(--ac2);color:#fff;}
+.csel-opt.on{
   background:linear-gradient(135deg,#f59e0b,#fde047);
-  color:#1a0a00;border:none;
-  padding:0 34px 0 16px;
-  border-radius:20px;cursor:pointer;
-  font-size:.9rem;font-weight:bold;
-  box-shadow:0 0 14px rgba(245,158,11,.5);
-  transition:all .2s;outline:none;
-  height:40px;box-sizing:border-box;white-space:nowrap;
+  color:#1a0a00;
 }
-.country-select:hover{box-shadow:0 0 22px rgba(245,158,11,.8);transform:scale(1.04);}
 /* Rank badges */
 .header-center{
   display:flex;align-items:center;gap:10px;
@@ -237,13 +236,17 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   </div>
   <div class="header-right">
     <div class="country-sel">
-      <div class="country-wrap">
-        <select class="country-select" id="countrySelect" onchange="selectCountry(this.value)">
-          <option value="TW">🇹🇼 台灣</option>
-          <option value="US">🇺🇸 美國</option>
-          <option value="JP">🇯🇵 日本</option>
-          <option value="UK">🇬🇧 英國</option>
-        </select>
+      <div class="csel-wrap" id="cselWrap">
+        <button class="cal-btn" id="cselBtn" onclick="toggleCsel()">
+          <span id="cselBtnTxt">🇹🇼 台灣</span>
+          &#9660;
+        </button>
+        <div class="csel-popup" id="cselPopup">
+          <div class="csel-opt on" data-c="TW" onclick="selectCountry('TW')">🇹🇼 台灣</div>
+          <div class="csel-opt" data-c="US" onclick="selectCountry('US')">🇺🇸 美國</div>
+          <div class="csel-opt" data-c="JP" onclick="selectCountry('JP')">🇯🇵 日本</div>
+          <div class="csel-opt" data-c="UK" onclick="selectCountry('UK')">🇬🇧 英國</div>
+        </div>
       </div>
     </div>
     <div class="cal-wrap" id="calWrap">
@@ -286,10 +289,19 @@ const AVAIL_DATES = ["20260527", "20260526"];
 const RANKINGS = {"20260526": {"TW": {"apple": 1, "android": 2}, "US": {"apple": 5, "android": 3}, "JP": {"apple": 8, "android": 6}, "UK": {"apple": 12, "android": 9}}, "20260527": {"TW": {"apple": 1, "android": 2}, "US": {"apple": 4, "android": 3}, "JP": {"apple": 7, "android": 5}, "UK": {"apple": 11, "android": 8}}};
 let curCountry = 'TW';
 
+function toggleCsel() {
+  document.getElementById('cselPopup').classList.toggle('open');
+}
+
 function selectCountry(c) {
   curCountry = c;
-  const sel = document.getElementById('countrySelect');
-  if(sel) sel.value = c;
+  const labels = {'TW':'🇹🇼 台灣','US':'🇺🇸 美國','JP':'🇯🇵 日本','UK':'🇬🇧 英國'};
+  const btn = document.getElementById('cselBtnTxt');
+  if(btn) btn.textContent = labels[c] || c;
+  document.querySelectorAll('.csel-opt').forEach(o=>o.classList.remove('on'));
+  const opt = document.querySelector(`.csel-opt[data-c="${c}"]`);
+  if(opt) opt.classList.add('on');
+  document.getElementById('cselPopup').classList.remove('open');
   updateRankings();
 }
 
@@ -393,10 +405,12 @@ function switchDate(d) {
 
 // Close calendar when clicking outside
 document.addEventListener('click', e => {
-  const wrap = document.getElementById('calWrap');
-  if(wrap && !wrap.contains(e.target)) {
+  const calW = document.getElementById('calWrap');
+  if(calW && !calW.contains(e.target))
     document.getElementById('calPopup').classList.remove('open');
-  }
+  const cselW = document.getElementById('cselWrap');
+  if(cselW && !cselW.contains(e.target))
+    document.getElementById('cselPopup').classList.remove('open');
 });
 
 function switchAct(d, k) {
