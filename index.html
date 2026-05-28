@@ -286,7 +286,7 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   </div>
 </header>
 
-<div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷</button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">頁籤2</button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">頁籤3</button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷</button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動</button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告</button></div></div></div>
+<div id="panels"><div class="dp on" id="dp-20260528"><div class="ats" id="ats-20260528"><button class="at on" onclick="switchAct('20260528','tab1')" id="at-20260528-tab1">促銷</button><button class="at " onclick="switchAct('20260528','tab2')" id="at-20260528-tab2">活動</button><button class="at " onclick="switchAct('20260528','tab3')" id="at-20260528-tab3">公告</button></div></div><div class="dp " id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷</button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">頁籤2</button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">頁籤3</button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷</button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動</button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告</button></div></div></div>
 
 <div class="loading-overlay" id="loadingOverlay">
   <div class="spinner"></div>
@@ -305,8 +305,8 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 <div class="thumbs" id="thumbs"></div>
 
 <script>
-const IMGS = {"20260527": {"tab1": ["20260527/tab1_1.png", "20260527/tab1_2.png", "20260527/tab1_3.png", "20260527/tab1_4.png", "20260527/tab1_5.png", "20260527/tab1_6.png", "20260527/tab1_7.png", "20260527/tab1_8.png", "20260527/tab1_9.png", "20260527/tab1_10.png"], "tab2": ["20260527/tab2_1.png", "20260527/tab2_2.png", "20260527/tab2_3.png", "20260527/tab2_4.png", "20260527/tab2_5.png", "20260527/tab2_6.png", "20260527/tab2_7.png", "20260527/tab2_8.png"], "tab3": ["20260527/tab3_1.png", "20260527/tab3_2.png", "20260527/tab3_3.png", "20260527/tab3_4.png", "20260527/tab3_5.png"]}, "20260526": {"tab1": ["20260526/tab1_1.png", "20260526/tab1_2.png", "20260526/tab1_3.png", "20260526/tab1_4.png", "20260526/tab1_5.png", "20260526/tab1_6.png", "20260526/tab1_7.png", "20260526/tab1_8.png", "20260526/tab1_9.png", "20260526/tab1_10.png"], "tab2": ["20260526/tab2_1.png", "20260526/tab2_2.png", "20260526/tab2_3.png", "20260526/tab2_4.png", "20260526/tab2_5.png", "20260526/tab2_6.png", "20260526/tab2_7.png", "20260526/tab2_8.png"], "tab3": ["20260526/tab3_1.png", "20260526/tab3_2.png", "20260526/tab3_3.png", "20260526/tab3_4.png", "20260526/tab3_5.png"]}};
-const AVAIL_DATES = ["20260527", "20260526"];
+const IMGS = {"20260528": {"tab1": ["20260528/tab1_1.png", "20260528/tab1_2.png", "20260528/tab1_3.png", "20260528/tab1_4.png", "20260528/tab1_5.png", "20260528/tab1_6.png", "20260528/tab1_7.png", "20260528/tab1_8.png", "20260528/tab1_9.png", "20260528/tab1_10.png", "20260528/tab1_11.png"], "tab2": ["20260528/tab2_1.png", "20260528/tab2_2.png", "20260528/tab2_3.png", "20260528/tab2_4.png", "20260528/tab2_5.png", "20260528/tab2_6.png", "20260528/tab2_7.png", "20260528/tab2_8.png", "20260528/tab2_9.png", "20260528/tab2_10.png"], "tab3": ["20260528/tab3_1.png", "20260528/tab3_2.png", "20260528/tab3_3.png", "20260528/tab3_4.png", "20260528/tab3_5.png"]}, "20260527": {"tab1": ["20260527/tab1_1.png", "20260527/tab1_2.png", "20260527/tab1_3.png", "20260527/tab1_4.png", "20260527/tab1_5.png", "20260527/tab1_6.png", "20260527/tab1_7.png", "20260527/tab1_8.png", "20260527/tab1_9.png", "20260527/tab1_10.png"], "tab2": ["20260527/tab2_1.png", "20260527/tab2_2.png", "20260527/tab2_3.png", "20260527/tab2_4.png", "20260527/tab2_5.png", "20260527/tab2_6.png", "20260527/tab2_7.png", "20260527/tab2_8.png"], "tab3": ["20260527/tab3_1.png", "20260527/tab3_2.png", "20260527/tab3_3.png", "20260527/tab3_4.png", "20260527/tab3_5.png"]}, "20260526": {"tab1": ["20260526/tab1_1.png", "20260526/tab1_2.png", "20260526/tab1_3.png", "20260526/tab1_4.png", "20260526/tab1_5.png", "20260526/tab1_6.png", "20260526/tab1_7.png", "20260526/tab1_8.png", "20260526/tab1_9.png", "20260526/tab1_10.png"], "tab2": ["20260526/tab2_1.png", "20260526/tab2_2.png", "20260526/tab2_3.png", "20260526/tab2_4.png", "20260526/tab2_5.png", "20260526/tab2_6.png", "20260526/tab2_7.png", "20260526/tab2_8.png"], "tab3": ["20260526/tab3_1.png", "20260526/tab3_2.png", "20260526/tab3_3.png", "20260526/tab3_4.png", "20260526/tab3_5.png"]}};
+const AVAIL_DATES = ["20260528", "20260527", "20260526"];
 const RANKINGS = {"20260528": {"TW": {"apple": 75, "android": 22}, "US": {"apple": 66, "android": 8}, "JP": {"apple": 93, "android": 37}, "UK": {"apple": 48, "android": 22}}};
 let curCountry = 'TW';
 
@@ -370,7 +370,7 @@ function preloadAndRender(d, k) {
     img.src = src;
   });
 }
-let curDate = '20260527';
+let curDate = '20260528';
 let curTab = '';
 let curIdx = 0;
 let calYear = 0, calMonth = 0;
@@ -511,7 +511,7 @@ document.addEventListener('keydown', e => {
 });
 
 // Init
-const firstDate = '20260527';
+const firstDate = '20260528';
 const firstTab = Object.keys(IMGS[firstDate])[0];
 curDate = firstDate;
 curTab = firstTab;
