@@ -84,7 +84,7 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   color:#1a0a00;border:none;
   padding:0 20px;border-radius:20px;
   cursor:pointer;font-size:.9rem;font-weight:bold;
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
   box-shadow:0 0 14px rgba(245,158,11,.5);
   transition:all .2s;white-space:nowrap;
   height:40px;box-sizing:border-box;
@@ -225,12 +225,12 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   <div class="header-center">
     <span class="rank-label">類別排名</span>
     <div class="rank-badge" id="rankApple">
-      <svg class="s-icon" viewBox="0 0 24 24" fill="#a0c4ff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <svg class="s-icon" viewBox="0 0 24 24" width="22" height="22" fill="#a0c4ff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span class="s-name">App Store</span>
       <span class="r-num" id="rApple">--</span>
     </div>
     <div class="rank-badge" id="rankAndroid">
-      <svg class="s-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M3.18 1.06a1.5 1.5 0 00-.88 1.44v19c0 .65.37 1.2.88 1.44L13.6 12z"/><path fill="#FBBC05" d="M20.82 10.7l-3.1-1.78-3.32 3.08 3.32 3.08 3.1-1.78a1.5 1.5 0 000-2.6z"/><path fill="#EA4335" d="M3.18 1.06L13.6 12l4.12-3.08L5.08.4a1.5 1.5 0 00-1.9.66z"/><path fill="#34A853" d="M3.18 22.94L13.6 12l4.12 3.08L5.08 23.6a1.5 1.5 0 01-1.9-.66z"/></svg>
+      <svg class="s-icon" viewBox="0 0 24 24" width="22" height="22"><path fill="#4285F4" d="M3.18 1.06a1.5 1.5 0 00-.88 1.44v19c0 .65.37 1.2.88 1.44L13.6 12z"/><path fill="#FBBC05" d="M20.82 10.7l-3.1-1.78-3.32 3.08 3.32 3.08 3.1-1.78a1.5 1.5 0 000-2.6z"/><path fill="#EA4335" d="M3.18 1.06L13.6 12l4.12-3.08L5.08.4a1.5 1.5 0 00-1.9.66z"/><path fill="#34A853" d="M3.18 22.94L13.6 12l4.12 3.08L5.08 23.6a1.5 1.5 0 01-1.9-.66z"/></svg>
       <span class="s-name">Google Play</span>
       <span class="r-num" id="rAndroid">--</span>
     </div>
@@ -239,10 +239,10 @@ header .upd{font-size:.75rem;color:var(--tx2);}
     <div class="country-sel">
       <div class="country-wrap">
         <select class="country-select" id="countrySelect" onchange="selectCountry(this.value)">
-          <option value="TW">&#127481;&#127484; 台灣</option>
-          <option value="US">&#127482;&#127480; 美國</option>
-          <option value="JP">&#127471;&#127477; 日本</option>
-          <option value="UK">&#127468;&#127463; 英國</option>
+          <option value="TW">🇹🇼 台灣</option>
+          <option value="US">🇺🇸 美國</option>
+          <option value="JP">🇯🇵 日本</option>
+          <option value="UK">🇬🇧 英國</option>
         </select>
       </div>
     </div>
@@ -267,7 +267,7 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   </div>
 </header>
 
-<div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">公告<span class="cnt">5</span></button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷<span class="cnt">10</span></button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動<span class="cnt">8</span></button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告<span class="cnt">5</span></button></div></div></div>
+<div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷</button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">活動</button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">公告</button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷</button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動</button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告</button></div></div></div>
 
 <div class="viewer">
   <button class="arrow" id="btnPrev" onclick="navigate(-1)">&#8249;</button>
@@ -455,8 +455,11 @@ document.addEventListener('keydown', e => {
 // Init
 const firstDate = '20260527';
 const firstTab = Object.keys(IMGS[firstDate])[0];
+curDate = firstDate;
 curTab = firstTab;
+document.getElementById('calBtnTxt').textContent = fmtDateBtn(firstDate);
 renderViewer();
+updateRankings();
 </script>
 </body>
 </html>
