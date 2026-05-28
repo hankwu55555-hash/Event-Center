@@ -37,20 +37,20 @@
   },
   "20260528": {
     "TW": {
-      "apple": 5,
-      "android": 700
+      "apple": 75,
+      "android": 22
     },
     "US": {
-      "apple": 5,
-      "android": 700
+      "apple": 66,
+      "android": 8
     },
     "JP": {
-      "apple": 5,
-      "android": 700
+      "apple": 93,
+      "android": 37
     },
     "UK": {
-      "apple": 5,
-      "android": 700
+      "apple": 48,
+      "android": 22
     }
   }
 }

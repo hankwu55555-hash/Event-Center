@@ -93,13 +93,13 @@
                 ],
                 [
                   1779926400,
-                  24,
+                  22,
                   null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 24
+              "todays_rank": 22
             }
           }
         }
@@ -117,17 +117,17 @@
   ],
   "apple_US": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -175,17 +175,17 @@
   ],
   "android_US": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -233,17 +233,17 @@
   ],
   "apple_JP": [
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -349,17 +349,17 @@
   ],
   "apple_GB": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {

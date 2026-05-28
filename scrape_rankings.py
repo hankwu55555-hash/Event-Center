@@ -164,7 +164,7 @@ async def get_apple_rank(page, st_country, debug):
     debug[f"apple_{st_country}"] = _make_debug_entries(st_caps, APP_APPLE)
 
     # 從 category_history 回應中解析排名
-    r = _parse_category_history(captured, APP_APPLE, debug_label=f"apple_{st_country}")
+    r = _parse_category_history(captured, APP_APPLE, st_country)
     if r is not None:
         print(f"    → #{r}")
         return r
@@ -190,7 +190,7 @@ async def get_android_rank(page, st_country, debug):
     st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
     debug[f"android_{st_country}"] = _make_debug_entries(st_caps, APP_ANDROID_SAA)
 
-    r = _parse_category_history(captured, APP_ANDROID_SAA, debug_label=f"android_{st_country}")
+    r = _parse_category_history(captured, APP_ANDROID_SAA, st_country)
     if r is not None:
         print(f"    → #{r}")
         return r
@@ -199,42 +199,66 @@ async def get_android_rank(page, st_country, debug):
     return None
 
 
-def _parse_category_history(captured, app_id, debug_label=""):
+def _parse_category_history(captured, app_id, st_country):
     """
-    category_history API 回應結構：
-      { "<app_id>": [ {date, rank, ...}, ... ], "lines": [...] }
-    取最新一筆（最後一個 date）的 rank 值。
+    category_history API 真實回應結構：
+      {
+        "<app_id>": {
+          "<country>": {
+            "<category_id>": {
+              "<chart_type>": {
+                "todays_rank": 75,
+                "graphData": [[timestamp, rank, null], ...]
+              }
+            }
+          }
+        },
+        "lines": [...]
+      }
     """
     history_caps = [c for c in captured if "category_history" in c["url"]]
     for c in history_caps:
         body = c["body"]
         if not isinstance(body, dict):
             continue
-        # app_id 作為 key
-        app_data = body.get(app_id) or body.get(str(app_id))
-        if app_data is None:
-            # 嘗試找唯一的非 "lines" key
-            keys = [k for k in body if k != "lines"]
-            if len(keys) == 1:
-                app_data = body[keys[0]]
 
+        # 找 app_id key（string）
+        app_data = body.get(str(app_id))
         if app_data is None:
+            # fallback：第一個非 "lines" key
+            for k in body:
+                if k != "lines":
+                    app_data = body[k]
+                    break
+
+        if not isinstance(app_data, dict):
             continue
 
-        # app_data 可能是 list of dicts: [{date, rank}, ...]
-        if isinstance(app_data, list) and app_data:
-            # 取最後一筆（最新日期）
-            for entry in reversed(app_data):
-                if isinstance(entry, dict):
-                    for key in ("rank", "category_rank", "ranking", "position"):
-                        if key in entry:
-                            v = entry[key]
-                            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
-                                return int(v)
-        # 也嘗試 generic find_rank
-        r = find_rank(app_data)
-        if r:
-            return r
+        # 導航到 country 層
+        country_data = app_data.get(st_country)
+        if not isinstance(country_data, dict):
+            # 有些 API 可能沒有 country 這層，直接是 category → chart_type
+            country_data = app_data
+
+        # 遍歷 category_id → chart_type → 找 todays_rank 或 graphData
+        for cat_val in country_data.values():
+            if not isinstance(cat_val, dict):
+                continue
+            for chart_val in cat_val.values():
+                if not isinstance(chart_val, dict):
+                    continue
+                # todays_rank 優先
+                r = chart_val.get("todays_rank")
+                if isinstance(r, (int, float)) and 1 <= int(r) <= 5000:
+                    return int(r)
+                # graphData 備用：最後一筆的第二欄
+                gd = chart_val.get("graphData")
+                if isinstance(gd, list) and gd:
+                    last = gd[-1]
+                    if isinstance(last, list) and len(last) >= 2:
+                        v = last[1]
+                        if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
+                            return int(v)
 
     return None
 
