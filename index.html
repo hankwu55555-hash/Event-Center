@@ -203,6 +203,22 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 }
 .thumbs::-webkit-scrollbar{height:4px;}
 .thumbs::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px;}
+/* Loading overlay */
+.loading-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(13,0,32,.82);z-index:9999;
+  flex-direction:column;align-items:center;justify-content:center;gap:18px;
+}
+.loading-overlay.show{display:flex;}
+.spinner{
+  width:56px;height:56px;
+  border:4px solid rgba(168,85,247,.2);
+  border-top:4px solid #a855f7;
+  border-radius:50%;
+  animation:spin .75s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{color:#c084fc;font-size:.95rem;letter-spacing:3px;font-weight:600;}
 .thumb{
   width:100px;height:56px;flex-shrink:0;
   border-radius:6px;overflow:hidden;cursor:pointer;
@@ -272,6 +288,11 @@ header .upd{font-size:.75rem;color:var(--tx2);}
 
 <div id="panels"><div class="dp on" id="dp-20260527"><div class="ats" id="ats-20260527"><button class="at on" onclick="switchAct('20260527','tab1')" id="at-20260527-tab1">促銷</button><button class="at " onclick="switchAct('20260527','tab2')" id="at-20260527-tab2">活動</button><button class="at " onclick="switchAct('20260527','tab3')" id="at-20260527-tab3">公告</button></div></div><div class="dp " id="dp-20260526"><div class="ats" id="ats-20260526"><button class="at on" onclick="switchAct('20260526','tab1')" id="at-20260526-tab1">促銷</button><button class="at " onclick="switchAct('20260526','tab2')" id="at-20260526-tab2">活動</button><button class="at " onclick="switchAct('20260526','tab3')" id="at-20260526-tab3">公告</button></div></div></div>
 
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <span class="loading-text">資源下載中</span>
+</div>
+
 <div class="viewer">
   <button class="arrow" id="btnPrev" onclick="navigate(-1)">&#8249;</button>
   <div class="main-img-wrap">
@@ -325,6 +346,29 @@ function updateRankings() {
     gNum.textContent = '--';
     androidEl.classList.remove('live');
   }
+}
+
+const loadedTabs = new Set();
+
+function preloadAndRender(d, k) {
+  const key = d + "/" + k;
+  const imgs = IMGS[d][k] || [];
+  if(!imgs.length || loadedTabs.has(key)) { renderViewer(); return; }
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.classList.add('show');
+  let done = 0;
+  imgs.forEach(src => {
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      done++;
+      if(done >= imgs.length) {
+        loadedTabs.add(key);
+        overlay.classList.remove('show');
+        renderViewer();
+      }
+    };
+    img.src = src;
+  });
 }
 let curDate = '20260527';
 let curTab = '';
@@ -419,7 +463,7 @@ function switchAct(d, k) {
   if(btn) btn.classList.add('on');
   curTab = k;
   curIdx = 0;
-  renderViewer();
+  preloadAndRender(d, k);
 }
 
 function renderViewer() {
