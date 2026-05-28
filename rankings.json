@@ -1,40 +1,4 @@
 {
-  "20260526": {
-    "TW": {
-      "apple": 1,
-      "android": 2
-    },
-    "US": {
-      "apple": 5,
-      "android": 3
-    },
-    "JP": {
-      "apple": 8,
-      "android": 6
-    },
-    "UK": {
-      "apple": 12,
-      "android": 9
-    }
-  },
-  "20260527": {
-    "TW": {
-      "apple": 1,
-      "android": 2
-    },
-    "US": {
-      "apple": 4,
-      "android": 3
-    },
-    "JP": {
-      "apple": 7,
-      "android": 5
-    },
-    "UK": {
-      "apple": 11,
-      "android": 8
-    }
-  },
   "20260528": {
     "TW": {
       "apple": 75,
