@@ -254,21 +254,21 @@ header .upd{font-size:.75rem;color:var(--tx2);}
     <div class="country-sel">
       <div class="csel-wrap" id="cselWrap">
         <button class="cal-btn" id="cselBtn" onclick="toggleCsel()">
-          <span id="cselBtnTxt">🇹🇼 台灣</span>
+          <span id="cselBtnTxt">台灣</span>
           &#9660;
         </button>
         <div class="csel-popup" id="cselPopup">
-          <div class="csel-opt on" data-c="TW" onclick="selectCountry('TW')">🇹🇼 台灣</div>
-          <div class="csel-opt" data-c="US" onclick="selectCountry('US')">🇺🇸 美國</div>
-          <div class="csel-opt" data-c="JP" onclick="selectCountry('JP')">🇯🇵 日本</div>
-          <div class="csel-opt" data-c="UK" onclick="selectCountry('UK')">🇬🇧 英國</div>
+          <div class="csel-opt on" data-c="TW" onclick="selectCountry('TW')">台灣</div>
+          <div class="csel-opt" data-c="US" onclick="selectCountry('US')">美國</div>
+          <div class="csel-opt" data-c="JP" onclick="selectCountry('JP')">日本</div>
+          <div class="csel-opt" data-c="UK" onclick="selectCountry('UK')">英國</div>
         </div>
       </div>
     </div>
     <div class="cal-wrap" id="calWrap">
       <button class="cal-btn" id="calBtn" onclick="toggleCal()">
         <span id="calBtnTxt">選擇日期</span>
-        &#128197;
+        &#9660;
       </button>
       <div class="cal-popup" id="calPopup">
         <div class="cal-nav">
@@ -316,7 +316,7 @@ function toggleCsel() {
 
 function selectCountry(c) {
   curCountry = c;
-  const labels = {'TW':'🇹🇼 台灣','US':'🇺🇸 美國','JP':'🇯🇵 日本','UK':'🇬🇧 英國'};
+  const labels = {'TW':'台灣','US':'美國','JP':'日本','UK':'英國'};
   const btn = document.getElementById('cselBtnTxt');
   if(btn) btn.textContent = labels[c] || c;
   document.querySelectorAll('.csel-opt').forEach(o=>o.classList.remove('on'));
