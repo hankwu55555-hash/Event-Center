@@ -1,0 +1,84 @@
+{
+  "apple_TW": [
+    "https://app.sensortower-china.com/api/ios/apps/1404165333?country=TW",
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sessions.bugsnag.com/",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "android_TW": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sessions.bugsnag.com/",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/internal_entities",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+    "https://app.sensortower-china.com/api/android/category/category_history?app_ids%5B%5D=slots.pcg.casino.games.free.android&categories%5B%5D=game_casino&chart_type_ids%5B%5D=topselling_free&countries%5B%5D=TW&end_date=2026-05-28&start_date=2026-05-27&is_hourly=false",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "apple_US": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/ios/apps/1404165333?country=US",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "android_US": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sessions.bugsnag.com/",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+    "https://app.sensortower-china.com/api/android/internal_entities",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/category/category_history?app_ids%5B%5D=slots.pcg.casino.games.free.android&categories%5B%5D=game_casino&chart_type_ids%5B%5D=topselling_free&countries%5B%5D=US&end_date=2026-05-28&start_date=2026-05-27&is_hourly=false",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "apple_JP": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/ios/apps/1404165333?country=JP",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "android_JP": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+    "https://app.sensortower-china.com/api/android/internal_entities",
+    "https://app.sensortower-china.com/api/android/category/category_history?app_ids%5B%5D=slots.pcg.casino.games.free.android&categories%5B%5D=game_casino&chart_type_ids%5B%5D=topselling_free&countries%5B%5D=JP&end_date=2026-05-28&start_date=2026-05-27&is_hourly=false",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "apple_GB": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/ios/apps/1404165333?country=GB",
+    "https://app.sensortower-china.com/amplitude"
+  ],
+  "android_GB": [
+    "https://cmp.osano.com/169xfyTcTGxCk6Bj8/226cb1e0-0f91-4973-a056-803c0ff72f7e/zh-tw.json",
+    "https://sr-client-cfg.amplitude.com/config/6edb64137a31fa337b6f553dbccf2d8b?config_group=browser",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/internal_entities",
+    "https://app.sensortower-china.com/api/android/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+    "https://sessions.bugsnag.com/",
+    "https://sessions.bugsnag.com/",
+    "https://app.sensortower-china.com/api/android/category/category_history?app_ids%5B%5D=slots.pcg.casino.games.free.android&categories%5B%5D=game_casino&chart_type_ids%5B%5D=topselling_free&countries%5B%5D=GB&end_date=2026-05-28&start_date=2026-05-27&is_hourly=false",
+    "https://app.sensortower-china.com/amplitude"
+  ]
+}
