@@ -18,13 +18,12 @@ from playwright.async_api import async_playwright, TimeoutError as PlaywrightTim
 
 CF_DIR        = Path(__file__).parent
 RANKINGS_FILE = CF_DIR / "rankings.json"
-DEBUG_FILE    = CF_DIR / "st_debug.json"   # 存完整 API 回應，方便排查
+DEBUG_FILE    = CF_DIR / "st_debug.json"
 
-BASE_URL         = "https://app.sensortower-china.com"
-APP_APPLE        = "1404165333"
-APP_ANDROID_SAA  = "slots.pcg.casino.games.free.android"
+BASE_URL        = "https://app.sensortower-china.com"
+APP_APPLE       = "1404165333"
+APP_ANDROID_SAA = "slots.pcg.casino.games.free.android"
 
-# 國家對應（本地 key → Sensor Tower code）
 COUNTRIES = {
     "TW": "TW",
     "US": "US",
@@ -39,7 +38,7 @@ def load_json(path, default=None):
     p = Path(path)
     if p.exists():
         try:
-            return json.loads(p.read_bytes().decode("utf-8").replace("\x00","").strip())
+            return json.loads(p.read_bytes().decode("utf-8").replace("\x00", "").strip())
         except Exception:
             pass
     return default
@@ -49,114 +48,50 @@ def save_json(path, data):
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-# ─── 從巢狀 JSON 中搜尋排名數字 ──────────────────────────────────────────────
-def find_rank(obj, depth=0):
+# ─── 排名搜尋（只從明確命名的 rank 欄位取值，避免誤抓 downloads/rating）────
+RANK_KEYS = {
+    "category_ranking", "category_rank", "rank", "ranking",
+    "current_rank", "free_rank", "position", "chart_rank",
+    "store_rank", "free_ranking", "paid_rank",
+}
+
+def find_rank(obj, depth=0, _in_rank_key=False):
+    """
+    _in_rank_key=True 時才允許回傳整數，確保只取 rank 欄位的值，
+    不誤抓 downloads_rounded(700)、rating(5) 等無關整數。
+    """
     if depth > 8:
         return None
-    if isinstance(obj, (int, float)):
+    if _in_rank_key and isinstance(obj, (int, float)):
         v = int(obj)
-        if 1 <= v <= 3000:
+        if 1 <= v <= 5000:
             return v
     if isinstance(obj, dict):
-        for key in ("category_ranking", "category_rank", "rank",
-                    "ranking", "current_rank", "free_rank", "position"):
+        # 優先找命名的排名欄位
+        for key in RANK_KEYS:
             if key in obj:
-                v = find_rank(obj[key], depth + 1)
+                v = find_rank(obj[key], depth + 1, _in_rank_key=True)
                 if v:
                     return v
+        # 再遞迴其他欄位（但不標記為 rank key）
         for v in obj.values():
-            r = find_rank(v, depth + 1)
+            r = find_rank(v, depth + 1, _in_rank_key=False)
             if r:
                 return r
     if isinstance(obj, list):
         for item in obj[:30]:
-            r = find_rank(item, depth + 1)
+            r = find_rank(item, depth + 1, _in_rank_key=_in_rank_key)
             if r:
                 return r
     return None
 
-def find_rank_in_apple_response(body):
-    """
-    Apple API (api/ios/apps/<id>?country=XX) 結構解析：
-    嘗試多種可能的欄位路徑來找出類別排名。
-    """
-    if not isinstance(body, dict):
-        return None
-    # 常見路徑：
-    # body["category_rankings"]["free"]["rank"]
-    # body["ranking"]["free"]
-    # body["rankings"][0]["rank"]
-    # body["rank"]
-    # body["store_ranking"]
-    candidates = []
-    for key in ("category_rankings", "rankings", "category_rank", "store_ranking",
-                "free_rank", "rank", "ranking", "current_rankings"):
-        if key in body:
-            val = body[key]
-            # 如果是 dict，再往下一層
-            if isinstance(val, dict):
-                for subkey in ("free", "rank", "category_rank", "ranking", "casino"):
-                    if subkey in val:
-                        sv = val[subkey]
-                        if isinstance(sv, (int, float)) and 1 <= int(sv) <= 3000:
-                            candidates.append(int(sv))
-                        elif isinstance(sv, dict):
-                            for sk2 in ("rank", "ranking", "category_rank"):
-                                if sk2 in sv and isinstance(sv[sk2], (int, float)):
-                                    candidates.append(int(sv[sk2]))
-            elif isinstance(val, list) and val:
-                item = val[0]
-                if isinstance(item, dict):
-                    for sk in ("rank", "ranking", "category_rank", "free_rank"):
-                        if sk in item and isinstance(item[sk], (int, float)):
-                            candidates.append(int(item[sk]))
-            elif isinstance(val, (int, float)) and 1 <= int(val) <= 3000:
-                candidates.append(int(val))
-    return candidates[0] if candidates else None
-
-def find_rank_in_android_summary(body):
-    """
-    Android app_category_ranking_summary API 結構解析：
-    通常格式: { "slots.pcg...": { "topselling_free": { "TW": {"rank": X}, ... } } }
-    或: [ {"rank": X, "country": "TW", ...} ]
-    """
-    if isinstance(body, dict):
-        # 找 app_id key
-        for app_key, app_val in body.items():
-            if "slots" in app_key or "casino" in app_key or "pcg" in app_key:
-                r = find_rank(app_val)
-                if r:
-                    return r
-        # 直接找 rank
-        r = find_rank(body)
-        return r
-    if isinstance(body, list):
-        for item in body[:20]:
-            r = find_rank(item)
-            if r:
-                return r
-    return None
-
-def rank_from_text(text):
-    for pat in [
-        r'"category_rank(?:ing)?"\s*:\s*(\d+)',
-        r'"free_rank"\s*:\s*(\d+)',
-        r'"rank"\s*:\s*(\d+)',
-        r'#\s*(\d+)\s+(?:in|In)\s+(?:Casino|Free|Games)',
-    ]:
-        m = re.search(pat, text)
-        if m:
-            v = int(m.group(1))
-            if 1 <= v <= 3000:
-                return v
-    return None
-
-# ─── 前往頁面 + 攔截所有 JSON API 回應 ───────────────────────────────────────
-async def capture_api(page, url, wait_ms=5000):
+# ─── 前往頁面並攔截所有 JSON API 回應 ────────────────────────────────────────
+async def capture_api(page, url, wait_ms=6000):
     captured = []
 
     async def on_resp(resp):
-        if "json" not in resp.headers.get("content-type", ""):
+        ct = resp.headers.get("content-type", "")
+        if "json" not in ct:
             return
         try:
             body = await resp.json()
@@ -166,63 +101,62 @@ async def capture_api(page, url, wait_ms=5000):
 
     page.on("response", on_resp)
     try:
-        await page.goto(url, timeout=35000, wait_until="domcontentloaded")
-        await page.wait_for_load_state("networkidle", timeout=20000)
+        await page.goto(url, timeout=40000, wait_until="domcontentloaded")
+        await page.wait_for_load_state("networkidle", timeout=25000)
         await page.wait_for_timeout(wait_ms)
     except PlaywrightTimeout:
         pass
     finally:
         page.remove_listener("response", on_resp)
 
-    # 印出所有 API URL（debug 用）
     for c in captured:
         print(f"    [API] {c['url'][-80:]}")
 
     return captured
 
-# ─── Apple App Store 排名 ─────────────────────────────────────────────────────
+# ─── Apple App Store 類別排名 ────────────────────────────────────────────────
 async def get_apple_rank(page, st_country, debug):
-    url = f"{BASE_URL}/overview/{APP_APPLE}?country={st_country}"
+    """
+    改用 app-analysis/category-rankings (iOS 版)，
+    這與 Android 相同的頁面，會觸發 category_ranking_summary API。
+    """
+    today     = date.today().strftime("%Y-%m-%d")
+    yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+    url = (
+        f"{BASE_URL}/app-analysis/category-rankings"
+        f"?os=ios&start_date={yesterday}&end_date={today}"
+        f"&app_id={APP_APPLE}&granularity=daily"
+        f"&country={st_country}&category=game_casino&category=all"
+        f"&chart_type=free&breakdown_attribute=appId"
+        f"&device=iphone&selected_tab=0"
+    )
     print(f"  [Apple/{st_country}] 抓取中...")
-    captured = await capture_api(page, url, wait_ms=4000)
+    captured = await capture_api(page, url, wait_ms=6000)
 
-    # 儲存 sensortower 的回應供分析
+    # 儲存 sensortower API 回應 body（用 json 格式，避免 Python repr 問題）
+    st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
     debug[f"apple_{st_country}"] = [
-        {"url": c["url"], "body_sample": str(c["body"])[:3000]}
-        for c in captured
-        if "sensortower" in c["url"].lower()
+        {"url": c["url"], "body_keys": list(c["body"].keys()) if isinstance(c["body"], dict) else type(c["body"]).__name__}
+        for c in st_caps
     ]
 
-    # 只處理 sensortower 自己的 API（排除第三方 analytics）
-    st_responses = [c for c in captured if "sensortower-china.com/api" in c["url"]]
-    if not st_responses:
-        st_responses = captured  # fallback
+    # 優先找 category_ranking_summary 端點
+    ranking_caps = [c for c in captured if "ranking_summary" in c["url"] or "category_rank" in c["url"]]
+    if not ranking_caps:
+        skip = {"internal_entities", "amplitude", "bugsnag", "osano", "sr-client"}
+        ranking_caps = [c for c in captured if "sensortower-china.com" in c["url"]
+                        and not any(s in c["url"] for s in skip)]
 
-    for c in st_responses:
-        # 先用 Apple 專用解析
-        r = find_rank_in_apple_response(c["body"])
-        if r:
-            print(f"    → #{r}  (apple-parser, API: ...{c['url'][-50:]})")
-            return r
-        # 再用通用解析
+    for c in ranking_caps:
         r = find_rank(c["body"])
         if r:
-            print(f"    → #{r}  (generic, API: ...{c['url'][-50:]})")
+            print(f"    → #{r}  (URL: ...{c['url'][-60:]})")
             return r
 
-    try:
-        content = await page.content()
-        r = rank_from_text(content)
-        if r:
-            print(f"    → #{r}  (DOM)")
-            return r
-    except Exception:
-        pass
-
-    print(f"    → 未找到排名")
+    print(f"    → 未找到排名（已掃描 {len(ranking_caps)} 個 ST API 回應）")
     return None
 
-# ─── Google Play 排名 ─────────────────────────────────────────────────────────
+# ─── Google Play 類別排名 ─────────────────────────────────────────────────────
 async def get_android_rank(page, st_country, debug):
     today     = date.today().strftime("%Y-%m-%d")
     yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
@@ -235,45 +169,28 @@ async def get_android_rank(page, st_country, debug):
         f"&device=android&selected_tab=0"
     )
     print(f"  [Android/{st_country}] 抓取中...")
-    captured = await capture_api(page, url, wait_ms=5000)
+    captured = await capture_api(page, url, wait_ms=6000)
 
-    # 儲存 sensortower API 回應
+    st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
     debug[f"android_{st_country}"] = [
-        {"url": c["url"], "body_sample": str(c["body"])[:3000]}
-        for c in captured
-        if "sensortower" in c["url"].lower() or c["url"].startswith("/api/")
+        {"url": c["url"], "body_keys": list(c["body"].keys()) if isinstance(c["body"], dict) else type(c["body"]).__name__}
+        for c in st_caps
     ]
 
-    # 優先處理 category_ranking_summary 端點
-    ranking_responses = [c for c in captured
-                         if "category_ranking_summary" in c["url"]
-                         or "category_ranking" in c["url"]]
-    if not ranking_responses:
-        # fallback：排除明確無關的端點
+    # 優先找 category_ranking_summary 端點
+    ranking_caps = [c for c in captured if "ranking_summary" in c["url"] or "category_rank" in c["url"]]
+    if not ranking_caps:
         skip = {"internal_entities", "amplitude", "bugsnag", "osano", "sr-client"}
-        ranking_responses = [c for c in captured
-                             if not any(s in c["url"] for s in skip)]
+        ranking_caps = [c for c in captured if "sensortower-china.com" in c["url"]
+                        and not any(s in c["url"] for s in skip)]
 
-    for c in ranking_responses:
-        r = find_rank_in_android_summary(c["body"])
-        if r:
-            print(f"    → #{r}  (android-parser, API: ...{c['url'][-60:]})")
-            return r
+    for c in ranking_caps:
         r = find_rank(c["body"])
         if r:
-            print(f"    → #{r}  (generic, API: ...{c['url'][-60:]})")
+            print(f"    → #{r}  (URL: ...{c['url'][-60:]})")
             return r
 
-    try:
-        content = await page.content()
-        r = rank_from_text(content)
-        if r:
-            print(f"    → #{r}  (DOM)")
-            return r
-    except Exception:
-        pass
-
-    print(f"    → 未找到排名")
+    print(f"    → 未找到排名（已掃描 {len(ranking_caps)} 個 ST API 回應）")
     return None
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
@@ -318,8 +235,6 @@ async def main():
 
     print(f"\n✅ rankings.json 更新完成（{today_key}）")
     print(json.dumps(rankings.get(today_key, {}), ensure_ascii=False, indent=2))
-
-    print(f"\n📋 st_debug.json 已儲存，可用來分析 API 回應結構")
 
     # 自動重新產生 gallery + git push
     import subprocess
