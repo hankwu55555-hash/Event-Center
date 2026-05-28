@@ -44,21 +44,21 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   position:relative;display:inline-flex;align-items:center;
 }
 .country-wrap::after{
-  content:"▾";position:absolute;right:12px;
-  color:#1a0a00;font-size:.9rem;pointer-events:none;font-weight:bold;
+  content:"▾";position:absolute;right:14px;
+  color:#1a0a00;font-size:.85rem;pointer-events:none;font-weight:bold;
 }
 .country-select{
   appearance:none;-webkit-appearance:none;
   background:linear-gradient(135deg,#f59e0b,#fde047);
   color:#1a0a00;border:none;
-  padding:0 36px 0 14px;
+  padding:0 34px 0 16px;
   border-radius:20px;cursor:pointer;
-  font-size:.95rem;font-weight:bold;
+  font-size:.9rem;font-weight:bold;
   box-shadow:0 0 14px rgba(245,158,11,.5);
   transition:all .2s;outline:none;
-  height:40px;box-sizing:border-box;
+  height:40px;box-sizing:border-box;white-space:nowrap;
 }
-.country-select:hover{box-shadow:0 0 22px rgba(245,158,11,.8);}
+.country-select:hover{box-shadow:0 0 22px rgba(245,158,11,.8);transform:scale(1.04);}
 /* Rank badges */
 .header-center{
   display:flex;align-items:center;gap:10px;
@@ -225,12 +225,12 @@ header .upd{font-size:.75rem;color:var(--tx2);}
   <div class="header-center">
     <span class="rank-label">類別排名</span>
     <div class="rank-badge" id="rankApple">
-      <svg class="s-icon" viewBox="0 0 24 24" width="22" height="22" fill="#a0c4ff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <svg class="s-icon" viewBox="0 0 24 24" width="30" height="30" fill="#a0c4ff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       <span class="s-name">App Store</span>
       <span class="r-num" id="rApple">--</span>
     </div>
     <div class="rank-badge" id="rankAndroid">
-      <svg class="s-icon" viewBox="0 0 24 24" width="22" height="22"><path fill="#4285F4" d="M3.18 1.06a1.5 1.5 0 00-.88 1.44v19c0 .65.37 1.2.88 1.44L13.6 12z"/><path fill="#FBBC05" d="M20.82 10.7l-3.1-1.78-3.32 3.08 3.32 3.08 3.1-1.78a1.5 1.5 0 000-2.6z"/><path fill="#EA4335" d="M3.18 1.06L13.6 12l4.12-3.08L5.08.4a1.5 1.5 0 00-1.9.66z"/><path fill="#34A853" d="M3.18 22.94L13.6 12l4.12 3.08L5.08 23.6a1.5 1.5 0 01-1.9-.66z"/></svg>
+      <svg class="s-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="#4285F4" d="M3.18 1.06a1.5 1.5 0 00-.88 1.44v19c0 .65.37 1.2.88 1.44L13.6 12z"/><path fill="#FBBC05" d="M20.82 10.7l-3.1-1.78-3.32 3.08 3.32 3.08 3.1-1.78a1.5 1.5 0 000-2.6z"/><path fill="#EA4335" d="M3.18 1.06L13.6 12l4.12-3.08L5.08.4a1.5 1.5 0 00-1.9.66z"/><path fill="#34A853" d="M3.18 22.94L13.6 12l4.12 3.08L5.08 23.6a1.5 1.5 0 01-1.9-.66z"/></svg>
       <span class="s-name">Google Play</span>
       <span class="r-num" id="rAndroid">--</span>
     </div>
