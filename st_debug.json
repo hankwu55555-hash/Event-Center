@@ -161,17 +161,17 @@
   ],
   "android_JP": [
     {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "https://app.sensortower-china.com/api/android/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -233,16 +233,16 @@
       ]
     },
     {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "https://app.sensortower-china.com/api/android/category/category_history?app_ids%5B%5D=slots.pcg.casino.games.free.android&categories%5B%5D=game_casino&chart_type_ids%5B%5D=topselling_free&countries%5B%5D=GB&end_date=2026-05-28&start_date=2026-05-27&is_hourly=false",
       "body_keys": [
         "slots.pcg.casino.games.free.android",
         "lines"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
