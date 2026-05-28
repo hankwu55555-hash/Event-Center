@@ -114,6 +114,32 @@ async def capture_api(page, url, wait_ms=6000):
 
     return captured
 
+def _make_debug_entries(st_caps, app_id):
+    entries = []
+    for c in st_caps:
+        body = c["body"]
+        entry = {"url": c["url"][-90:]}
+        if isinstance(body, dict):
+            entry["body_keys"] = list(body.keys())
+            if "category_history" in c["url"]:
+                # 找 app_id key（str 或直接第一個非 lines key）
+                app_data = body.get(str(app_id))
+                if app_data is None:
+                    for k in body:
+                        if k != "lines":
+                            app_data = body[k]
+                            break
+                if isinstance(app_data, list):
+                    entry["history_sample"] = app_data[:3]
+                elif isinstance(app_data, dict):
+                    entry["history_sample"] = app_data
+        else:
+            entry["body_type"] = type(body).__name__
+            entry["body_sample"] = str(body)[:200]
+        entries.append(entry)
+    return entries
+
+
 # ─── Apple App Store 類別排名 ────────────────────────────────────────────────
 async def get_apple_rank(page, st_country, debug):
     """
@@ -133,27 +159,17 @@ async def get_apple_rank(page, st_country, debug):
     print(f"  [Apple/{st_country}] 抓取中...")
     captured = await capture_api(page, url, wait_ms=6000)
 
-    # 儲存 sensortower API 回應 body（用 json 格式，避免 Python repr 問題）
+    # 儲存 sensortower API 回應
     st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
-    debug[f"apple_{st_country}"] = [
-        {"url": c["url"], "body_keys": list(c["body"].keys()) if isinstance(c["body"], dict) else type(c["body"]).__name__}
-        for c in st_caps
-    ]
+    debug[f"apple_{st_country}"] = _make_debug_entries(st_caps, APP_APPLE)
 
-    # 優先找 category_ranking_summary 端點
-    ranking_caps = [c for c in captured if "ranking_summary" in c["url"] or "category_rank" in c["url"]]
-    if not ranking_caps:
-        skip = {"internal_entities", "amplitude", "bugsnag", "osano", "sr-client"}
-        ranking_caps = [c for c in captured if "sensortower-china.com" in c["url"]
-                        and not any(s in c["url"] for s in skip)]
+    # 從 category_history 回應中解析排名
+    r = _parse_category_history(captured, APP_APPLE, debug_label=f"apple_{st_country}")
+    if r is not None:
+        print(f"    → #{r}")
+        return r
 
-    for c in ranking_caps:
-        r = find_rank(c["body"])
-        if r:
-            print(f"    → #{r}  (URL: ...{c['url'][-60:]})")
-            return r
-
-    print(f"    → 未找到排名（已掃描 {len(ranking_caps)} 個 ST API 回應）")
+    print(f"    → 未找到排名")
     return None
 
 # ─── Google Play 類別排名 ─────────────────────────────────────────────────────
@@ -172,25 +188,54 @@ async def get_android_rank(page, st_country, debug):
     captured = await capture_api(page, url, wait_ms=6000)
 
     st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
-    debug[f"android_{st_country}"] = [
-        {"url": c["url"], "body_keys": list(c["body"].keys()) if isinstance(c["body"], dict) else type(c["body"]).__name__}
-        for c in st_caps
-    ]
+    debug[f"android_{st_country}"] = _make_debug_entries(st_caps, APP_ANDROID_SAA)
 
-    # 優先找 category_ranking_summary 端點
-    ranking_caps = [c for c in captured if "ranking_summary" in c["url"] or "category_rank" in c["url"]]
-    if not ranking_caps:
-        skip = {"internal_entities", "amplitude", "bugsnag", "osano", "sr-client"}
-        ranking_caps = [c for c in captured if "sensortower-china.com" in c["url"]
-                        and not any(s in c["url"] for s in skip)]
+    r = _parse_category_history(captured, APP_ANDROID_SAA, debug_label=f"android_{st_country}")
+    if r is not None:
+        print(f"    → #{r}")
+        return r
 
-    for c in ranking_caps:
-        r = find_rank(c["body"])
+    print(f"    → 未找到排名")
+    return None
+
+
+def _parse_category_history(captured, app_id, debug_label=""):
+    """
+    category_history API 回應結構：
+      { "<app_id>": [ {date, rank, ...}, ... ], "lines": [...] }
+    取最新一筆（最後一個 date）的 rank 值。
+    """
+    history_caps = [c for c in captured if "category_history" in c["url"]]
+    for c in history_caps:
+        body = c["body"]
+        if not isinstance(body, dict):
+            continue
+        # app_id 作為 key
+        app_data = body.get(app_id) or body.get(str(app_id))
+        if app_data is None:
+            # 嘗試找唯一的非 "lines" key
+            keys = [k for k in body if k != "lines"]
+            if len(keys) == 1:
+                app_data = body[keys[0]]
+
+        if app_data is None:
+            continue
+
+        # app_data 可能是 list of dicts: [{date, rank}, ...]
+        if isinstance(app_data, list) and app_data:
+            # 取最後一筆（最新日期）
+            for entry in reversed(app_data):
+                if isinstance(entry, dict):
+                    for key in ("rank", "category_rank", "ranking", "position"):
+                        if key in entry:
+                            v = entry[key]
+                            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
+                                return int(v)
+        # 也嘗試 generic find_rank
+        r = find_rank(app_data)
         if r:
-            print(f"    → #{r}  (URL: ...{c['url'][-60:]})")
             return r
 
-    print(f"    → 未找到排名（已掃描 {len(ranking_caps)} 個 ST API 回應）")
     return None
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
