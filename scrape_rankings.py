@@ -238,23 +238,19 @@ def _parse_category_history(captured, app_id, st_country):
         # 導航到 country 層
         country_data = app_data.get(st_country)
         if not isinstance(country_data, dict):
-            # 有些 API 可能沒有 country 這層，直接是 category → chart_type
             country_data = app_data
 
-        # 遍歷 category_id → chart_type → 找 todays_rank 或 graphData
+        # 遍歷 category_id → chart_type → 取 graphData 最後一筆
+        # ⚠️ 不用 todays_rank：它永遠是即時排名，查歷史日期時會回傳今天的值
         for cat_val in country_data.values():
             if not isinstance(cat_val, dict):
                 continue
             for chart_val in cat_val.values():
                 if not isinstance(chart_val, dict):
                     continue
-                # todays_rank 優先
-                r = chart_val.get("todays_rank")
-                if isinstance(r, (int, float)) and 1 <= int(r) <= 5000:
-                    return int(r)
-                # graphData 備用：最後一筆的第二欄
                 gd = chart_val.get("graphData")
                 if isinstance(gd, list) and gd:
+                    # 最後一筆對應 end_date（即目標日期）
                     last = gd[-1]
                     if isinstance(last, list) and len(last) >= 2:
                         v = last[1]

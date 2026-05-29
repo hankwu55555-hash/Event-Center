@@ -61,17 +61,17 @@
   ],
   "android_TW_20260529": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -119,17 +119,17 @@
   ],
   "apple_US_20260529": [
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -297,17 +297,17 @@
   ],
   "android_JP_20260529": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -415,17 +415,17 @@
   ],
   "android_GB_20260529": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -473,17 +473,17 @@
   ],
   "apple_TW_20260528": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -591,17 +591,17 @@
   ],
   "apple_US_20260528": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -709,17 +709,17 @@
   ],
   "apple_JP_20260528": [
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -769,17 +769,17 @@
   ],
   "android_JP_20260528": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
