@@ -140,63 +140,64 @@ def _make_debug_entries(st_caps, app_id):
     return entries
 
 
-# ─── Apple App Store 類別排名 ────────────────────────────────────────────────
-async def get_apple_rank(page, st_country, debug):
+# ─── 單一日期排名抓取（Apple / Android 共用）────────────────────────────────
+async def fetch_rank(page, os_type, st_country, target_date, debug, debug_key):
     """
-    改用 app-analysis/category-rankings (iOS 版)，
-    這與 Android 相同的頁面，會觸發 category_ranking_summary API。
+    target_date: date 物件
+    os_type: "ios" | "android"
     """
-    today     = date.today().strftime("%Y-%m-%d")
-    yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-    url = (
-        f"{BASE_URL}/app-analysis/category-rankings"
-        f"?os=ios&start_date={yesterday}&end_date={today}"
-        f"&app_id={APP_APPLE}&granularity=daily"
-        f"&country={st_country}&category=game_casino&category=all"
-        f"&chart_type=free&breakdown_attribute=appId"
-        f"&device=iphone&selected_tab=0"
-    )
-    print(f"  [Apple/{st_country}] 抓取中...")
+    end_api  = target_date.strftime("%Y-%m-%d")
+    prev_api = (target_date - timedelta(days=1)).strftime("%Y-%m-%d")
+
+    if os_type == "ios":
+        url = (
+            f"{BASE_URL}/app-analysis/category-rankings"
+            f"?os=ios&start_date={prev_api}&end_date={end_api}"
+            f"&app_id={APP_APPLE}&granularity=daily"
+            f"&country={st_country}&category=game_casino&category=all"
+            f"&chart_type=free&breakdown_attribute=appId"
+            f"&device=iphone&selected_tab=0"
+        )
+        app_id = APP_APPLE
+    else:
+        url = (
+            f"{BASE_URL}/app-analysis/category-rankings"
+            f"?os=android&start_date={prev_api}&end_date={end_api}"
+            f"&saa={APP_ANDROID_SAA}&granularity=daily"
+            f"&country={st_country}&category=game_casino&category=all"
+            f"&chart_type=free&breakdown_attribute=appId"
+            f"&device=android&selected_tab=0"
+        )
+        app_id = APP_ANDROID_SAA
+
     captured = await capture_api(page, url, wait_ms=6000)
-
-    # 儲存 sensortower API 回應
     st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
-    debug[f"apple_{st_country}"] = _make_debug_entries(st_caps, APP_APPLE)
+    debug[debug_key] = _make_debug_entries(st_caps, app_id)
 
-    # 從 category_history 回應中解析排名
-    r = _parse_category_history(captured, APP_APPLE, st_country)
-    if r is not None:
-        print(f"    → #{r}")
-        return r
+    r = _parse_category_history(captured, app_id, st_country)
+    return r
 
-    print(f"    → 未找到排名")
-    return None
+
+# ─── Apple App Store 類別排名 ────────────────────────────────────────────────
+async def get_apple_rank(page, st_country, debug, target_date=None):
+    if target_date is None:
+        target_date = date.today()
+    label = target_date.strftime("%Y%m%d")
+    print(f"  [Apple/{st_country}/{label}] 抓取中...")
+    r = await fetch_rank(page, "ios", st_country, target_date, debug, f"apple_{st_country}_{label}")
+    print(f"    → {'#'+str(r) if r else '未找到排名'}")
+    return r
+
 
 # ─── Google Play 類別排名 ─────────────────────────────────────────────────────
-async def get_android_rank(page, st_country, debug):
-    today     = date.today().strftime("%Y-%m-%d")
-    yesterday = (date.today() - timedelta(days=1)).strftime("%Y-%m-%d")
-    url = (
-        f"{BASE_URL}/app-analysis/category-rankings"
-        f"?os=android&start_date={yesterday}&end_date={today}"
-        f"&saa={APP_ANDROID_SAA}&granularity=daily"
-        f"&country={st_country}&category=game_casino&category=all"
-        f"&chart_type=free&breakdown_attribute=appId"
-        f"&device=android&selected_tab=0"
-    )
-    print(f"  [Android/{st_country}] 抓取中...")
-    captured = await capture_api(page, url, wait_ms=6000)
-
-    st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
-    debug[f"android_{st_country}"] = _make_debug_entries(st_caps, APP_ANDROID_SAA)
-
-    r = _parse_category_history(captured, APP_ANDROID_SAA, st_country)
-    if r is not None:
-        print(f"    → #{r}")
-        return r
-
-    print(f"    → 未找到排名")
-    return None
+async def get_android_rank(page, st_country, debug, target_date=None):
+    if target_date is None:
+        target_date = date.today()
+    label = target_date.strftime("%Y%m%d")
+    print(f"  [Android/{st_country}/{label}] 抓取中...")
+    r = await fetch_rank(page, "android", st_country, target_date, debug, f"android_{st_country}_{label}")
+    print(f"    → {'#'+str(r) if r else '未找到排名'}")
+    return r
 
 
 def _parse_category_history(captured, app_id, st_country):
@@ -264,7 +265,8 @@ def _parse_category_history(captured, app_id, st_country):
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
 async def main():
-    today_key = date.today().strftime("%Y%m%d")
+    today     = date.today()
+    today_key = today.strftime("%Y%m%d")
     rankings  = load_json(RANKINGS_FILE, {})
     if today_key not in rankings:
         rankings[today_key] = {}
@@ -287,13 +289,31 @@ async def main():
         )
         page = await context.new_page()
 
+        # ── 今天 ──────────────────────────────────────────────────────────
+        print(f"\n{'='*50}")
+        print(f"📅 今天 {today_key}")
+        print('='*50)
         for local_key, st_country in COUNTRIES.items():
             print(f"\n── {local_key} ({st_country}) ──────────────────")
             entry = rankings[today_key].setdefault(local_key, {})
+            apple   = await get_apple_rank(page, st_country, debug, today)
+            android = await get_android_rank(page, st_country, debug, today)
+            if apple   is not None: entry["apple"]   = apple
+            if android is not None: entry["android"] = android
 
-            apple   = await get_apple_rank(page, st_country, debug)
-            android = await get_android_rank(page, st_country, debug)
-
+        # ── 昨天（重新確認）────────────────────────────────────────────────
+        yesterday     = today - timedelta(days=1)
+        yesterday_key = yesterday.strftime("%Y%m%d")
+        print(f"\n{'='*50}")
+        print(f"🔄 重新確認昨天 {yesterday_key}")
+        print('='*50)
+        if yesterday_key not in rankings:
+            rankings[yesterday_key] = {}
+        for local_key, st_country in COUNTRIES.items():
+            print(f"\n── {local_key} ({st_country}) ──────────────────")
+            entry = rankings[yesterday_key].setdefault(local_key, {})
+            apple   = await get_apple_rank(page, st_country, debug, yesterday)
+            android = await get_android_rank(page, st_country, debug, yesterday)
             if apple   is not None: entry["apple"]   = apple
             if android is not None: entry["android"] = android
 
@@ -302,8 +322,11 @@ async def main():
     save_json(RANKINGS_FILE, rankings)
     save_json(DEBUG_FILE, debug)
 
-    print(f"\n✅ rankings.json 更新完成（{today_key}）")
+    print(f"\n✅ rankings.json 更新完成")
+    print(f"\n今天 {today_key}:")
     print(json.dumps(rankings.get(today_key, {}), ensure_ascii=False, indent=2))
+    print(f"\n昨天 {yesterday_key}:")
+    print(json.dumps(rankings.get(yesterday_key, {}), ensure_ascii=False, indent=2))
 
     # 自動重新產生 gallery + git push
     import subprocess
