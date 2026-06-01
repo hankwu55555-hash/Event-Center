@@ -25,7 +25,7 @@ COUNTRIES = {
 }
 
 # 要補抓的日期（YYYYMMDD）
-BACKFILL_DATES = ["20260526", "20260527"]
+BACKFILL_DATES = ["20260530", "20260531"]
 
 def load_json(path, default=None):
     if default is None:
