@@ -146,8 +146,7 @@ function selectProduct(pk){
     if(panel){panel.classList.add('on');panel.style.display='';}
     switchAct(nd,Object.keys(IMGS[nd])[0]);
   }
-  updateRankings();
-  renderCal();
+  updateRankings(); renderCal();
 }
 
 function selectCountry(c){
@@ -165,7 +164,7 @@ function updateRankings(){
   const prodR=(ALL_RANKINGS[curProdKey]||{});
   const r=prodR[curDate]&&prodR[curDate][curCountry];
   const ae=document.getElementById('rankApple'), ge=document.getElementById('rankAndroid');
-  const an=document.getElementById('rApple'),    gn=document.getElementById('rAndroid');
+  const an=document.getElementById('rApple'), gn=document.getElementById('rAndroid');
   if(r&&r.apple){an.textContent='#'+r.apple; ae.classList.add('live');}
   else{an.textContent='--'; ae.classList.remove('live');}
   if(r&&r.android){gn.textContent='#'+r.android; ge.classList.add('live');}
@@ -186,7 +185,7 @@ function changeMonth(dir){
 }
 function renderCal(){
   if(!AVAIL_DATES.length) return;
-  const months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const months=['一1月','一2月','一3月','一4月','一5月','一6月','一7月','一8月','一9月','10月','11月','12月'];
   document.getElementById('calMonthLabel').textContent=calYear+' 年 '+months[calMonth];
   const grid=document.getElementById('calGrid');
   const first=new Date(calYear,calMonth,1).getDay();
