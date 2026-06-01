@@ -3,3 +3,9 @@ tab_names_cache.json
 gallery.html
 __pycache__/
 *.pyc
+
+# 截圖資料夾不進 git
+2026*/
+2027*/
+dafu/
+
