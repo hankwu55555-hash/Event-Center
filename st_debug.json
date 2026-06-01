@@ -1,17 +1,17 @@
 {
   "apple_TW_20260601": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -35,13 +35,13 @@
                 ],
                 [
                   1780272000,
-                  85,
+                  92,
                   null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 85
+              "todays_rank": 92
             }
           }
         }
@@ -59,17 +59,17 @@
   ],
   "android_TW_20260601": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -117,17 +117,17 @@
   ],
   "apple_US_20260601": [
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -151,13 +151,13 @@
                 ],
                 [
                   1780272000,
-                  59,
+                  45,
                   null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 59
+              "todays_rank": 45
             }
           }
         }
@@ -175,17 +175,17 @@
   ],
   "android_US_20260601": [
     {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -239,14 +239,6 @@
       ]
     },
     {
-      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
-      "body_keys": [
-        "categories",
-        "chart_types",
-        "countries"
-      ]
-    },
-    {
       "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-01&start_date=2026-05-31&is_hourly=false",
       "body_keys": [
         "1404165333",
@@ -267,17 +259,25 @@
                 ],
                 [
                   1780272000,
-                  74,
+                  85,
                   null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 74
+              "todays_rank": 85
             }
           }
         }
       }
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
     },
     {
       "url": "https://app.sensortower-china.com/amplitude",
@@ -383,13 +383,13 @@
                 ],
                 [
                   1780272000,
-                  50,
+                  48,
                   null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 50
+              "todays_rank": 48
             }
           }
         }
@@ -407,17 +407,17 @@
   ],
   "android_GB_20260601": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -505,7 +505,7 @@
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 85
+              "todays_rank": 92
             }
           }
         }
@@ -523,17 +523,17 @@
   ],
   "android_TW_20260531": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -581,17 +581,17 @@
   ],
   "apple_US_20260531": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -621,7 +621,7 @@
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 59
+              "todays_rank": 45
             }
           }
         }
@@ -639,17 +639,17 @@
   ],
   "android_US_20260531": [
     {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -737,7 +737,7 @@
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 74
+              "todays_rank": 85
             }
           }
         }
@@ -755,17 +755,17 @@
   ],
   "android_JP_20260531": [
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
       ]
     },
     {
@@ -813,17 +813,17 @@
   ],
   "apple_GB_20260531": [
     {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
         "categories",
         "chart_types",
         "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
       ]
     },
     {
@@ -853,7 +853,7 @@
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 50
+              "todays_rank": 48
             }
           }
         }
