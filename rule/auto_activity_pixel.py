@@ -54,9 +54,9 @@ def compare_images(img_path1, img_path2):
 try:
     # 設定
     today = datetime.now().strftime("%Y%m%d")
-    SCREENSHOT_DIR = os.path.join(r"C:\Users\hankwu\Desktop\screen_shoot\CF", today)
+    SCREENSHOT_DIR = os.path.join(r"C:\Users\hankwu\OneDrive - International Games System\Event_Center\CF", today)
     PACKAGE_NAME = "com.spinxgames.coalonline"
-    X_BUTTON_REF = r"C:\Users\hankwu\Desktop\screen_shoot\CF\basic\x_button.png"
+    X_BUTTON_REF = r"C:\Users\hankwu\Desktop\Event_Center\CF\basic\x_button.png"
 
     # 按鈕座標
     ACTIVITY_CENTER_X = 2478  # 精準座標
