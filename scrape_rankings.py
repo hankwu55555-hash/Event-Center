@@ -16,10 +16,9 @@ from datetime import date, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 
-WEBSITE_DIR   = Path(__file__).parent
-EVENT_CENTER  = WEBSITE_DIR.parent
-RANKINGS_FILE = EVENT_CENTER / "CF" / "rankings.json"
-DEBUG_FILE    = WEBSITE_DIR / "st_debug.json"
+REPO_DIR      = Path(__file__).parent
+RANKINGS_FILE = REPO_DIR / "CF" / "rankings.json"
+DEBUG_FILE    = REPO_DIR / "st_debug.json"
 
 BASE_URL        = "https://app.sensortower-china.com"
 APP_APPLE       = "1404165333"
@@ -328,8 +327,8 @@ async def main():
     # 自動重新產生 gallery + git push
     import subprocess
     r = subprocess.run(
-        [sys.executable, str(WEBSITE_DIR / "generate_gallery.py")],
-        capture_output=True, text=True, cwd=str(WEBSITE_DIR)
+        [sys.executable, str(REPO_DIR / "generate_gallery.py")],
+        capture_output=True, text=True, cwd=str(REPO_DIR)
     )
     print(r.stdout.strip())
     if r.returncode != 0:

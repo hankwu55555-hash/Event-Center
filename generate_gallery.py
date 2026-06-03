@@ -6,16 +6,14 @@ from pathlib import Path
 from datetime import datetime
 from PIL import Image
 
-WEBSITE_DIR   = Path(__file__).parent
-EVENT_CENTER  = WEBSITE_DIR.parent
-ONEDRIVE      = Path("C:/Users/hankwu/OneDrive - International Games System/Event_Center")
-OUTPUT_HTML   = WEBSITE_DIR / "gallery.html"
-CACHE_FILE    = WEBSITE_DIR / "tab_names_cache.json"
+REPO_DIR      = Path(__file__).parent
+OUTPUT_HTML   = REPO_DIR / "gallery.html"
+CACHE_FILE    = REPO_DIR / "tab_names_cache.json"
 
 # (顯示名稱, 來源資料夾, 圖片URL前綴, 排名JSON路徑, 自動偵測頁籤名稱)
 PRODUCTS = [
-    ("Cash Frenzy", ONEDRIVE / "CF",   "CF/",   EVENT_CENTER / "CF"   / "rankings.json", True),
-    ("大福娛樂城",   ONEDRIVE / "Dafu", "Dafu/", EVENT_CENTER / "Dafu" / "rankings.json", False),
+    ("Cash Frenzy", REPO_DIR / "CF",   "CF/",   REPO_DIR / "CF"   / "rankings.json", True),
+    ("大福娛樂城",   REPO_DIR / "Dafu", "Dafu/", REPO_DIR / "Dafu" / "rankings.json", False),
 ]
 
 SIDEBAR_X = 200
@@ -87,7 +85,7 @@ def get_tab_label(date_str, tab_key, first_img, cache, n_tabs=3, prod_key="p0", 
 
 def scan_folders(base_dir=None):
     if base_dir is None:
-        base_dir = WEBSITE_DIR
+        base_dir = REPO_DIR
     data = {}
     if not base_dir.exists():
         return data
@@ -455,29 +453,6 @@ def main():
         data = scan_folders(base_dir=src_dir)
         print("  Found " + str(len(data)) + " date folders")
 
-        # OneDrive → CF git 資料夾（讓 GitHub Pages 可以讀到圖片）
-        if img_prefix:
-            dest_base = WEBSITE_DIR / img_prefix.rstrip("/")
-        else:
-            dest_base = WEBSITE_DIR
-        dest_base.mkdir(parents=True, exist_ok=True)
-        for date_str, tabs in data.items():
-            for tab_key, imgs in tabs.items():
-                for img_path in imgs:
-                    dest_date_dir = dest_base / date_str
-                    dest_date_dir.mkdir(exist_ok=True)
-                    dest = dest_date_dir / img_path.name
-                    if not dest.exists():
-                        shutil.copy2(img_path, dest)
-        # 同步 basic/ 資料夾（icon、素材等）
-        src_basic = src_dir / "basic"
-        if src_basic.exists():
-            dest_basic = dest_base / "basic"
-            dest_basic.mkdir(exist_ok=True)
-            for f in src_basic.iterdir():
-                if f.is_file():
-                    shutil.copy2(f, dest_basic / f.name)
-
         labels = {}
         for date_str, tabs in data.items():
             n_tabs = len(tabs)
@@ -495,7 +470,7 @@ def main():
     html = generate_html(products_list, all_rankings)
     if html:
         OUTPUT_HTML.write_text(html, encoding="utf-8")
-        INDEX_HTML = WEBSITE_DIR / "index.html"
+        INDEX_HTML = REPO_DIR / "index.html"
         INDEX_HTML.write_text(html, encoding="utf-8")
         total = sum(len(imgs) for _, _, data, _, _p, _r in products_list
                     for tabs in data.values() for imgs in tabs.values())
@@ -504,9 +479,9 @@ def main():
         git = shutil.which("git")
         if git:
             try:
-                lock = WEBSITE_DIR / '.git' / 'index.lock'
+                lock = REPO_DIR / '.git' / 'index.lock'
                 if lock.exists(): lock.unlink()
-                run = lambda cmd: subprocess.run(cmd, cwd=WEBSITE_DIR, capture_output=True, text=True)
+                run = lambda cmd: subprocess.run(cmd, cwd=REPO_DIR, capture_output=True, text=True)
                 run([git, "add", "index.html"])
                 run([git, "add", "."])
                 status = run([git, "status", "--porcelain"])
