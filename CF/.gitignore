@@ -1,0 +1,8 @@
+generate_gallery.py
+tab_names_cache.json
+gallery.html
+__pycache__/
+*.pyc
+
+# 截圖資料夾由 generate_gallery.py 從 OneDrive 複製管理
+
