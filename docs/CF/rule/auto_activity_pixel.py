@@ -56,7 +56,7 @@ try:
     today = datetime.now().strftime("%Y%m%d")
     SCREENSHOT_DIR = os.path.join(r"C:\Users\hankwu\OneDrive - International Games System\Event_Center\CF", today)
     PACKAGE_NAME = "com.spinxgames.coalonline"
-    X_BUTTON_REF = r"C:\Users\hankwu\Desktop\Event_Center\CF\basic\x_button.png"
+    X_BUTTON_REF = r"C:\Users\hankwu\Desktop\Event_Center\docs\CF\basic\x_button.png"
 
     # 按鈕座標
     ACTIVITY_CENTER_X = 2478  # 精準座標
@@ -384,4 +384,3 @@ except Exception as e:
 
 print("\n💡 提示：如果出現 PIL 錯誤，請先執行：")
 print("   pip install Pillow")
-                              
