@@ -1,0 +1,930 @@
+{
+  "apple_TW_20260603": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "humanized_app_name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780358400,
+                  79,
+                  null
+                ],
+                [
+                  1780444800,
+                  88,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 88
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_TW_20260603": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "humanized_app_name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780358400,
+                  19,
+                  null
+                ],
+                [
+                  1780444800,
+                  19,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 19
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_US_20260603": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780358400,
+                  49,
+                  null
+                ],
+                [
+                  1780444800,
+                  45,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 45
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_US_20260603": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™ - Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780358400,
+                  8,
+                  null
+                ],
+                [
+                  1780444800,
+                  8,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 8
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_JP_20260603": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - スロット（カジノ）ゲーム",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780358400,
+                  66,
+                  null
+                ],
+                [
+                  1780444800,
+                  58,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 58
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_JP_20260603": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "キャッシュフレンジー カジノ、 スロット、（ポーカー）ゲーム",
+              "humanized_app_name": "キャッシュフレンジー カジノ、 スロット、",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780358400,
+                  45,
+                  null
+                ],
+                [
+                  1780444800,
+                  45,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 45
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_GB_20260603": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™- 888 Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780358400,
+                  52,
+                  null
+                ],
+                [
+                  1780444800,
+                  52,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 52
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_GB_20260603": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-03&start_date=2026-06-02&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™- 777 Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780358400,
+                  30,
+                  null
+                ],
+                [
+                  1780444800,
+                  30,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 30
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_TW_20260602": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "humanized_app_name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780272000,
+                  71,
+                  null
+                ],
+                [
+                  1780358400,
+                  79,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 88
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_TW_20260602": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "humanized_app_name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780272000,
+                  20,
+                  null
+                ],
+                [
+                  1780358400,
+                  19,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 19
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_US_20260602": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780272000,
+                  49,
+                  null
+                ],
+                [
+                  1780358400,
+                  49,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 45
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_US_20260602": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™ - Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780272000,
+                  11,
+                  null
+                ],
+                [
+                  1780358400,
+                  8,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 8
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_JP_20260602": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - スロット（カジノ）ゲーム",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780272000,
+                  84,
+                  null
+                ],
+                [
+                  1780358400,
+                  66,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 58
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_JP_20260602": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "キャッシュフレンジー カジノ、 スロット、（ポーカー）ゲーム",
+              "humanized_app_name": "キャッシュフレンジー カジノ、 スロット、",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780272000,
+                  53,
+                  null
+                ],
+                [
+                  1780358400,
+                  45,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 45
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "apple_GB_20260602": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™- 888 Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/30/a0/f7/30a0f727-2b82-6832-4e06-7386d52c2c31/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1780272000,
+                  47,
+                  null
+                ],
+                [
+                  1780358400,
+                  52,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 52
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "android_GB_20260602": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-02&start_date=2026-06-01&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™- 777 Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1780272000,
+                  29,
+                  null
+                ],
+                [
+                  1780358400,
+                  30,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 30
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ]
+}
