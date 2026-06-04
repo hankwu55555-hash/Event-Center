@@ -18,7 +18,7 @@ print("=" * 70)
 print("🎮 煤有錢Online 活動中心自動化 - 像素比較版")
 print("=" * 70)
 
-def convert_to_jpg(png_path, quality=50):
+def convert_to_jpg(png_path, quality=10):
     """將 PNG 轉成 JPG，回傳新的 JPG 路徑"""
     jpg_path = os.path.splitext(png_path)[0] + ".jpg"
     try:
@@ -318,7 +318,7 @@ try:
             time.sleep(0.5)
             device.pull(sdcard_path, screenshot_path)
             time.sleep(0.3)
-            screenshot_path = convert_to_jpg(screenshot_path, quality=50)
+            screenshot_path = convert_to_jpg(screenshot_path, quality=10)
             screenshot_filename = os.path.basename(screenshot_path)
 
             if previous_path is not None:
@@ -363,7 +363,7 @@ try:
             time.sleep(0.5)
             device.pull(sdcard_path, screenshot_path)
             time.sleep(0.3)
-            screenshot_path = convert_to_jpg(screenshot_path, quality=50)
+            screenshot_path = convert_to_jpg(screenshot_path, quality=10)
             screenshot_filename = os.path.basename(screenshot_path)
 
             is_same, similarity = compare_images(previous_path, screenshot_path)

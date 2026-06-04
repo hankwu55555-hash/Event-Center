@@ -11,7 +11,7 @@ from pathlib import Path
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 
 CF_DIR        = Path(__file__).parent
-RANKINGS_FILE = CF_DIR / "rankings.json"
+RANKINGS_FILE = CF_DIR / "CF" / "rankings.json"
 
 BASE_URL        = "https://app.sensortower-china.com"
 APP_APPLE       = "1404165333"
@@ -25,7 +25,7 @@ COUNTRIES = {
 }
 
 # 要補抓的日期（YYYYMMDD）
-BACKFILL_DATES = ["20260530", "20260531"]
+BACKFILL_DATES = ["20260601", "20260602", "20260603", "20260604"]
 
 def load_json(path, default=None):
     if default is None:
