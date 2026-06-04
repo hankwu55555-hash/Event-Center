@@ -18,6 +18,18 @@ print("=" * 70)
 print("🎮 煤有錢Online 活動中心自動化 - 像素比較版")
 print("=" * 70)
 
+def convert_to_jpg(png_path, quality=50):
+    """將 PNG 轉成 JPG，回傳新的 JPG 路徑"""
+    jpg_path = os.path.splitext(png_path)[0] + ".jpg"
+    try:
+        img = Image.open(png_path).convert("RGB")
+        img.save(jpg_path, "JPEG", quality=quality)
+        os.remove(png_path)  # 刪除原始 PNG
+    except Exception as e:
+        print(f"    ⚠️  轉換 JPG 失敗：{e}")
+        return png_path  # 失敗就保留 PNG
+    return jpg_path
+
 def compare_images(img_path1, img_path2):
     """
     比較兩張圖像是否相同
@@ -54,7 +66,7 @@ def compare_images(img_path1, img_path2):
 try:
     # 設定
     today = datetime.now().strftime("%Y%m%d")
-    SCREENSHOT_DIR = os.path.join(r"C:\Users\hankwu\OneDrive - International Games System\Event_Center\CF", today)
+    SCREENSHOT_DIR = os.path.join(r"C:\Users\hankwu\Desktop\Event_Center\CF", today)
     PACKAGE_NAME = "com.spinxgames.coalonline"
     X_BUTTON_REF = r"C:\Users\hankwu\Desktop\Event_Center\CF\basic\x_button.png"
 
@@ -306,6 +318,8 @@ try:
             time.sleep(0.5)
             device.pull(sdcard_path, screenshot_path)
             time.sleep(0.3)
+            screenshot_path = convert_to_jpg(screenshot_path, quality=50)
+            screenshot_filename = os.path.basename(screenshot_path)
 
             if previous_path is not None:
                 is_same, similarity = compare_images(previous_path, screenshot_path)
@@ -349,6 +363,8 @@ try:
             time.sleep(0.5)
             device.pull(sdcard_path, screenshot_path)
             time.sleep(0.3)
+            screenshot_path = convert_to_jpg(screenshot_path, quality=50)
+            screenshot_filename = os.path.basename(screenshot_path)
 
             is_same, similarity = compare_images(previous_path, screenshot_path)
             print(f"    🖼️  與上一張相似度：{similarity:.2f}%")
