@@ -1,1 +1,37 @@
-{}
+{
+  "20260604": {
+    "TW": {
+      "apple": 16,
+      "android": 29
+    },
+    "US": {
+      "apple": 61,
+      "android": 34
+    },
+    "JP": {
+      "apple": 22,
+      "android": 8
+    },
+    "UK": {
+      "apple": 76,
+      "android": 21
+    }
+  },
+  "20260603": {
+    "TW": {
+      "apple": 23,
+      "android": 29
+    },
+    "US": {
+      "apple": 65,
+      "android": 31
+    },
+    "JP": {
+      "apple": 24,
+      "android": 9
+    },
+    "UK": {
+      "apple": 73
+    }
+  }
+}
