@@ -10,10 +10,14 @@ REPO_DIR      = Path(__file__).parent
 OUTPUT_HTML   = REPO_DIR / "gallery.html"
 CACHE_FILE    = REPO_DIR / "tab_names_cache.json"
 
-# (顯示名稱, 來源資料夾, 圖片URL前綴, 排名JSON路徑, 自動偵測頁籤名稱, icon路徑)
+# (顯示名稱, 來源資料夾, 圖片URL前綴, 排名JSON路徑, 自動偵測頁籤名稱, icon路徑, 固定頁籤名稱)
+DAFU_TAB_NAMES = {
+    3: {1: "促銷", 2: "活動", 3: "公告"},
+    4: {1: "促銷", 2: "機台", 3: "活動", 4: "公告"},
+}
 PRODUCTS = [
-    ("Cash Frenzy", REPO_DIR / "CF",   "CF/",   REPO_DIR / "CF"   / "rankings.json", True,  "CF/basic/icon.png"),
-    ("大福娛樂城",   REPO_DIR / "Dafu", "Dafu/", REPO_DIR / "Dafu" / "rankings.json", False, "Dafu/basic/icon.png"),
+    ("Cash Frenzy", REPO_DIR / "CF",   "CF/",   REPO_DIR / "CF"   / "rankings.json", True,  "CF/basic/icon.png",   None),
+    ("大福娛樂城",   REPO_DIR / "Dafu", "Dafu/", REPO_DIR / "Dafu" / "rankings.json", False, "Dafu/basic/icon.png", DAFU_TAB_NAMES),
 ]
 
 SIDEBAR_X = 200
@@ -67,12 +71,17 @@ def load_rankings(path=None):
             return {}
     return {}
 
-def get_tab_label(date_str, tab_key, first_img, cache, n_tabs=3, prod_key="p0", auto_detect=True):
+def get_tab_label(date_str, tab_key, first_img, cache, n_tabs=3, prod_key="p0", auto_detect=True, fixed_names=None):
     key = f"{prod_key}/{date_str}/{tab_key}"
     if key in cache:
         return cache[key]
     if not auto_detect:
-        label = f"頁籤{tab_key.replace('tab','')}"
+        if fixed_names:
+            zone_names = fixed_names.get(n_tabs, {})
+            tab_num = int(tab_key.replace('tab', ''))
+            label = zone_names.get(tab_num, f"頁籤{tab_num}")
+        else:
+            label = f"頁籤{tab_key.replace('tab','')}"
         cache[key] = label
         return label
     print(f"  偵測：{key} ...")
@@ -340,7 +349,7 @@ def generate_html(products_list, all_rankings=None):
     first_prod_key = products_list[0][1]
 
     all_data_js = {}
-    for prod_name, prod_key, data, labels, img_prefix, _, icon_path in products_list:
+    for prod_name, prod_key, data, labels, img_prefix, _, icon_path, _fn in products_list:
         prod_dates = list(data.keys())
         prod_imgs = {}
         for d, tabs in data.items():
@@ -354,7 +363,7 @@ def generate_html(products_list, all_rankings=None):
         }
 
     all_panels = ""
-    for pi, (prod_name, prod_key, data, labels, img_prefix, _, icon_path) in enumerate(products_list):
+    for pi, (prod_name, prod_key, data, labels, img_prefix, _, icon_path, _fn) in enumerate(products_list):
         for di, (d, tabs) in enumerate(data.items()):
             sk = sorted(tabs.keys())
             tabs_html = "".join(
@@ -377,7 +386,7 @@ def generate_html(products_list, all_rankings=None):
         '<div class="prod-opt ' + ('on' if i == 0 else '') + '" '
         'data-pk="' + pk + '" '
         'onclick="selectProduct(\'' + pk + '\')">' + pn + '</div>'
-        for i, (pn, pk, _, _, _, _, _) in enumerate(products_list)
+        for i, (pn, pk, _, _, _, _, _, _) in enumerate(products_list)
     )
     first_prod_display = products_list[0][0]
 
@@ -450,7 +459,7 @@ def main():
     all_rankings = {}
     products_list = []
 
-    for pi, (prod_name, src_dir, img_prefix, rankings_path, auto_detect, icon_path) in enumerate(PRODUCTS):
+    for pi, (prod_name, src_dir, img_prefix, rankings_path, auto_detect, icon_path, fixed_names) in enumerate(PRODUCTS):
         prod_key = "p" + str(pi)
         print("[CF Gallery] Scanning " + prod_name + ": " + str(src_dir))
         data = scan_folders(base_dir=src_dir)
@@ -462,11 +471,11 @@ def main():
             for tab_key, imgs in tabs.items():
                 labels[date_str + "/" + tab_key] = get_tab_label(
                     date_str, tab_key, imgs[0], cache, n_tabs=n_tabs,
-                    prod_key=prod_key, auto_detect=auto_detect
+                    prod_key=prod_key, auto_detect=auto_detect, fixed_names=fixed_names
                 )
 
         all_rankings[prod_key] = load_rankings(rankings_path)
-        products_list.append((prod_name, prod_key, data, labels, img_prefix, rankings_path, icon_path))
+        products_list.append((prod_name, prod_key, data, labels, img_prefix, rankings_path, icon_path, fixed_names))
 
     save_cache(cache)
 
@@ -475,7 +484,7 @@ def main():
         OUTPUT_HTML.write_text(html, encoding="utf-8")
         INDEX_HTML = REPO_DIR / "index.html"
         INDEX_HTML.write_text(html, encoding="utf-8")
-        total = sum(len(imgs) for _, _, data, _, _p, _r, _i in products_list
+        total = sum(len(imgs) for _, _, data, _, _p, _r, _i, _fn in products_list
                     for tabs in data.values() for imgs in tabs.values())
         print("[CF Gallery] Generated (" + str(total) + " images, " + str(len(products_list)) + " products)")
 
