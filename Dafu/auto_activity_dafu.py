@@ -137,7 +137,7 @@ try:
             if previous_path is not None:
                 is_same, similarity = compare_images(previous_path, screenshot_path)
                 print(f"    與上一張相似度：{similarity:.2f}%")
-                if similarity > 70.0:
+                if similarity > 90.0:
                     print(f"    畫面相同，刪除並切換下一頁籤")
                     try:
                         os.remove(screenshot_path)
@@ -180,7 +180,7 @@ try:
             is_same, similarity = compare_images(previous_path, screenshot_path)
             print(f"    與上一張相似度：{similarity:.2f}%")
 
-            if similarity > 70.0:
+            if similarity > 90.0:
                 print(f"    畫面相同，刪除並切換下一頁籤")
                 try:
                     os.remove(screenshot_path)

@@ -23,10 +23,12 @@
       "android": 29
     },
     "US": {
-      "apple": 67
+      "apple": 67,
+      "android": 33
     },
     "JP": {
-      "android": 8
+      "android": 8,
+      "apple": 24
     },
     "UK": {
       "apple": 83,
