@@ -27,21 +27,39 @@ COUNTRIES = {
 # 要補抓的日期（YYYYMMDD）
 BACKFILL_DATES = ["20260601", "20260602", "20260603", "20260604"]
 
+import os
+
 def load_json(path, default=None):
     if default is None:
         default = {}
     p = Path(path)
-    if p.exists():
+    for src in [p, Path(str(p) + ".bak")]:
+        if not src.exists():
+            continue
         try:
-            return json.loads(p.read_bytes().decode("utf-8").replace("\x00", "").strip())
+            raw = src.read_bytes().decode("utf-8", errors="ignore")
+            raw = raw.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n").strip()
+            for suffix in ["", "}", "}}", "\n}", "\n}}"]:
+                try:
+                    return json.loads(raw + suffix)
+                except Exception:
+                    pass
         except Exception:
             pass
     return default
 
 def save_json(path, data):
-    Path(path).write_text(
-        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    """原子寫入：先寫 .tmp，驗證後 rename，並保留 .bak 備份"""
+    import shutil
+    p = Path(path)
+    content = json.dumps(data, ensure_ascii=False, indent=2)
+    json.loads(content)  # 驗證
+    tmp = Path(str(p) + ".tmp")
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
+    if p.exists():
+        shutil.copy2(p, str(p) + ".bak")
+    os.replace(tmp, p)
 
 async def capture_api(page, url, wait_ms=6000):
     captured = []

@@ -60,22 +60,43 @@ PRODUCTS = [
     },
 ]
 
-# ─── JSON 工具 ────────────────────────────────────────────────────────────────
+# ─── JSON 工具（原子寫入 + 自動修復）─────────────────────────────────────────
+import os
+
 def load_json(path, default=None):
     if default is None:
         default = {}
     p = Path(path)
-    if p.exists():
+    for src in [p, Path(str(p) + ".bak")]:
+        if not src.exists():
+            continue
         try:
-            return json.loads(p.read_bytes().decode("utf-8").replace("\x00", "").strip())
+            raw = src.read_bytes().decode("utf-8", errors="ignore")
+            raw = raw.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n").strip()
+            # 嘗試補上缺失的結尾括號
+            for suffix in ["", "}", "}}",  "\n}", "\n}}"]:
+                try:
+                    return json.loads(raw + suffix)
+                except Exception:
+                    pass
         except Exception:
             pass
     return default
 
 def save_json(path, data):
-    Path(path).write_text(
-        json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    """原子寫入：先寫 .tmp，驗證後 rename，並保留 .bak 備份"""
+    p = Path(path)
+    content = json.dumps(data, ensure_ascii=False, indent=2)
+    # 驗證資料可以被正確讀回
+    json.loads(content)
+    tmp = Path(str(p) + ".tmp")
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
+    # 備份舊檔
+    if p.exists():
+        import shutil
+        shutil.copy2(p, str(p) + ".bak")
+    os.replace(tmp, p)
 
 # ─── 排名搜尋（只從明確命名的 rank 欄位取值，避免誤抓 downloads/rating）────
 RANK_KEYS = {
@@ -334,19 +355,15 @@ async def main():
             if today_key not in rankings:
                 rankings[today_key] = {}
             for local_key, st_country in COUNTRIES.items():
-                print(f"\n── {local_key} ({st_country}) ──────────────────")
                 entry = rankings[today_key].setdefault(local_key, {})
                 apple   = await get_apple_rank(page, st_country, debug, today, prod)
                 android = await get_android_rank(page, st_country, debug, today, prod)
                 if apple   is not None: entry["apple"]   = apple
                 if android is not None: entry["android"] = android
 
-            # ── 昨天（重新確認）────────────────────────────────────────────────
-            print(f"\n🔄 重新確認昨天 {yesterday_key}")
             if yesterday_key not in rankings:
                 rankings[yesterday_key] = {}
             for local_key, st_country in COUNTRIES.items():
-                print(f"\n── {local_key} ({st_country}) ──────────────────")
                 entry = rankings[yesterday_key].setdefault(local_key, {})
                 apple   = await get_apple_rank(page, st_country, debug, yesterday, prod)
                 android = await get_android_rank(page, st_country, debug, yesterday, prod)
@@ -354,13 +371,12 @@ async def main():
                 if android is not None: entry["android"] = android
 
             save_json(prod["rankings_file"], rankings)
-            print(f"\n✅ {prod['name']} rankings.json 更新完成")
+            print(f"\n {prod['name']} rankings.json updated")
 
         await browser.close()
 
     save_json(DEBUG_FILE, debug)
 
-    # 自動重新產生 gallery + git push
     import subprocess
     r = subprocess.run(
         [sys.executable, str(REPO_DIR / "generate_gallery.py")],
@@ -368,7 +384,7 @@ async def main():
     )
     print(r.stdout.strip())
     if r.returncode != 0:
-        print("[錯誤]", r.stderr[:300])
+        print("[Error]", r.stderr[:300])
 
 if __name__ == "__main__":
     asyncio.run(main())

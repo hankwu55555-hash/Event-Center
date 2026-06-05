@@ -64,11 +64,19 @@ def save_cache(cache):
 
 def load_rankings(path=None):
     p = Path(path) if path else RANKINGS_FILE
-    if p.exists():
+    for src in [p, Path(str(p) + ".bak")]:
+        if not src.exists():
+            continue
         try:
-            return json.loads(p.read_bytes().decode("utf-8").replace("\x00","").strip())
+            raw = src.read_bytes().decode("utf-8", errors="ignore")
+            raw = raw.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n").strip()
+            for suffix in ["", "}", "}}", "\n}", "\n}}"]:
+                try:
+                    return json.loads(raw + suffix)
+                except Exception:
+                    pass
         except Exception:
-            return {}
+            pass
     return {}
 
 def get_tab_label(date_str, tab_key, first_img, cache, n_tabs=3, prod_key="p0", auto_detect=True, fixed_names=None):
