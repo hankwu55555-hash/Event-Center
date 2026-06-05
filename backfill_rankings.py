@@ -129,10 +129,10 @@ def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
                                 return int(v)
     return None
 
-async def fetch_rank(page, os_type, prod, st_country, date_str):
+async def fetch_rank(context, os_type, prod, st_country, date_str):
     d = datetime.strptime(date_str, "%Y%m%d")
     date_api  = d.strftime("%Y-%m-%d")
-    start_api = (d - timedelta(days=30)).strftime("%Y-%m-%d")  # 30天範圍確保近期資料可用
+    start_api = (d - timedelta(days=30)).strftime("%Y-%m-%d")
     if os_type == "ios":
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
@@ -151,37 +151,27 @@ async def fetch_rank(page, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
-    captured = await capture_api(page, url, wait_ms=8000)
-    rank = extract_rank_from_graphdata(captured, app_id, st_country, date_str)
-    # Debug: 若抓不到，印出所有 JSON body keys 幫助診斷
-    if rank is None and date_str >= "20260603":
-        print(f"      [DEBUG] captured {len(captured)} responses for {os_type}/{st_country}/{date_str}")
-        for c in captured:
-            body = c["body"]
-            if isinstance(body, dict):
-                keys = list(body.keys())
-                print(f"        url=...{c['url'][-60:]}  keys={keys[:5]}")
-                # 印出 graphData 樣本
-                for k, v in body.items():
-                    if isinstance(v, dict):
-                        for k2, v2 in v.items():
-                            if isinstance(v2, dict):
-                                for k3, v3 in v2.items():
-                                    if isinstance(v3, dict) and "graphData" in v3:
-                                        gd = v3["graphData"]
-                                        print(f"        graphData found! last 3: {gd[-3:] if gd else 'empty'}")
-    return rank
+    # 每次開新頁面避免狀態污染
+    page = await context.new_page()
+    try:
+        captured = await capture_api(page, url, wait_ms=10000)
+    finally:
+        await page.close()
+    return extract_rank_from_graphdata(captured, app_id, st_country, date_str)
+
+# Chrome profile 路徑（借用登入 session）
+CHROME_PROFILE = r"C:\Users\hankwu\AppData\Local\Google\Chrome\User Data"
 
 async def main():
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
-        context = await browser.new_context(
+        # 使用現有 Chrome profile，借用 Sensor Tower 登入 session
+        context = await pw.chromium.launch_persistent_context(
+            user_data_dir=CHROME_PROFILE,
+            headless=True,
+            args=["--no-sandbox", "--disable-dev-shm-usage"],
             viewport={"width": 1280, "height": 900},
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
             locale="zh-TW",
         )
-        page = await context.new_page()
-
         for prod in PRODUCTS:
             print(f"\n{'='*50}")
             print(f"補抓產品：{prod['name']}")
@@ -194,8 +184,8 @@ async def main():
                     rankings[date_str] = {}
                 for local_key, st_country in COUNTRIES.items():
                     entry = rankings[date_str].setdefault(local_key, {})
-                    apple   = await fetch_rank(page, "ios",     prod, st_country, date_str)
-                    android = await fetch_rank(page, "android", prod, st_country, date_str)
+                    apple   = await fetch_rank(context, "ios",     prod, st_country, date_str)
+                    android = await fetch_rank(context, "android", prod, st_country, date_str)
                     print(f"    [{local_key}] Apple: {'#'+str(apple) if apple else '--'}  Android: {'#'+str(android) if android else '--'}")
                     if apple   is not None: entry["apple"]   = apple
                     if android is not None: entry["android"] = android
@@ -203,7 +193,7 @@ async def main():
             save_json(prod["rankings_file"], rankings)
             print(f"\n✅ {prod['name']} 補抓完成")
 
-        await browser.close()
+        await context.close()
 
     # 重新產生 gallery + push
     import subprocess

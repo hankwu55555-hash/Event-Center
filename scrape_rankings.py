@@ -329,17 +329,13 @@ async def main():
     debug = {}
 
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(
+        # 使用現有 Chrome profile，借用 Sensor Tower 登入 session
+        CHROME_PROFILE = r"C:\Users\hankwu\AppData\Local\Google\Chrome\User Data"
+        context = await pw.chromium.launch_persistent_context(
+            user_data_dir=CHROME_PROFILE,
             headless=True,
             args=["--no-sandbox", "--disable-dev-shm-usage"],
-        )
-        context = await browser.new_context(
             viewport={"width": 1280, "height": 900},
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            ),
             locale="zh-TW",
         )
         page = await context.new_page()
@@ -373,7 +369,7 @@ async def main():
             save_json(prod["rankings_file"], rankings)
             print(f"\n {prod['name']} rankings.json updated")
 
-        await browser.close()
+        await context.close()
 
     save_json(DEBUG_FILE, debug)
 
