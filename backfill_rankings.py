@@ -63,7 +63,7 @@ def load_json(path, default=None):
 def save_json(path, data):
     p = Path(path)
     content = json.dumps(data, ensure_ascii=False, indent=2)
-    json.loads(content)  # 驗證
+    json.loads(content)
     tmp = Path(str(p) + ".tmp")
     with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
@@ -72,7 +72,7 @@ def save_json(path, data):
     os.replace(tmp, p)
 
 # ─── API 攔截 ─────────────────────────────────────────────────────────────────
-async def capture_api(page, url, wait_ms=6000):
+async def capture_api(page, url, wait_ms=10000):
     captured = []
     async def on_resp(resp):
         ct = resp.headers.get("content-type", "")
@@ -94,8 +94,8 @@ async def capture_api(page, url, wait_ms=6000):
         page.remove_listener("response", on_resp)
     return captured
 
+# ─── 排名解析（遞迴掃描 graphData）──────────────────────────────────────────
 def _find_rank_in_graphdata(gd):
-    """從 graphData 尾端找第一個有效排名"""
     if not isinstance(gd, list):
         return None
     for entry in reversed(gd):
@@ -106,31 +106,32 @@ def _find_rank_in_graphdata(gd):
     return None
 
 def _search_graphdata(obj, depth=0):
-    """遞迴找所有 graphData"""
     if depth > 8:
         return None
     if isinstance(obj, dict):
         if "graphData" in obj:
             r = _find_rank_in_graphdata(obj["graphData"])
-            if r: return r
+            if r:
+                return r
         for v in obj.values():
-            r = _search_graphdata(v, depth+1)
-            if r: return r
+            r = _search_graphdata(v, depth + 1)
+            if r:
+                return r
     if isinstance(obj, list):
         for item in obj[:50]:
-            r = _search_graphdata(item, depth+1)
-            if r: return r
+            r = _search_graphdata(item, depth + 1)
+            if r:
+                return r
     return None
 
-def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
+def extract_rank(captured, app_id):
     SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
                  "server_upload_time", "payload_size_bytes", "events_ingested"}
     for c in captured:
         body = c["body"]
         if not isinstance(body, dict):
             continue
-
-        # 方法一：標準路徑 body[app_id][country][cat][chart][graphData]
+        # 優先從 app_id key 找
         app_data = body.get(str(app_id))
         if app_data is None:
             for k in body:
@@ -138,28 +139,28 @@ def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
                     app_data = body[k]
                     break
         if isinstance(app_data, dict):
-            country_data = app_data.get(st_country, app_data)
-            if isinstance(country_data, dict):
-                r = _search_graphdata(country_data)
-                if r: return r
-
-        # 方法二：從 body["lines"] 找（部分 Sensor Tower endpoint 用此格式）
+            r = _search_graphdata(app_data)
+            if r:
+                return r
+        # 嘗試 lines
         lines = body.get("lines")
         if isinstance(lines, list):
             r = _search_graphdata(lines)
-            if r: return r
-
-        # 方法三：全部遞迴掃描（保底）
+            if r:
+                return r
+        # 全掃描保底
         r = _search_graphdata(body)
-        if r: return r
-
+        if r:
+            return r
     return None
 
+# ─── 查詢單一排名 ─────────────────────────────────────────────────────────────
 async def fetch_rank(context, os_type, prod, st_country, date_str):
     d = datetime.strptime(date_str, "%Y%m%d")
     date_api  = d.strftime("%Y-%m-%d")
     start_api = (d - timedelta(days=30)).strftime("%Y-%m-%d")
     if os_type == "ios":
+        app_id = prod["apple_id"]
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=ios&start_date={start_api}&end_date={date_api}"
@@ -167,7 +168,6 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['apple_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=iphone&selected_tab=0"
         )
-        app_id = prod["apple_id"]
     else:
         app_id = prod["android_saa"]
         url = (
@@ -177,87 +177,62 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
-    # 每次開新頁面避免狀態污染
     page = await context.new_page()
     try:
-        captured = await capture_api(page, url, wait_ms=10000)
+        captured = await capture_api(page, url)
     finally:
         await page.close()
-    rank = extract_rank_from_graphdata(captured, app_id, st_country, date_str)
-    # 儲存 debug 資料（只存 Dafu 的第一次查詢）
-    if rank is None and prod["name"] == "Dafu" and date_str == BACKFILL_DATES[0] and os_type == "ios" and st_country == "TW":
-        import json as _json
-        debug_out = []
-        for c in captured:
-            body = c["body"]
-            entry = {"url": c["url"][-100:]}
-            if isinstance(body, dict):
-                entry["keys"] = list(body.keys())
-                # 找第一個非 meta key 的 value 結構
-                for k, v in body.items():
-                    if k not in ("lines", "code", "server_upload_time"):
-                        entry["sample_key"] = k
-                        entry["sample_type"] = type(v).__name__
-                        if isinstance(v, dict):
-                            entry["sample_subkeys"] = list(v.keys())[:5]
-                            # 找 graphData
-                            raw = _json.dumps(v)
-                            if "graphData" in raw:
-                                entry["has_graphData"] = True
-                                # 找到 graphData 並印最後 3 筆
-                                def find_gd(obj, depth=0):
-                                    if depth > 6: return None
-                                    if isinstance(obj, dict):
-                                        if "graphData" in obj:
-                                            return obj["graphData"]
-                                        for val in obj.values():
-                                            r = find_gd(val, depth+1)
-                                            if r is not None: return r
-                                    return None
-                                gd = find_gd(v)
-                                if gd:
-                                    entry["graphData_last3"] = gd[-3:]
-                        break
-            debug_out.append(entry)
-        _json.dump(debug_out, open(str(REPO_DIR / "dafu_debug.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        print(f"      [DEBUG] 已儲存 dafu_debug.json ({len(debug_out)} 筆回應)")
-    return rank
+    return extract_rank(captured, app_id)
 
-# Chrome profile 路徑（借用登入 session）
-CHROME_PROFILE = r"C:\Users\hankwu\AppData\Local\Google\Chrome\User Data"
-
+# ─── 主流程 ──────────────────────────────────────────────────────────────────
 async def main():
     async with async_playwright() as pw:
-        # 使用現有 Chrome profile，借用 Sensor Tower 登入 session
-        context = await pw.chromium.launch_persistent_context(
-            user_data_dir=CHROME_PROFILE,
+        browser = await pw.chromium.launch(
             headless=True,
             args=["--no-sandbox", "--disable-dev-shm-usage"],
+        )
+        context = await browser.new_context(
             viewport={"width": 1280, "height": 900},
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
             locale="zh-TW",
         )
+
+        # 暖機：先載入首頁讓 Sensor Tower 建立 session
+        print("🔥 暖機中...")
+        warmup = await context.new_page()
+        try:
+            await warmup.goto(BASE_URL, timeout=30000, wait_until="domcontentloaded")
+            await warmup.wait_for_timeout(4000)
+        except Exception:
+            pass
+        finally:
+            await warmup.close()
+        print("✅ 暖機完成\n")
+
         for prod in PRODUCTS:
-            print(f"\n{'='*50}")
+            print(f"{'='*50}")
             print(f"補抓產品：{prod['name']}")
             print('='*50)
             rankings = load_json(prod["rankings_file"], {})
 
             for date_str in BACKFILL_DATES:
                 print(f"\n  日期：{date_str}")
-                if date_str not in rankings:
-                    rankings[date_str] = {}
+                rankings.setdefault(date_str, {})
                 for local_key, st_country in COUNTRIES.items():
                     entry = rankings[date_str].setdefault(local_key, {})
                     apple   = await fetch_rank(context, "ios",     prod, st_country, date_str)
                     android = await fetch_rank(context, "android", prod, st_country, date_str)
-                    print(f"    [{local_key}] Apple: {'#'+str(apple) if apple else '--'}  Android: {'#'+str(android) if android else '--'}")
+                    a_str = f"#{apple}"   if apple   else "--"
+                    g_str = f"#{android}" if android else "--"
+                    print(f"    [{local_key}] Apple: {a_str:<6}  Android: {g_str}")
                     if apple   is not None: entry["apple"]   = apple
                     if android is not None: entry["android"] = android
 
             save_json(prod["rankings_file"], rankings)
-            print(f"\n✅ {prod['name']} 補抓完成")
+            print(f"\n✅ {prod['name']} 補抓完成\n")
 
         await context.close()
+        await browser.close()
 
     # 重新產生 gallery + push
     import subprocess

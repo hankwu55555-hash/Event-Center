@@ -329,15 +329,28 @@ async def main():
     debug = {}
 
     async with async_playwright() as pw:
-        # 使用現有 Chrome profile，借用 Sensor Tower 登入 session
-        CHROME_PROFILE = r"C:\Users\hankwu\AppData\Local\Google\Chrome\User Data"
-        context = await pw.chromium.launch_persistent_context(
-            user_data_dir=CHROME_PROFILE,
+        browser = await pw.chromium.launch(
             headless=True,
             args=["--no-sandbox", "--disable-dev-shm-usage"],
+        )
+        context = await browser.new_context(
             viewport={"width": 1280, "height": 900},
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
             locale="zh-TW",
         )
+        # 暖機
+        warmup = await context.new_page()
+        try:
+            await warmup.goto(BASE_URL, timeout=30000, wait_until="domcontentloaded")
+            await warmup.wait_for_timeout(3000)
+        except Exception:
+            pass
+        finally:
+            await warmup.close()
         page = await context.new_page()
 
         for prod in PRODUCTS:
@@ -370,6 +383,7 @@ async def main():
             print(f"\n {prod['name']} rankings.json updated")
 
         await context.close()
+        await browser.close()
 
     save_json(DEBUG_FILE, debug)
 
