@@ -412,7 +412,7 @@ def generate_html(products_list, all_rankings=None):
     parts = [
         '<!DOCTYPE html>\n<html lang="zh-TW">\n<head>\n<meta charset="UTF-8">\n',
         '<meta name="viewport" content="width=device-width,initial-scale=1.0">\n',
-        '<title>CF Gallery</title>\n<style>', _CSS, '</style>\n</head>\n<body>\n',
+        '<title>Event Center</title>\n<style>', _CSS, '</style>\n</head>\n<body>\n',
         '<header>\n',
         '  <div class="logo-area">\n',
         '    <div class="logo"><img id="logoIcon" src="CF/basic/icon.png" alt=""/><span id="logoName">Cash Frenzy</span></div>\n',
