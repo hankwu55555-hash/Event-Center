@@ -82,6 +82,8 @@
       "apple": 24,
       "android": 9
     },
-    "UK": {}
+    "UK": {
+      "apple": 73
+    }
   }
 }
