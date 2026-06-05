@@ -121,11 +121,12 @@ def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
                     continue
                 gd = chart_val.get("graphData")
                 if isinstance(gd, list) and gd:
-                    last = gd[-1]
-                    if isinstance(last, list) and len(last) >= 2:
-                        v = last[1]
-                        if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
-                            return int(v)
+                    # 從尾端找第一個有效排名（跳過 null 值）
+                    for entry in reversed(gd):
+                        if isinstance(entry, list) and len(entry) >= 2:
+                            v = entry[1]
+                            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
+                                return int(v)
     return None
 
 async def fetch_rank(page, os_type, prod, st_country, date_str):
@@ -150,8 +151,26 @@ async def fetch_rank(page, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
-    captured = await capture_api(page, url, wait_ms=6000)
-    return extract_rank_from_graphdata(captured, app_id, st_country, date_str)
+    captured = await capture_api(page, url, wait_ms=8000)
+    rank = extract_rank_from_graphdata(captured, app_id, st_country, date_str)
+    # Debug: 若抓不到，印出所有 JSON body keys 幫助診斷
+    if rank is None and date_str >= "20260603":
+        print(f"      [DEBUG] captured {len(captured)} responses for {os_type}/{st_country}/{date_str}")
+        for c in captured:
+            body = c["body"]
+            if isinstance(body, dict):
+                keys = list(body.keys())
+                print(f"        url=...{c['url'][-60:]}  keys={keys[:5]}")
+                # 印出 graphData 樣本
+                for k, v in body.items():
+                    if isinstance(v, dict):
+                        for k2, v2 in v.items():
+                            if isinstance(v2, dict):
+                                for k3, v3 in v2.items():
+                                    if isinstance(v3, dict) and "graphData" in v3:
+                                        gd = v3["graphData"]
+                                        print(f"        graphData found! last 3: {gd[-3:] if gd else 'empty'}")
+    return rank
 
 async def main():
     async with async_playwright() as pw:
