@@ -94,39 +94,65 @@ async def capture_api(page, url, wait_ms=6000):
         page.remove_listener("response", on_resp)
     return captured
 
+def _find_rank_in_graphdata(gd):
+    """從 graphData 尾端找第一個有效排名"""
+    if not isinstance(gd, list):
+        return None
+    for entry in reversed(gd):
+        if isinstance(entry, list) and len(entry) >= 2:
+            v = entry[1]
+            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
+                return int(v)
+    return None
+
+def _search_graphdata(obj, depth=0):
+    """遞迴找所有 graphData"""
+    if depth > 8:
+        return None
+    if isinstance(obj, dict):
+        if "graphData" in obj:
+            r = _find_rank_in_graphdata(obj["graphData"])
+            if r: return r
+        for v in obj.values():
+            r = _search_graphdata(v, depth+1)
+            if r: return r
+    if isinstance(obj, list):
+        for item in obj[:50]:
+            r = _search_graphdata(item, depth+1)
+            if r: return r
+    return None
+
 def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
-    """取 graphData 最後一筆（對應 end_date = target_date），與 scrape_rankings.py 邏輯一致"""
     SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
                  "server_upload_time", "payload_size_bytes", "events_ingested"}
     for c in captured:
         body = c["body"]
         if not isinstance(body, dict):
             continue
+
+        # 方法一：標準路徑 body[app_id][country][cat][chart][graphData]
         app_data = body.get(str(app_id))
         if app_data is None:
             for k in body:
                 if k not in SKIP_KEYS and k != "lines":
                     app_data = body[k]
                     break
-        if not isinstance(app_data, dict):
-            continue
-        country_data = app_data.get(st_country, app_data)
-        if not isinstance(country_data, dict):
-            continue
-        for cat_val in country_data.values():
-            if not isinstance(cat_val, dict):
-                continue
-            for chart_val in cat_val.values():
-                if not isinstance(chart_val, dict):
-                    continue
-                gd = chart_val.get("graphData")
-                if isinstance(gd, list) and gd:
-                    # 從尾端找第一個有效排名（跳過 null 值）
-                    for entry in reversed(gd):
-                        if isinstance(entry, list) and len(entry) >= 2:
-                            v = entry[1]
-                            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
-                                return int(v)
+        if isinstance(app_data, dict):
+            country_data = app_data.get(st_country, app_data)
+            if isinstance(country_data, dict):
+                r = _search_graphdata(country_data)
+                if r: return r
+
+        # 方法二：從 body["lines"] 找（部分 Sensor Tower endpoint 用此格式）
+        lines = body.get("lines")
+        if isinstance(lines, list):
+            r = _search_graphdata(lines)
+            if r: return r
+
+        # 方法三：全部遞迴掃描（保底）
+        r = _search_graphdata(body)
+        if r: return r
+
     return None
 
 async def fetch_rank(context, os_type, prod, st_country, date_str):
