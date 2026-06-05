@@ -95,9 +95,7 @@ async def capture_api(page, url, wait_ms=6000):
     return captured
 
 def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
-    dt = datetime.strptime(date_str, "%Y%m%d")
-    target_ts = int(dt.timestamp())
-    # 不限定 URL 名稱，只要 body 裡有 app_id 或 graphData 就嘗試解析
+    """取 graphData 最後一筆（對應 end_date = target_date），與 scrape_rankings.py 邏輯一致"""
     SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
                  "server_upload_time", "payload_size_bytes", "events_ingested"}
     for c in captured:
@@ -122,31 +120,22 @@ def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
                 if not isinstance(chart_val, dict):
                     continue
                 gd = chart_val.get("graphData")
-                if not isinstance(gd, list):
-                    continue
-                best_rank, best_diff = None, float("inf")
-                for entry in gd:
-                    if isinstance(entry, list) and len(entry) >= 2:
-                        ts, rank = entry[0], entry[1]
-                        # Sensor Tower 時間戳可能是毫秒，統一轉成秒
-                        if ts > 1e10:
-                            ts = ts / 1000
-                        if isinstance(rank, (int, float)) and 1 <= int(rank) <= 5000:
-                            diff = abs(ts - target_ts)
-                            if diff < best_diff:
-                                best_diff, best_rank = diff, int(rank)
-                if best_rank and best_diff <= 48 * 3600:
-                    return best_rank
+                if isinstance(gd, list) and gd:
+                    last = gd[-1]
+                    if isinstance(last, list) and len(last) >= 2:
+                        v = last[1]
+                        if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
+                            return int(v)
     return None
 
 async def fetch_rank(page, os_type, prod, st_country, date_str):
     d = datetime.strptime(date_str, "%Y%m%d")
-    date_api = d.strftime("%Y-%m-%d")
-    prev_api = (d - timedelta(days=1)).strftime("%Y-%m-%d")
+    date_api  = d.strftime("%Y-%m-%d")
+    start_api = (d - timedelta(days=30)).strftime("%Y-%m-%d")  # 30天範圍確保近期資料可用
     if os_type == "ios":
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
-            f"?os=ios&start_date={prev_api}&end_date={date_api}"
+            f"?os=ios&start_date={start_api}&end_date={date_api}"
             f"&{prod['apple_param']}&granularity=daily"
             f"&country={st_country}&category={prod['apple_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=iphone&selected_tab=0"
@@ -156,7 +145,7 @@ async def fetch_rank(page, os_type, prod, st_country, date_str):
         app_id = prod["android_saa"]
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
-            f"?os=android&start_date={prev_api}&end_date={date_api}"
+            f"?os=android&start_date={start_api}&end_date={date_api}"
             f"&saa={app_id}&granularity=daily"
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
