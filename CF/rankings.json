@@ -139,21 +139,15 @@
       "android": 45
     },
     "UK": {
-      "apple": 52
+      "apple": 52,
+      "android": 29
     }
   },
   "20260603": {
-    "TW": {
-      "apple": 59,
-      "android": 18
-    },
-    "US": {
-      "apple": 48,
-      "android": 8
-    },
+    "TW": {},
+    "US": {},
     "JP": {
-      "android": 42,
-      "apple": 59
+      "android": 42
     },
     "UK": {
       "apple": 46,
@@ -162,20 +156,20 @@
   },
   "20260604": {
     "TW": {
-      "apple": 80,
-      "android": 16
+      "apple": 73,
+      "android": 18
     },
     "US": {
-      "apple": 47,
-      "android": 10
+      "apple": 50,
+      "android": 8
     },
     "JP": {
-      "apple": 61,
-      "android": 45
+      "apple": 60,
+      "android": 43
     },
     "UK": {
-      "apple": 48,
-      "android": 29
+      "apple": 45,
+      "android": 32
     }
   }
 }
