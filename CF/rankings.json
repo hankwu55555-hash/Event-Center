@@ -181,16 +181,16 @@
   },
   "20260605": {
     "TW": {
-      "apple": 70,
+      "apple": 82,
       "android": 16
     },
     "US": {
-      "apple": 52,
-      "android": 5
+      "apple": 50,
+      "android": 8
     },
     "JP": {
       "apple": 60,
-      "android": 37
+      "android": 45
     },
     "UK": {
       "apple": 50,
