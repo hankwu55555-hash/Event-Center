@@ -97,15 +97,17 @@ async def capture_api(page, url, wait_ms=6000):
 def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
     dt = datetime.strptime(date_str, "%Y%m%d")
     target_ts = int(dt.timestamp())
-    history_caps = [c for c in captured if "category_history" in c["url"]]
-    for c in history_caps:
+    # 不限定 URL 名稱，只要 body 裡有 app_id 或 graphData 就嘗試解析
+    SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
+                 "server_upload_time", "payload_size_bytes", "events_ingested"}
+    for c in captured:
         body = c["body"]
         if not isinstance(body, dict):
             continue
         app_data = body.get(str(app_id))
         if app_data is None:
             for k in body:
-                if k != "lines":
+                if k not in SKIP_KEYS and k != "lines":
                     app_data = body[k]
                     break
         if not isinstance(app_data, dict):

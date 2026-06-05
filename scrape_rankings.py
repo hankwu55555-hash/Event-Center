@@ -278,8 +278,9 @@ def _parse_category_history(captured, app_id, st_country):
         "lines": [...]
       }
     """
-    history_caps = [c for c in captured if "category_history" in c["url"]]
-    for c in history_caps:
+    SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
+                 "server_upload_time", "payload_size_bytes", "events_ingested"}
+    for c in captured:
         body = c["body"]
         if not isinstance(body, dict):
             continue
@@ -287,9 +288,8 @@ def _parse_category_history(captured, app_id, st_country):
         # 找 app_id key（string）
         app_data = body.get(str(app_id))
         if app_data is None:
-            # fallback：第一個非 "lines" key
             for k in body:
-                if k != "lines":
+                if k not in SKIP_KEYS and k != "lines":
                     app_data = body[k]
                     break
 
