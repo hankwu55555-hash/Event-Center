@@ -1,40 +1,4 @@
 {
-  "20260605": {
-    "TW": {
-      "apple": 22,
-      "android": 24
-    },
-    "US": {
-      "apple": 67,
-      "android": 35
-    },
-    "JP": {
-      "apple": 24,
-      "android": 6
-    },
-    "UK": {
-      "apple": 83,
-      "android": 18
-    }
-  },
-  "20260604": {
-    "TW": {
-      "apple": 22,
-      "android": 29
-    },
-    "US": {
-      "apple": 67,
-      "android": 33
-    },
-    "JP": {
-      "android": 8,
-      "apple": 24
-    },
-    "UK": {
-      "apple": 83,
-      "android": 21
-    }
-  },
   "20260601": {
     "TW": {
       "apple": 26,
@@ -45,8 +9,8 @@
       "android": 25
     },
     "JP": {
-      "android": 8,
-      "apple": 36
+      "apple": 36,
+      "android": 8
     },
     "UK": {
       "apple": 82,
@@ -86,6 +50,42 @@
     },
     "UK": {
       "apple": 73
+    }
+  },
+  "20260604": {
+    "TW": {
+      "apple": 22,
+      "android": 29
+    },
+    "US": {
+      "apple": 67,
+      "android": 33
+    },
+    "JP": {
+      "apple": 24,
+      "android": 8
+    },
+    "UK": {
+      "apple": 83,
+      "android": 21
+    }
+  },
+  "20260605": {
+    "TW": {
+      "apple": 22,
+      "android": 24
+    },
+    "US": {
+      "apple": 67,
+      "android": 35
+    },
+    "JP": {
+      "apple": 24,
+      "android": 6
+    },
+    "UK": {
+      "apple": 83,
+      "android": 18
     }
   }
 }
