@@ -126,6 +126,9 @@ def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
                 for entry in gd:
                     if isinstance(entry, list) and len(entry) >= 2:
                         ts, rank = entry[0], entry[1]
+                        # Sensor Tower 時間戳可能是毫秒，統一轉成秒
+                        if ts > 1e10:
+                            ts = ts / 1000
                         if isinstance(rank, (int, float)) and 1 <= int(rank) <= 5000:
                             diff = abs(ts - target_ts)
                             if diff < best_diff:
@@ -194,8 +197,10 @@ async def main():
 
     # 重新產生 gallery + push
     import subprocess
-    r = subprocess.run([sys.executable, str(REPO_DIR / "generate_gallery.py")],
-                      capture_output=True, text=True, cwd=str(REPO_DIR))
+    r = subprocess.run(
+        [sys.executable, str(REPO_DIR / "generate_gallery.py")],
+        capture_output=True, text=True, cwd=str(REPO_DIR)
+    )
     print(r.stdout.strip())
     if r.returncode != 0:
         print("[Error]", r.stderr[:300])
