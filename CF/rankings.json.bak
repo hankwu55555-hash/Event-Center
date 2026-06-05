@@ -156,38 +156,20 @@
   },
   "20260604": {
     "TW": {
-      "apple": 70,
-      "android": 16
+      "apple": 73,
+      "android": 18
     },
     "US": {
-      "apple": 52,
-      "android": 9
+      "apple": 50,
+      "android": 8
     },
     "JP": {
       "apple": 60,
-      "android": 45
+      "android": 43
     },
     "UK": {
-      "apple": 50,
-      "android": 29
-    }
-  },
-  "20260605": {
-    "TW": {
-      "apple": 70,
-      "android": 16
-    },
-    "US": {
-      "apple": 52,
-      "android": 5
-    },
-    "JP": {
-      "apple": 60,
-      "android": 37
-    },
-    "UK": {
-      "apple": 50,
-      "android": 26
+      "apple": 45,
+      "android": 32
     }
   }
 }
