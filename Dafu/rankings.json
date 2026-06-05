@@ -78,7 +78,10 @@
       "apple": 65,
       "android": 31
     },
-    "JP": {},
+    "JP": {
+      "apple": 24,
+      "android": 9
+    },
     "UK": {}
   }
 }

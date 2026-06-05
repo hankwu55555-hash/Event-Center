@@ -137,7 +137,7 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=ios&start_date={start_api}&end_date={date_api}"
-            f"&{prod['apple_param']}&granularity=daily"
+            f"&{prod['apple_param']}&edit=1&granularity=daily"
             f"&country={st_country}&category={prod['apple_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=iphone&selected_tab=0"
         )
@@ -147,7 +147,7 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=android&start_date={start_api}&end_date={date_api}"
-            f"&saa={app_id}&granularity=daily"
+            f"&saa={app_id}&edit=1&granularity=daily"
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
@@ -157,7 +157,45 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         captured = await capture_api(page, url, wait_ms=10000)
     finally:
         await page.close()
-    return extract_rank_from_graphdata(captured, app_id, st_country, date_str)
+    rank = extract_rank_from_graphdata(captured, app_id, st_country, date_str)
+    # 儲存 debug 資料（只存 Dafu 的第一次查詢）
+    if rank is None and prod["name"] == "Dafu" and date_str == BACKFILL_DATES[0] and os_type == "ios" and st_country == "TW":
+        import json as _json
+        debug_out = []
+        for c in captured:
+            body = c["body"]
+            entry = {"url": c["url"][-100:]}
+            if isinstance(body, dict):
+                entry["keys"] = list(body.keys())
+                # 找第一個非 meta key 的 value 結構
+                for k, v in body.items():
+                    if k not in ("lines", "code", "server_upload_time"):
+                        entry["sample_key"] = k
+                        entry["sample_type"] = type(v).__name__
+                        if isinstance(v, dict):
+                            entry["sample_subkeys"] = list(v.keys())[:5]
+                            # 找 graphData
+                            raw = _json.dumps(v)
+                            if "graphData" in raw:
+                                entry["has_graphData"] = True
+                                # 找到 graphData 並印最後 3 筆
+                                def find_gd(obj, depth=0):
+                                    if depth > 6: return None
+                                    if isinstance(obj, dict):
+                                        if "graphData" in obj:
+                                            return obj["graphData"]
+                                        for val in obj.values():
+                                            r = find_gd(val, depth+1)
+                                            if r is not None: return r
+                                    return None
+                                gd = find_gd(v)
+                                if gd:
+                                    entry["graphData_last3"] = gd[-3:]
+                        break
+            debug_out.append(entry)
+        _json.dump(debug_out, open(str(REPO_DIR / "dafu_debug.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        print(f"      [DEBUG] 已儲存 dafu_debug.json ({len(debug_out)} 筆回應)")
+    return rank
 
 # Chrome profile 路徑（借用登入 session）
 CHROME_PROFILE = r"C:\Users\hankwu\AppData\Local\Google\Chrome\User Data"
