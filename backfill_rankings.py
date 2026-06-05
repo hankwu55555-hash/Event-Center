@@ -1,34 +1,46 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-往回補抓歷史排名資料
+往回補抓歷史排名資料（支援 CF + 大福）
 用法：python backfill_rankings.py
 """
 
-import json, asyncio
-from datetime import date, timedelta, datetime
+import json, asyncio, os, sys, shutil
+from datetime import datetime, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 
-CF_DIR        = Path(__file__).parent
-RANKINGS_FILE = CF_DIR / "CF" / "rankings.json"
+REPO_DIR = Path(__file__).parent
+BASE_URL  = "https://app.sensortower-china.com"
 
-BASE_URL        = "https://app.sensortower-china.com"
-APP_APPLE       = "1404165333"
-APP_ANDROID_SAA = "slots.pcg.casino.games.free.android"
+COUNTRIES = {"TW": "TW", "US": "US", "JP": "JP", "UK": "GB"}
 
-COUNTRIES = {
-    "TW": "TW",
-    "US": "US",
-    "JP": "JP",
-    "UK": "GB",
-}
-
-# 要補抓的日期（YYYYMMDD）
+# 要補抓的日期
 BACKFILL_DATES = ["20260601", "20260602", "20260603", "20260604"]
 
-import os
+# 各產品設定
+PRODUCTS = [
+    {
+        "name": "Cash Frenzy",
+        "rankings_file": REPO_DIR / "CF" / "rankings.json",
+        "apple_param": "app_id=1404165333",
+        "apple_id":    "1404165333",
+        "apple_category": "game_casino&category=all",
+        "android_saa": "slots.pcg.casino.games.free.android",
+        "android_category": "game_casino&category=all",
+    },
+    {
+        "name": "Dafu",
+        "rankings_file": REPO_DIR / "Dafu" / "rankings.json",
+        "apple_param": "sia=1356980152",
+        "apple_id":    "1356980152",
+        "apple_category": "7006&category=0",
+        "android_saa": "com.grandegames.slots.dafu.casino",
+        "android_category": "game_casino&category=all",
+    },
+]
 
+# ─── JSON 工具（原子寫入 + 自動修復）─────────────────────────────────────────
 def load_json(path, default=None):
     if default is None:
         default = {}
@@ -49,8 +61,6 @@ def load_json(path, default=None):
     return default
 
 def save_json(path, data):
-    """原子寫入：先寫 .tmp，驗證後 rename，並保留 .bak 備份"""
-    import shutil
     p = Path(path)
     content = json.dumps(data, ensure_ascii=False, indent=2)
     json.loads(content)  # 驗證
@@ -61,9 +71,9 @@ def save_json(path, data):
         shutil.copy2(p, str(p) + ".bak")
     os.replace(tmp, p)
 
+# ─── API 攔截 ─────────────────────────────────────────────────────────────────
 async def capture_api(page, url, wait_ms=6000):
     captured = []
-
     async def on_resp(resp):
         ct = resp.headers.get("content-type", "")
         if "json" not in ct:
@@ -73,7 +83,6 @@ async def capture_api(page, url, wait_ms=6000):
             captured.append({"url": resp.url, "body": body})
         except Exception:
             pass
-
     page.on("response", on_resp)
     try:
         await page.goto(url, timeout=40000, wait_until="domcontentloaded")
@@ -83,42 +92,27 @@ async def capture_api(page, url, wait_ms=6000):
         pass
     finally:
         page.remove_listener("response", on_resp)
-
     return captured
 
-def extract_rank_from_graphdata(captured, app_id, st_country, target_date_str):
-    """
-    target_date_str: "20260526"
-    graphData 格式：[[unix_timestamp, rank, null], ...]
-    找到對應日期的 rank。
-    """
-    # 把 target_date_str 轉成 unix timestamp（UTC 00:00）
-    dt = datetime.strptime(target_date_str, "%Y%m%d")
+def extract_rank_from_graphdata(captured, app_id, st_country, date_str):
+    dt = datetime.strptime(date_str, "%Y%m%d")
     target_ts = int(dt.timestamp())
-    # 允許前後 12 小時誤差（時區差）
-    ts_min = target_ts - 43200
-    ts_max = target_ts + 86400 + 43200
-
     history_caps = [c for c in captured if "category_history" in c["url"]]
     for c in history_caps:
         body = c["body"]
         if not isinstance(body, dict):
             continue
-
         app_data = body.get(str(app_id))
         if app_data is None:
             for k in body:
                 if k != "lines":
                     app_data = body[k]
                     break
-
         if not isinstance(app_data, dict):
             continue
-
         country_data = app_data.get(st_country, app_data)
         if not isinstance(country_data, dict):
             continue
-
         for cat_val in country_data.values():
             if not isinstance(cat_val, dict):
                 continue
@@ -128,111 +122,83 @@ def extract_rank_from_graphdata(captured, app_id, st_country, target_date_str):
                 gd = chart_val.get("graphData")
                 if not isinstance(gd, list):
                     continue
-                # 找最接近 target_date 的資料點
-                best_rank = None
-                best_diff = float("inf")
+                best_rank, best_diff = None, float("inf")
                 for entry in gd:
                     if isinstance(entry, list) and len(entry) >= 2:
-                        ts = entry[0]
-                        rank = entry[1]
+                        ts, rank = entry[0], entry[1]
                         if isinstance(rank, (int, float)) and 1 <= int(rank) <= 5000:
                             diff = abs(ts - target_ts)
                             if diff < best_diff:
-                                best_diff = diff
-                                best_rank = int(rank)
-                # 48 小時內的資料才接受
+                                best_diff, best_rank = diff, int(rank)
                 if best_rank and best_diff <= 48 * 3600:
                     return best_rank
     return None
 
-async def fetch_rank_for_date(page, os_type, app_id_param, st_country, date_str):
-    """date_str: YYYYMMDD"""
+async def fetch_rank(page, os_type, prod, st_country, date_str):
     d = datetime.strptime(date_str, "%Y%m%d")
     date_api = d.strftime("%Y-%m-%d")
     prev_api = (d - timedelta(days=1)).strftime("%Y-%m-%d")
-
     if os_type == "ios":
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=ios&start_date={prev_api}&end_date={date_api}"
-            f"&app_id={APP_APPLE}&granularity=daily"
-            f"&country={st_country}&category=game_casino&category=all"
-            f"&chart_type=free&breakdown_attribute=appId"
-            f"&device=iphone&selected_tab=0"
+            f"&{prod['apple_param']}&granularity=daily"
+            f"&country={st_country}&category={prod['apple_category']}"
+            f"&chart_type=free&breakdown_attribute=appId&device=iphone&selected_tab=0"
         )
-        app_id = APP_APPLE
+        app_id = prod["apple_id"]
     else:
+        app_id = prod["android_saa"]
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=android&start_date={prev_api}&end_date={date_api}"
-            f"&saa={APP_ANDROID_SAA}&granularity=daily"
-            f"&country={st_country}&category=game_casino&category=all"
-            f"&chart_type=free&breakdown_attribute=appId"
-            f"&device=android&selected_tab=0"
+            f"&saa={app_id}&granularity=daily"
+            f"&country={st_country}&category={prod['android_category']}"
+            f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
-        app_id = APP_ANDROID_SAA
-
     captured = await capture_api(page, url, wait_ms=6000)
-    rank = extract_rank_from_graphdata(captured, app_id, st_country, date_str)
-    return rank
+    return extract_rank_from_graphdata(captured, app_id, st_country, date_str)
 
 async def main():
-    rankings = load_json(RANKINGS_FILE, {})
-
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(
-            headless=True,
-            args=["--no-sandbox", "--disable-dev-shm-usage"],
-        )
+        browser = await pw.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
         context = await browser.new_context(
             viewport={"width": 1280, "height": 900},
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            ),
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
             locale="zh-TW",
         )
         page = await context.new_page()
 
-        for date_str in BACKFILL_DATES:
-            print(f"\n{'='*40}")
-            print(f"補抓日期：{date_str}")
-            print('='*40)
+        for prod in PRODUCTS:
+            print(f"\n{'='*50}")
+            print(f"補抓產品：{prod['name']}")
+            print('='*50)
+            rankings = load_json(prod["rankings_file"], {})
 
-            if date_str not in rankings:
-                rankings[date_str] = {}
+            for date_str in BACKFILL_DATES:
+                print(f"\n  日期：{date_str}")
+                if date_str not in rankings:
+                    rankings[date_str] = {}
+                for local_key, st_country in COUNTRIES.items():
+                    entry = rankings[date_str].setdefault(local_key, {})
+                    apple   = await fetch_rank(page, "ios",     prod, st_country, date_str)
+                    android = await fetch_rank(page, "android", prod, st_country, date_str)
+                    print(f"    [{local_key}] Apple: {'#'+str(apple) if apple else '--'}  Android: {'#'+str(android) if android else '--'}")
+                    if apple   is not None: entry["apple"]   = apple
+                    if android is not None: entry["android"] = android
 
-            for local_key, st_country in COUNTRIES.items():
-                entry = rankings[date_str].setdefault(local_key, {})
-
-                print(f"\n  [{local_key}] Apple...")
-                apple = await fetch_rank_for_date(page, "ios", APP_APPLE, st_country, date_str)
-                print(f"    → {'#'+str(apple) if apple else '未找到'}")
-
-                print(f"  [{local_key}] Android...")
-                android = await fetch_rank_for_date(page, "android", APP_ANDROID_SAA, st_country, date_str)
-                print(f"    → {'#'+str(android) if android else '未找到'}")
-
-                if apple   is not None: entry["apple"]   = apple
-                if android is not None: entry["android"] = android
+            save_json(prod["rankings_file"], rankings)
+            print(f"\n✅ {prod['name']} 補抓完成")
 
         await browser.close()
 
-    save_json(RANKINGS_FILE, rankings)
-    print(f"\n✅ rankings.json 補抓完成")
-    print(json.dumps({d: rankings[d] for d in BACKFILL_DATES if d in rankings},
-                     ensure_ascii=False, indent=2))
-
     # 重新產生 gallery + push
-    import subprocess, sys
-    r = subprocess.run(
-        [sys.executable, str(CF_DIR / "generate_gallery.py")],
-        capture_output=True, text=True, cwd=str(CF_DIR)
-    )
+    import subprocess
+    r = subprocess.run([sys.executable, str(REPO_DIR / "generate_gallery.py")],
+                      capture_output=True, text=True, cwd=str(REPO_DIR))
     print(r.stdout.strip())
     if r.returncode != 0:
-        print("[錯誤]", r.stderr[:300])
+        print("[Error]", r.stderr[:300])
 
 if __name__ == "__main__":
     asyncio.run(main())
