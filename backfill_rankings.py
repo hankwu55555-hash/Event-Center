@@ -225,8 +225,8 @@ async def main():
                     a_str = f"#{apple}"   if apple   else "--"
                     g_str = f"#{android}" if android else "--"
                     print(f"    [{local_key}] Apple: {a_str:<6}  Android: {g_str}")
-                    if apple   is not None: entry["apple"]   = apple
-                    if android is not None: entry["android"] = android
+                    if apple   is not None and "apple"   not in entry: entry["apple"]   = apple
+                    if android is not None and "android" not in entry: entry["android"] = android
 
             save_json(prod["rankings_file"], rankings)
             print(f"\n✅ {prod['name']} 補抓完成\n")

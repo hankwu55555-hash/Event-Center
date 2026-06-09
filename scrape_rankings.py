@@ -361,23 +361,35 @@ async def main():
 
             # ── 今天 ──────────────────────────────────────────────────────────
             print(f"\n📅 今天 {today_key}")
-            if today_key not in rankings:
-                rankings[today_key] = {}
+            rankings.setdefault(today_key, {})
             for local_key, st_country in COUNTRIES.items():
                 entry = rankings[today_key].setdefault(local_key, {})
-                apple   = await get_apple_rank(page, st_country, debug, today, prod)
-                android = await get_android_rank(page, st_country, debug, today, prod)
-                if apple   is not None: entry["apple"]   = apple
-                if android is not None: entry["android"] = android
+                if "apple" not in entry:
+                    apple = await get_apple_rank(page, st_country, debug, today, prod)
+                    if apple is not None: entry["apple"] = apple
+                else:
+                    print(f"  [Apple/{local_key}] 已有資料 #{entry['apple']}，跳過")
+                if "android" not in entry:
+                    android = await get_android_rank(page, st_country, debug, today, prod)
+                    if android is not None: entry["android"] = android
+                else:
+                    print(f"  [Android/{local_key}] 已有資料 #{entry['android']}，跳過")
 
-            if yesterday_key not in rankings:
-                rankings[yesterday_key] = {}
+            # ── 昨天 ──────────────────────────────────────────────────────────
+            print(f"\n📅 昨天 {yesterday_key}")
+            rankings.setdefault(yesterday_key, {})
             for local_key, st_country in COUNTRIES.items():
                 entry = rankings[yesterday_key].setdefault(local_key, {})
-                apple   = await get_apple_rank(page, st_country, debug, yesterday, prod)
-                android = await get_android_rank(page, st_country, debug, yesterday, prod)
-                if apple   is not None: entry["apple"]   = apple
-                if android is not None: entry["android"] = android
+                if "apple" not in entry:
+                    apple = await get_apple_rank(page, st_country, debug, yesterday, prod)
+                    if apple is not None: entry["apple"] = apple
+                else:
+                    print(f"  [Apple/{local_key}] 已有資料 #{entry['apple']}，跳過")
+                if "android" not in entry:
+                    android = await get_android_rank(page, st_country, debug, yesterday, prod)
+                    if android is not None: entry["android"] = android
+                else:
+                    print(f"  [Android/{local_key}] 已有資料 #{entry['android']}，跳過")
 
             save_json(prod["rankings_file"], rankings)
             print(f"\n {prod['name']} rankings.json updated")
