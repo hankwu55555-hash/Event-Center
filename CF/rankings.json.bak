@@ -232,5 +232,41 @@
       "apple": 43,
       "android": 24
     }
+  },
+  "20260610": {
+    "TW": {
+      "apple": 62,
+      "android": 22
+    },
+    "US": {
+      "apple": 52,
+      "android": 19
+    },
+    "JP": {
+      "apple": 56,
+      "android": 53
+    },
+    "UK": {
+      "apple": 53,
+      "android": 35
+    }
+  },
+  "20260611": {
+    "TW": {
+      "apple": 68,
+      "android": 18
+    },
+    "US": {
+      "apple": 55,
+      "android": 7
+    },
+    "JP": {
+      "apple": 58,
+      "android": 42
+    },
+    "UK": {
+      "apple": 51,
+      "android": 28
+    }
   }
 }
