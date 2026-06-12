@@ -138,9 +138,13 @@
   },
   "20260611": {
     "TW": {},
-    "US": {},
+    "US": {
+      "apple": 63,
+      "android": 29
+    },
     "JP": {
-      "android": 5
+      "android": 5,
+      "apple": 32
     },
     "UK": {
       "apple": 70,
