@@ -12,6 +12,7 @@ Sensor Tower 排名自動爬蟲（無需登入）
 """
 
 import os
+import re
 import sys
 import json
 import shutil
@@ -93,6 +94,27 @@ def category_id(category_param):
 
 
 # ─── JSON 工具（原子寫入 + 自動修復）─────────────────────────────────────────
+def _repair_json(raw):
+    """
+    容忍常見損壞後盡力解析：
+      - 結尾被截斷（缺收尾括號）
+      - 物件/陣列結尾前的多餘逗號，或檔尾懸空的逗號
+    成功回傳物件，全部失敗回 None。
+    """
+    if not raw:
+        return None
+    no_trailing = re.sub(r",(\s*[}\]])", r"\1", raw)        # 去掉 } 或 ] 前的逗號
+    end_stripped = re.sub(r",\s*$", "", no_trailing)         # 去掉檔尾懸空逗號
+    suffixes = ["", "}", "}}", "]}", "\n}", "\n}}"]
+    for base in (raw, no_trailing, end_stripped):
+        for suffix in suffixes:
+            try:
+                return json.loads(base + suffix)
+            except json.JSONDecodeError:
+                continue
+    return None
+
+
 def load_json(path, default=None):
     if default is None:
         default = {}
@@ -103,14 +125,13 @@ def load_json(path, default=None):
         try:
             raw = src.read_bytes().decode("utf-8", errors="ignore")
             raw = raw.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n").strip()
-            # 嘗試補上缺失的結尾括號
-            for suffix in ["", "}", "}}", "\n}", "\n}}"]:
-                try:
-                    return json.loads(raw + suffix)
-                except json.JSONDecodeError:
-                    continue
         except OSError as e:
             log.warning("讀取 %s 失敗：%s", src, e)
+            continue
+        parsed = _repair_json(raw)
+        if parsed is not None:
+            return parsed
+        log.warning("無法解析 %s（已嘗試修復），改用下一個來源", src)
     return default
 
 
@@ -131,60 +152,43 @@ def save_json(path, data):
 # ─── 前往頁面並攔截所有 JSON API 回應 ────────────────────────────────────────
 async def capture_api(page, url):
     """
-    前往 url 並攔截所有 JSON 回應。
+    前往 url 並攔截所有 JSON 回應（inline 讀 body + networkidle，實測可正常運作）。
     回傳 (captured, had_error)：
       - captured: [{"url", "body"}, ...]
-      - had_error: True 代表疑似網路/逾時失敗（值得重試）
+      - had_error: True 代表 goto / networkidle 逾時，疑似網路失敗（值得重試）
     """
     captured = []
-    pending = set()
 
-    def on_resp(resp):
-        if "json" not in resp.headers.get("content-type", ""):
+    async def on_resp(resp):
+        ct = resp.headers.get("content-type", "")
+        if "json" not in ct:
             return
-        # 用 task 包住 async 解析，並追蹤未完成的解析工作
-        task = asyncio.ensure_future(_read_body(resp, captured))
-        pending.add(task)
-        task.add_done_callback(pending.discard)
+        try:
+            body = await resp.json()
+            captured.append({"url": resp.url, "body": body})
+        except Exception:
+            pass
 
     page.on("response", on_resp)
     had_error = False
     try:
         await page.goto(url, timeout=GOTO_TIMEOUT, wait_until="domcontentloaded")
-        # 等待目標 API 出現，而非依賴已被官方不建議的 networkidle
         try:
-            await page.wait_for_response(
-                lambda r: "category_history" in r.url and r.status == 200,
-                timeout=API_WAIT_TIMEOUT,
-            )
+            await page.wait_for_load_state("networkidle", timeout=API_WAIT_TIMEOUT)
         except PlaywrightTimeout:
             had_error = True
-            log.warning("    等待 category_history 逾時")
+            log.warning("    networkidle 逾時")
         await page.wait_for_timeout(SETTLE_MS)
     except PlaywrightTimeout:
         had_error = True
         log.warning("    頁面載入逾時：%s", url[-80:])
-    except Exception as e:  # noqa: BLE001 - 記錄後續判斷
-        had_error = True
-        log.warning("    擷取 API 發生例外：%s", e)
     finally:
         page.remove_listener("response", on_resp)
-        # 等所有 in-flight 的解析完成，避免漏抓晚到的回應
-        if pending:
-            await asyncio.gather(*pending, return_exceptions=True)
 
     for c in captured:
         log.info("    [API] %s", c["url"][-80:])
 
     return captured, had_error
-
-
-async def _read_body(resp, captured):
-    try:
-        body = await resp.json()
-        captured.append({"url": resp.url, "body": body})
-    except Exception:  # noqa: BLE001 - 非 JSON / 已關閉，安全略過
-        pass
 
 
 # ─── 解析 category_history 回應 ──────────────────────────────────────────────

@@ -5,7 +5,7 @@
 用法：python backfill_rankings.py
 """
 
-import json, asyncio, os, sys, shutil
+import json, asyncio, os, re, sys, shutil
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
@@ -14,6 +14,8 @@ REPO_DIR = Path(__file__).parent
 BASE_URL  = "https://app.sensortower-china.com"
 
 COUNTRIES = {"TW": "TW", "US": "US", "JP": "JP", "UK": "GB"}
+
+MAX_RETRIES = 3  # 疑似網路失敗時的重試次數（解決間歇性 -- 的主因）
 
 # 要補抓的日期（可用命令列覆寫，例如：python backfill_rankings.py 20260613 20260614 20260615）
 BACKFILL_DATES = ["20260613", "20260614", "20260615"]
@@ -43,6 +45,21 @@ PRODUCTS = [
 ]
 
 # ─── JSON 工具（原子寫入 + 自動修復）─────────────────────────────────────────
+def _repair_json(raw):
+    """容忍截斷/多餘逗號等常見損壞，盡力解析。失敗回 None。"""
+    if not raw:
+        return None
+    no_trailing = re.sub(r",(\s*[}\]])", r"\1", raw)
+    end_stripped = re.sub(r",\s*$", "", no_trailing)
+    suffixes = ["", "}", "}}", "]}", "\n}", "\n}}"]
+    for base in (raw, no_trailing, end_stripped):
+        for suffix in suffixes:
+            try:
+                return json.loads(base + suffix)
+            except json.JSONDecodeError:
+                continue
+    return None
+
 def load_json(path, default=None):
     if default is None:
         default = {}
@@ -53,13 +70,12 @@ def load_json(path, default=None):
         try:
             raw = src.read_bytes().decode("utf-8", errors="ignore")
             raw = raw.replace("\x00", "").replace("\r\n", "\n").replace("\r", "\n").strip()
-            for suffix in ["", "}", "}}", "\n}", "\n}}"]:
-                try:
-                    return json.loads(raw + suffix)
-                except Exception:
-                    pass
-        except Exception:
-            pass
+        except OSError:
+            continue
+        parsed = _repair_json(raw)
+        if parsed is not None:
+            return parsed
+        print(f"  ⚠️ 無法解析 {src}（已嘗試修復），改用下一個來源")
     return default
 
 def save_json(path, data):
@@ -75,7 +91,13 @@ def save_json(path, data):
 
 # ─── API 攔截 ─────────────────────────────────────────────────────────────────
 async def capture_api(page, url, wait_ms=10000):
+    """
+    沿用原本可正常運作的攔截邏輯（inline 讀 body + networkidle），
+    僅多回傳 had_error 供上層判斷是否重試。
+    had_error=True 代表 goto / networkidle 逾時，疑似網路失敗，值得重試。
+    """
     captured = []
+
     async def on_resp(resp):
         ct = resp.headers.get("content-type", "")
         if "json" not in ct:
@@ -85,16 +107,21 @@ async def capture_api(page, url, wait_ms=10000):
             captured.append({"url": resp.url, "body": body})
         except Exception:
             pass
+
     page.on("response", on_resp)
+    had_error = False
     try:
         await page.goto(url, timeout=40000, wait_until="domcontentloaded")
-        await page.wait_for_load_state("networkidle", timeout=25000)
+        try:
+            await page.wait_for_load_state("networkidle", timeout=25000)
+        except PlaywrightTimeout:
+            had_error = True
         await page.wait_for_timeout(wait_ms)
     except PlaywrightTimeout:
-        pass
+        had_error = True
     finally:
         page.remove_listener("response", on_resp)
-    return captured
+    return captured, had_error
 
 # ─── 排名解析（精確比對 category + 目標日期）────────────────────────────────
 SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
@@ -197,12 +224,25 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
-    page = await context.new_page()
-    try:
-        captured = await capture_api(page, url)
-    finally:
-        await page.close()
-    return extract_rank(captured, app_id, st_country, want_category, target_date)
+    for attempt in range(1, MAX_RETRIES + 1):
+        page = await context.new_page()
+        try:
+            captured, had_error = await capture_api(page, url)
+        finally:
+            await page.close()
+
+        rank = extract_rank(captured, app_id, st_country, want_category, target_date)
+        if rank is not None:
+            return rank
+
+        st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
+        # 有抓到 ST 回應但解析不到 → 視為「未進榜」，不重試
+        if st_caps and not had_error:
+            return None
+        # 疑似網路失敗 → 重試
+        if attempt < MAX_RETRIES:
+            await asyncio.sleep(2)
+    return None
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
 async def main():
