@@ -6,7 +6,7 @@
 """
 
 import json, asyncio, os, sys, shutil
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 
@@ -15,8 +15,10 @@ BASE_URL  = "https://app.sensortower-china.com"
 
 COUNTRIES = {"TW": "TW", "US": "US", "JP": "JP", "UK": "GB"}
 
-# 要補抓的日期
-BACKFILL_DATES = ["20260611", "20260612"]
+# 要補抓的日期（可用命令列覆寫，例如：python backfill_rankings.py 20260613 20260614 20260615）
+BACKFILL_DATES = ["20260613", "20260614", "20260615"]
+if len(sys.argv) > 1:
+    BACKFILL_DATES = sys.argv[1:]
 
 # 各產品設定
 PRODUCTS = [
@@ -94,73 +96,90 @@ async def capture_api(page, url, wait_ms=10000):
         page.remove_listener("response", on_resp)
     return captured
 
-# ─── 排名解析（遞迴掃描 graphData）──────────────────────────────────────────
-def _find_rank_in_graphdata(gd):
+# ─── 排名解析（精確比對 category + 目標日期）────────────────────────────────
+SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
+             "server_upload_time", "payload_size_bytes", "events_ingested", "lines"}
+
+def _category_id(category_param):
+    """從 "game_casino&category=all" 取出榜單分類 id "game_casino"。"""
+    return category_param.split("&", 1)[0]
+
+def _ts_to_date(ts):
+    if ts > 1e12:  # 毫秒
+        ts = ts / 1000.0
+    return datetime.fromtimestamp(ts, tz=timezone.utc).date()
+
+def _pick_rank_for_date(gd, target_date):
+    """
+    從 graphData [[ts, rank, null], ...] 取出對應 target_date 的排名。
+    找不到符合日期則回 None（±1 天時區誤差才退而求其次），
+    避免目標日沒進榜時誤拿鄰近日期。
+    """
     if not isinstance(gd, list):
         return None
-    for entry in reversed(gd):
-        if isinstance(entry, list) and len(entry) >= 2:
-            v = entry[1]
-            if isinstance(v, (int, float)) and 1 <= int(v) <= 5000:
-                return int(v)
-    return None
+    fallback = None
+    for entry in gd:
+        if not (isinstance(entry, list) and len(entry) >= 2):
+            continue
+        ts, v = entry[0], entry[1]
+        if not isinstance(v, (int, float)):
+            continue
+        v = int(v)
+        if not (1 <= v <= 5000):
+            continue
+        try:
+            d = _ts_to_date(ts)
+        except (OverflowError, OSError, ValueError):
+            continue
+        if d == target_date:
+            return v
+        if abs((d - target_date).days) <= 1:
+            fallback = v
+    return fallback
 
-def _search_graphdata(obj, depth=0):
-    if depth > 8:
-        return None
-    if isinstance(obj, dict):
-        if "graphData" in obj:
-            r = _find_rank_in_graphdata(obj["graphData"])
-            if r:
-                return r
-        for v in obj.values():
-            r = _search_graphdata(v, depth + 1)
-            if r:
-                return r
-    if isinstance(obj, list):
-        for item in obj[:50]:
-            r = _search_graphdata(item, depth + 1)
-            if r:
-                return r
-    return None
-
-def extract_rank(captured, app_id):
-    SKIP_KEYS = {"apps", "categories", "chart_types", "countries", "code",
-                 "server_upload_time", "payload_size_bytes", "events_ingested"}
+def extract_rank(captured, app_id, st_country, want_category, target_date):
     for c in captured:
         body = c["body"]
         if not isinstance(body, dict):
             continue
-        # 優先從 app_id key 找
+
         app_data = body.get(str(app_id))
         if app_data is None:
             for k in body:
-                if k not in SKIP_KEYS and k != "lines":
+                if k not in SKIP_KEYS:
                     app_data = body[k]
                     break
-        if isinstance(app_data, dict):
-            r = _search_graphdata(app_data)
-            if r:
-                return r
-        # 嘗試 lines
-        lines = body.get("lines")
-        if isinstance(lines, list):
-            r = _search_graphdata(lines)
-            if r:
-                return r
-        # 全掃描保底
-        r = _search_graphdata(body)
-        if r:
-            return r
+        if not isinstance(app_data, dict):
+            continue
+
+        country_data = app_data.get(st_country)
+        if not isinstance(country_data, dict):
+            country_data = app_data
+
+        # 優先精確比對 category id；找不到才退而遍歷全部
+        if want_category in country_data and isinstance(country_data[want_category], dict):
+            cat_items = [country_data[want_category]]
+        else:
+            cat_items = [v for v in country_data.values() if isinstance(v, dict)]
+
+        for cat_val in cat_items:
+            for chart_val in cat_val.values():
+                if not isinstance(chart_val, dict):
+                    continue
+                r = _pick_rank_for_date(chart_val.get("graphData"), target_date)
+                if r is not None:
+                    return r
     return None
 
 # ─── 查詢單一排名 ─────────────────────────────────────────────────────────────
 async def fetch_rank(context, os_type, prod, st_country, date_str):
     d = datetime.strptime(date_str, "%Y%m%d")
+    target_date = d.date()
     date_api  = d.strftime("%Y-%m-%d")
     start_api = (d - timedelta(days=30)).strftime("%Y-%m-%d")
     if os_type == "ios":
         app_id = prod["apple_id"]
+        want_category = _category_id(prod["apple_category"])
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=ios&start_date={start_api}&end_date={date_api}"
@@ -170,6 +189,7 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         )
     else:
         app_id = prod["android_saa"]
+        want_category = _category_id(prod["android_category"])
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
             f"?os=android&start_date={start_api}&end_date={date_api}"
@@ -182,7 +202,7 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         captured = await capture_api(page, url)
     finally:
         await page.close()
-    return extract_rank(captured, app_id)
+    return extract_rank(captured, app_id, st_country, want_category, target_date)
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
 async def main():
