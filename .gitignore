@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.bak
+*.tmp
+st_debug.json
+dafu_debug.json
+fix.py
+tab_names_cache.json
+ui.xml
