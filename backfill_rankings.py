@@ -18,7 +18,7 @@ COUNTRIES = {"TW": "TW", "US": "US", "JP": "JP", "UK": "GB"}
 MAX_RETRIES = 3  # 疑似網路失敗時的重試次數（解決間歇性 -- 的主因）
 
 # 要補抓的日期（可用命令列覆寫，例如：python backfill_rankings.py 20260613 20260614 20260615）
-BACKFILL_DATES = ["20260613", "20260614", "20260615"]
+BACKFILL_DATES = ["20260618", "20260619", "20260620", "20260621"]
 if len(sys.argv) > 1:
     BACKFILL_DATES = sys.argv[1:]
 
