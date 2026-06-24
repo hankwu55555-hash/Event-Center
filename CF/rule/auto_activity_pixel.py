@@ -6,13 +6,19 @@
 """
 
 import os
+import glob
 import time
+import warnings
 from datetime import datetime
+
+# EasyOCR 在 CPU 上會一直印 pin_memory 的 UserWarning，純洗版、無害，過濾掉
+warnings.filterwarnings("ignore", message=".*pin_memory.*")
 from adb_shell.adb_device import AdbDeviceTcp
 from PIL import Image
 import hashlib
 import cv2
 import numpy as np
+import easyocr
 
 print("=" * 70)
 print("🎮 煤有錢Online 活動中心自動化 - 像素比較版")
@@ -128,18 +134,36 @@ try:
     print("   ⏳ 等待應用加載...")
     time.sleep(40)
 
-    print("🔍 【步驟 4】偵測並關閉 X 彈窗...")
-    # 載入含透明度的模板（UNCHANGED 保留 Alpha 通道）
-    template_raw = cv2.imread(X_BUTTON_REF, cv2.IMREAD_UNCHANGED)
-    if template_raw.shape[2] == 4:
-        template_gray = cv2.cvtColor(template_raw[:, :, :3], cv2.COLOR_BGR2GRAY)
-        template_mask = template_raw[:, :, 3]   # Alpha 通道作為遮罩
-        print("   ✅ 使用 Alpha 遮罩精準比對 X 形狀")
-    else:
-        template_gray = cv2.cvtColor(template_raw, cv2.COLOR_BGR2GRAY)
-        template_mask = None
-        print("   ⚠️  無 Alpha 通道，使用一般比對")
-    th, tw = template_gray.shape[:2]
+    print("🔍 【步驟 4】偵測並關閉彈窗（X 按鈕 + 自動領取登入獎勵）...")
+    # 載入 basic/ 底下所有 x_button*.png 作為 X 參考圖（支援不同顏色的 X，例如深紫/白色）
+    BASIC_DIR = os.path.dirname(X_BUTTON_REF)
+    x_template_paths = sorted(glob.glob(os.path.join(BASIC_DIR, "x_button*.png")))
+
+    x_templates = []   # 每個元素：{"name", "gray", "mask", "th", "tw"}
+    for tpath in x_template_paths:
+        raw = cv2.imread(tpath, cv2.IMREAD_UNCHANGED)
+        if raw is None:
+            print(f"   ⚠️  讀取失敗，略過：{os.path.basename(tpath)}")
+            continue
+        if raw.ndim == 3 and raw.shape[2] == 4:
+            t_gray = cv2.cvtColor(raw[:, :, :3], cv2.COLOR_BGR2GRAY)
+            t_mask = raw[:, :, 3]               # Alpha 通道作為遮罩
+            note = "Alpha遮罩"
+        elif raw.ndim == 3:
+            t_gray = cv2.cvtColor(raw, cv2.COLOR_BGR2GRAY)
+            t_mask = None
+            note = "一般比對"
+        else:
+            t_gray = raw
+            t_mask = None
+            note = "灰階"
+        h, w = t_gray.shape[:2]
+        x_templates.append({"name": os.path.basename(tpath), "gray": t_gray,
+                            "mask": t_mask, "th": h, "tw": w})
+        print(f"   ✅ 載入 X 參考圖：{os.path.basename(tpath)}（{note}）")
+
+    if not x_templates:
+        print(f"   ⚠️  basic/ 底下找不到任何 x_button*.png，X 偵測將失效")
 
     def take_screenshot(tag):
         sdcard = f"/sdcard/temp_{tag}.png"
@@ -150,25 +174,48 @@ try:
         time.sleep(0.3)
         return local
 
-    # X 按鈕搜尋範圍（固定座標）
+    # X 按鈕搜尋範圍（固定座標）；下緣擴到 260 以完整涵蓋較大的白 X
     ROI_X1, ROI_Y1 = 2531, 33
-    ROI_X2, ROI_Y2 = 2944, 230
+    ROI_X2, ROI_Y2 = 2944, 260
+
+    # X 信心門檻：CCOEFF 分數 >= 此值才認定「畫面上真的有 X」
+    # 實測：有X約 1.0、無X約 0.31，故取 0.5
+    X_CONF_THRESHOLD = 0.5
 
     def find_x_button(local_path):
+        """逐一比對所有 X 參考圖，取最像的那張
+        回傳 (信心分數0~1, 點擊x, 點擊y, 命中圖名)"""
         screenshot = cv2.imread(local_path)
         gray = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
         roi = gray[ROI_Y1:ROI_Y2, ROI_X1:ROI_X2]
-        if template_mask is not None:
-            result = cv2.matchTemplate(roi, template_gray, cv2.TM_CCORR_NORMED, mask=template_mask)
-        else:
-            result = cv2.matchTemplate(roi, template_gray, cv2.TM_CCORR_NORMED)
-        _, max_val, _, max_loc = cv2.minMaxLoc(result)
-        click_x = ROI_X1 + max_loc[0] + tw // 2
-        click_y = ROI_Y1 + max_loc[1] + th // 2
-        return max_val * 100, click_x, click_y
 
-    def screen_changed(path_before, path_after, threshold=5.0):
-        """只比對 X 按鈕範圍內的區域，避免動畫干擾"""
+        best_val = -1.0
+        best_x, best_y = ROI_X1, ROI_Y1
+        best_name = None
+        for tpl in x_templates:
+            # 模板不能比搜尋範圍大，否則 matchTemplate 會報錯
+            if tpl["th"] > roi.shape[0] or tpl["tw"] > roi.shape[1]:
+                continue
+            try:
+                if tpl["mask"] is not None:
+                    result = cv2.matchTemplate(roi, tpl["gray"], cv2.TM_CCOEFF_NORMED, mask=tpl["mask"])
+                else:
+                    result = cv2.matchTemplate(roi, tpl["gray"], cv2.TM_CCOEFF_NORMED)
+            except cv2.error:
+                continue
+            # 遮罩比對偶爾會產生 nan/inf，先清理再取最大值
+            result = np.nan_to_num(result, nan=-1.0, posinf=-1.0, neginf=-1.0)
+            _, max_val, _, max_loc = cv2.minMaxLoc(result)
+            if max_val > best_val:
+                best_val = max_val
+                best_x = ROI_X1 + max_loc[0] + tpl["tw"] // 2
+                best_y = ROI_Y1 + max_loc[1] + tpl["th"] // 2
+                best_name = tpl["name"]
+        return best_val, best_x, best_y, best_name
+
+    def screen_changed(path_before, path_after, threshold=25.0):
+        """只比對 X 按鈕範圍內的區域，門檻拉高以排除背景動畫
+        （實測：真關閉彈窗約 97%，純背景動畫約 6~9%，故門檻取 25%）"""
         img1 = cv2.imread(path_before, cv2.IMREAD_GRAYSCALE)
         img2 = cv2.imread(path_after, cv2.IMREAD_GRAYSCALE)
         if img1 is None or img2 is None or img1.shape != img2.shape:
@@ -181,54 +228,102 @@ try:
         print(f"      （X區域變化率：{change_ratio:.2f}%）")
         return change_ratio > threshold
 
-    MAX_ATTEMPTS = 15
-    no_change_count = 0
+    def screen_changed_full(path_before, path_after, threshold=20.0):
+        """比對整張畫面的變化率，用於判斷「領取」按鈕點下去後是否真的關掉了彈窗
+        （彈窗消失會造成大面積變化；若只是主畫面常駐的「領取」字，點了畫面幾乎不變）"""
+        img1 = cv2.imread(path_before, cv2.IMREAD_GRAYSCALE)
+        img2 = cv2.imread(path_after, cv2.IMREAD_GRAYSCALE)
+        if img1 is None or img2 is None or img1.shape != img2.shape:
+            return True
+        diff = cv2.absdiff(img1, img2)
+        changed_pixels = np.count_nonzero(diff > 15)
+        change_ratio = changed_pixels / diff.size * 100
+        print(f"      （全畫面變化率：{change_ratio:.2f}%）")
+        return change_ratio > threshold
 
-    prev_path = take_screenshot("x_before")
+    # ---- OCR：自動辨識「登入獎勵」這類強制領取畫面的按鈕 ----
+    # 按鈕上常見的字樣，越偏「領取/收下」越優先；確認/確定等放後面當備援
+    CLAIM_KEYWORDS = [
+        "領取", "收下", "立即領取", "一鍵領取", "全部領取", "免費領取",
+        "確認", "確定", "好的", "知道了", "我知道了",
+    ]
+    OCR_MIN_CONF = 0.4   # OCR 信心門檻，低於此值不採用
+
+    print("   🔤 正在初始化 OCR 文字辨識引擎（首次執行會下載模型，請稍候）...")
+    ocr_reader = easyocr.Reader(["ch_tra", "en"], gpu=False, verbose=False)
+    print("   ✅ OCR 引擎就緒")
+
+    def find_claim_button(image_path):
+        """用 OCR 找畫面上的領取/確認按鈕，回傳 (中心x, 中心y, 文字) 或 None"""
+        try:
+            results = ocr_reader.readtext(image_path)
+        except Exception as e:
+            print(f"      ⚠️  OCR 辨識失敗：{e}")
+            return None
+        # 依關鍵字優先順序尋找，確保「領取」優先於「確認」
+        for keyword in CLAIM_KEYWORDS:
+            for bbox, text, conf in results:
+                if conf < OCR_MIN_CONF:
+                    continue
+                if keyword in text.replace(" ", ""):
+                    xs = [p[0] for p in bbox]
+                    ys = [p[1] for p in bbox]
+                    cx = int(sum(xs) / len(xs))
+                    cy = int(sum(ys) / len(ys))
+                    return cx, cy, text.strip()
+        return None
+
+    # ---- 統一清彈窗迴圈 ----
+    # 策略：有 X 先按 X（直接關掉、跳過廣告獎勵）；沒 X 才按「領取」（真正強制領取）。
+    # 終止：連續 2 次「既無 X 也無領取」就判定彈窗已清空。
+    MAX_ATTEMPTS = 20
+    clean_count = 0   # 連續判定「畫面乾淨、無彈窗」的次數
+
+    prev_path = take_screenshot("clear_0")
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        similarity, click_x, click_y = find_x_button(prev_path)
-        print(f"   [{attempt}] X按鈕相似度：{similarity:.2f}%，最佳位置：({click_x}, {click_y})")
+        x_score, click_x, click_y, x_name = find_x_button(prev_path)
 
-        # 點擊最佳位置
-        device.shell(f"input tap {click_x} {click_y}")
-        time.sleep(0.8)
-
-        # 截圖比較 ROI 區域是否有變化
-        curr_path = take_screenshot(f"x_after_{attempt}")
-        changed = screen_changed(prev_path, curr_path)
-
-        if changed:
-            print(f"   ✅ 畫面有變化，X彈窗已關閉，繼續偵測...")
-            no_change_count = 0
+        if x_score >= X_CONF_THRESHOLD:
+            # 有 X → 直接按 X 關閉（優先，避免點到會跳廣告的「領取」）
+            print(f"   [{attempt}] ✖️ 偵測到 X（信心 {x_score:.2f}，{x_name}），按 X 關閉 ({click_x}, {click_y})")
+            device.shell(f"input tap {click_x} {click_y}")
+            time.sleep(0.8)
+            clean_count = 0
+            prev_path_old = prev_path
+            prev_path = take_screenshot(f"clear_{attempt}")
         else:
-            no_change_count += 1
-            print(f"   ⚠️  畫面無變化（連續 {no_change_count} 次）")
-            if no_change_count >= 3:
-                print(f"   ✅ 連續 3 次無變化，判斷X彈窗已全部關閉")
-                try:
-                    os.remove(curr_path)
-                except:
-                    pass
-                break
+            # 沒有可信的 X → 找「領取」這類強制領取按鈕
+            claim = find_claim_button(prev_path)
+            if claim is not None:
+                cx, cy, text = claim
+                print(f"   [{attempt}] 🎁 無 X，偵測到領取按鈕「{text}」，點擊領取 ({cx}, {cy})")
+                device.shell(f"input tap {cx} {cy}")
+                time.sleep(1.0)
+                clean_count = 0
+                prev_path_old = prev_path
+                prev_path = take_screenshot(f"clear_{attempt}")
+            else:
+                # 既無 X 也無領取 → 畫面乾淨
+                clean_count += 1
+                print(f"   [{attempt}] ✅ 無 X、無領取（X信心 {x_score:.2f}）→ 畫面乾淨（連續 {clean_count} 次）")
+                if clean_count >= 2:
+                    print(f"   ✅ 連續 2 次無彈窗，判斷所有彈窗已清除")
+                    break
+                prev_path_old = prev_path
+                prev_path = take_screenshot(f"clear_{attempt}")
 
         try:
-            os.remove(prev_path)
-        except:
+            os.remove(prev_path_old)
+        except Exception:
             pass
-        prev_path = curr_path
     else:
         print(f"   ⚠️  已達最大嘗試次數 {MAX_ATTEMPTS} 次，繼續下一步")
-
-    try:
-        os.remove(prev_path)
-    except:
-        pass
 
     # 清除最後暫存
     try:
         os.remove(prev_path)
-    except:
+    except Exception:
         pass
 
     print("📌 正在進入活動中心...")
@@ -398,5 +493,5 @@ except Exception as e:
     import traceback
     traceback.print_exc()
 
-print("\n💡 提示：如果出現 PIL 錯誤，請先執行：")
-print("   pip install Pillow")
+print("\n💡 提示：若缺少套件，請先執行：")
+print("   pip install Pillow opencv-python numpy easyocr")

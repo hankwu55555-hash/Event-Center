@@ -47,6 +47,7 @@ GOTO_TIMEOUT = 40000
 API_WAIT_TIMEOUT = 25000   # 等待目標 API 回應出現的上限
 SETTLE_MS = 4000           # API 出現後再多等一下，讓相關回應都到齊
 MAX_RETRIES = 2            # 疑似網路失敗時的重試次數
+TARGET_API = "category_history"   # 目標 API 在 URL 中的識別字串
 
 # Cash Frenzy
 CF_APP_APPLE = "1404165333"
@@ -152,10 +153,10 @@ def save_json(path, data):
 # ─── 前往頁面並攔截所有 JSON API 回應 ────────────────────────────────────────
 async def capture_api(page, url):
     """
-    前往 url 並攔截所有 JSON 回應（inline 讀 body + networkidle，實測可正常運作）。
+    前往 url 並攔截所有 JSON 回應，明確等待目標 API（category_history）出現。
     回傳 (captured, had_error)：
       - captured: [{"url", "body"}, ...]
-      - had_error: True 代表 goto / networkidle 逾時，疑似網路失敗（值得重試）
+      - had_error: True 代表逾時/載入失敗，疑似網路失敗（值得重試）
     """
     captured = []
 
@@ -173,11 +174,18 @@ async def capture_api(page, url):
     had_error = False
     try:
         await page.goto(url, timeout=GOTO_TIMEOUT, wait_until="domcontentloaded")
-        try:
-            await page.wait_for_load_state("networkidle", timeout=API_WAIT_TIMEOUT)
-        except PlaywrightTimeout:
+        # 明確等待目標 API 出現（輪詢已攔截清單），取代不可靠的 networkidle
+        waited = 0
+        step = 500
+        while waited < API_WAIT_TIMEOUT:
+            if any(TARGET_API in c["url"] for c in captured):
+                break
+            await page.wait_for_timeout(step)
+            waited += step
+        else:
             had_error = True
-            log.warning("    networkidle 逾時")
+            log.warning("    等待 %s 逾時", TARGET_API)
+        # 目標出現後再多等一下，讓同批相關回應到齊
         await page.wait_for_timeout(SETTLE_MS)
     except PlaywrightTimeout:
         had_error = True
@@ -233,7 +241,7 @@ def _pick_rank_for_date(graph_data, target_date):
     return fallback
 
 
-def _parse_category_history(captured, app_id, st_country, want_category, target_date):
+def _parse_category_history(captured, app_id, st_country, want_category, target_date, allow_todays_rank=False):
     """
     category_history API 結構：
       { "<app_id>": { "<country>": { "<category_id>": { "<chart_type>": {
@@ -243,6 +251,7 @@ def _parse_category_history(captured, app_id, st_country, want_category, target_
     ⚠️ 不用 todays_rank：它永遠是即時排名，查歷史日期會回傳今天的值。
     ⚠️ 精確比對 want_category 與 target_date，避免抓錯榜單或錯日期。
     """
+    todays_fallback = None
     for c in captured:
         body = c["body"]
         if not isinstance(body, dict) or "category_history" not in c["url"]:
@@ -277,7 +286,13 @@ def _parse_category_history(captured, app_id, st_country, want_category, target_
                     rank = _pick_rank_for_date(gd, target_date)
                     if rank is not None:
                         return rank
-    return None
+                # 抓「今天」時 graphData 常還沒今天的點 → 改用即時的 todays_rank
+                # （等同 end_date=今天 的值；歷史日期不可用，故由 allow_todays_rank 控制）
+                if allow_todays_rank and todays_fallback is None:
+                    tr = chart_val.get("todays_rank")
+                    if isinstance(tr, (int, float)) and 1 <= int(tr) <= 5000:
+                        todays_fallback = int(tr)
+    return todays_fallback
 
 
 def _make_debug_entries(st_caps, app_id):
@@ -309,7 +324,8 @@ def _make_debug_entries(st_caps, app_id):
 def _build_url(os_type, st_country, target_date, prod_cfg):
     """回傳 (url, app_id, want_category)。"""
     end_api = target_date.strftime("%Y-%m-%d")
-    prev_api = (target_date - timedelta(days=1)).strftime("%Y-%m-%d")
+    # 放寬查詢區間（原本只查前 1 天），讓 graphData 多幾個點，提高命中目標日的機率
+    start_api = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
 
     if os_type == "ios":
         if prod_cfg["apple_sia"]:
@@ -321,7 +337,7 @@ def _build_url(os_type, st_country, target_date, prod_cfg):
         category = prod_cfg["apple_category"]
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
-            f"?os=ios&start_date={prev_api}&end_date={end_api}"
+            f"?os=ios&start_date={start_api}&end_date={end_api}"
             f"&{id_param}&granularity=daily"
             f"&country={st_country}&category={category}"
             f"&chart_type=free&breakdown_attribute=appId"
@@ -332,7 +348,7 @@ def _build_url(os_type, st_country, target_date, prod_cfg):
         category = prod_cfg["android_category"]
         url = (
             f"{BASE_URL}/app-analysis/category-rankings"
-            f"?os=android&start_date={prev_api}&end_date={end_api}"
+            f"?os=android&start_date={start_api}&end_date={end_api}"
             f"&saa={app_id}&granularity=daily"
             f"&country={st_country}&category={category}"
             f"&chart_type=free&breakdown_attribute=appId"
@@ -344,13 +360,14 @@ def _build_url(os_type, st_country, target_date, prod_cfg):
 # ─── 單一日期排名抓取（Apple / Android 共用）────────────────────────────────
 async def fetch_rank(page, os_type, st_country, target_date, debug, debug_key, prod_cfg):
     url, app_id, want_category = _build_url(os_type, st_country, target_date, prod_cfg)
+    allow_today = target_date == date.today()
 
     for attempt in range(1, MAX_RETRIES + 1):
         captured, had_error = await capture_api(page, url)
         st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
         debug[debug_key] = _make_debug_entries(st_caps, app_id)
 
-        rank = _parse_category_history(captured, app_id, st_country, want_category, target_date)
+        rank = _parse_category_history(captured, app_id, st_country, want_category, target_date, allow_today)
         if rank is not None:
             return rank
 

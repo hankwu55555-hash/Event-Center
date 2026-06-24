@@ -12,13 +12,15 @@ from playwright.async_api import async_playwright, TimeoutError as PlaywrightTim
 
 REPO_DIR = Path(__file__).parent
 BASE_URL  = "https://app.sensortower-china.com"
+DEBUG_FILE = REPO_DIR / "st_debug_backfill.json"
+TARGET_API = "category_history"   # 目標 API 在 URL 中的識別字串
 
 COUNTRIES = {"TW": "TW", "US": "US", "JP": "JP", "UK": "GB"}
 
 MAX_RETRIES = 3  # 疑似網路失敗時的重試次數（解決間歇性 -- 的主因）
 
 # 要補抓的日期（可用命令列覆寫，例如：python backfill_rankings.py 20260613 20260614 20260615）
-BACKFILL_DATES = ["20260622"]
+BACKFILL_DATES = ["20260623"]
 if len(sys.argv) > 1:
     BACKFILL_DATES = sys.argv[1:]
 
@@ -90,11 +92,11 @@ def save_json(path, data):
     os.replace(tmp, p)
 
 # ─── API 攔截 ─────────────────────────────────────────────────────────────────
-async def capture_api(page, url, wait_ms=10000):
+async def capture_api(page, url, wait_ms=4000):
     """
-    沿用原本可正常運作的攔截邏輯（inline 讀 body + networkidle），
-    僅多回傳 had_error 供上層判斷是否重試。
-    had_error=True 代表 goto / networkidle 逾時，疑似網路失敗，值得重試。
+    前往 url 並攔截所有 JSON 回應。
+    改用「明確等待目標 API 出現」取代 networkidle（dashboard 常因 websocket/輪詢
+    永不 idle 而誤判逾時、漏抓）。had_error=True 代表逾時/載入失敗，值得重試。
     """
     captured = []
 
@@ -112,9 +114,15 @@ async def capture_api(page, url, wait_ms=10000):
     had_error = False
     try:
         await page.goto(url, timeout=40000, wait_until="domcontentloaded")
-        try:
-            await page.wait_for_load_state("networkidle", timeout=25000)
-        except PlaywrightTimeout:
+        # 明確等待目標 API 出現（輪詢已攔截清單），取代不可靠的 networkidle
+        waited = 0
+        step = 500
+        while waited < 25000:
+            if any(TARGET_API in c["url"] for c in captured):
+                break
+            await page.wait_for_timeout(step)
+            waited += step
+        else:
             had_error = True
         await page.wait_for_timeout(wait_ms)
     except PlaywrightTimeout:
@@ -167,7 +175,8 @@ def _pick_rank_for_date(gd, target_date):
 def extract_rank(captured, app_id, st_country, want_category, target_date):
     for c in captured:
         body = c["body"]
-        if not isinstance(body, dict):
+        # 僅解析 category_history 回應，避免誤抓頁面其他含類似結構的 API
+        if not isinstance(body, dict) or "category_history" not in c["url"]:
             continue
 
         app_data = body.get(str(app_id))
@@ -198,8 +207,33 @@ def extract_rank(captured, app_id, st_country, want_category, target_date):
                     return r
     return None
 
+def _make_debug_entries(st_caps, app_id):
+    """整理攔截到的 ST 回應，供 st_debug_backfill.json 事後排查 '--' 用。"""
+    entries = []
+    for c in st_caps:
+        body = c["body"]
+        entry = {"url": c["url"][-90:]}
+        if isinstance(body, dict):
+            entry["body_keys"] = list(body.keys())
+            if "category_history" in c["url"]:
+                app_data = body.get(str(app_id))
+                if app_data is None:
+                    for k in body:
+                        if k not in SKIP_KEYS:
+                            app_data = body[k]
+                            break
+                if isinstance(app_data, list):
+                    entry["history_sample"] = app_data[:3]
+                elif isinstance(app_data, dict):
+                    entry["history_sample"] = app_data
+        else:
+            entry["body_type"] = type(body).__name__
+            entry["body_sample"] = str(body)[:200]
+        entries.append(entry)
+    return entries
+
 # ─── 查詢單一排名 ─────────────────────────────────────────────────────────────
-async def fetch_rank(context, os_type, prod, st_country, date_str):
+async def fetch_rank(context, os_type, prod, st_country, date_str, debug):
     d = datetime.strptime(date_str, "%Y%m%d")
     target_date = d.date()
     date_api  = d.strftime("%Y-%m-%d")
@@ -224,6 +258,8 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
             f"&country={st_country}&category={prod['android_category']}"
             f"&chart_type=free&breakdown_attribute=appId&device=android&selected_tab=0"
         )
+    field = "apple" if os_type == "ios" else "android"
+    debug_key = f"{prod['name']}_{field}_{st_country}_{date_str}"
     for attempt in range(1, MAX_RETRIES + 1):
         page = await context.new_page()
         try:
@@ -231,11 +267,13 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
         finally:
             await page.close()
 
+        st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
+        debug[debug_key] = _make_debug_entries(st_caps, app_id)
+
         rank = extract_rank(captured, app_id, st_country, want_category, target_date)
         if rank is not None:
             return rank
 
-        st_caps = [c for c in captured if "sensortower-china.com" in c["url"]]
         # 有抓到 ST 回應但解析不到 → 視為「未進榜」，不重試
         if st_caps and not had_error:
             return None
@@ -246,6 +284,7 @@ async def fetch_rank(context, os_type, prod, st_country, date_str):
 
 # ─── 主流程 ──────────────────────────────────────────────────────────────────
 async def main():
+    debug = {}
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(
             headless=True,
@@ -280,8 +319,8 @@ async def main():
                 rankings.setdefault(date_str, {})
                 for local_key, st_country in COUNTRIES.items():
                     entry = rankings[date_str].setdefault(local_key, {})
-                    apple   = await fetch_rank(context, "ios",     prod, st_country, date_str)
-                    android = await fetch_rank(context, "android", prod, st_country, date_str)
+                    apple   = await fetch_rank(context, "ios",     prod, st_country, date_str, debug)
+                    android = await fetch_rank(context, "android", prod, st_country, date_str, debug)
                     a_str = f"#{apple}"   if apple   else "--"
                     g_str = f"#{android}" if android else "--"
                     print(f"    [{local_key}] Apple: {a_str:<6}  Android: {g_str}")
@@ -293,6 +332,8 @@ async def main():
 
         await context.close()
         await browser.close()
+
+    save_json(DEBUG_FILE, debug)
 
     # 重新產生 gallery + push
     import subprocess

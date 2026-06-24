@@ -1,0 +1,3298 @@
+{
+  "Cash Frenzy_apple_TW_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "humanized_app_name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  94,
+                  null
+                ],
+                [
+                  1779667200,
+                  90,
+                  null
+                ],
+                [
+                  1779753600,
+                  57,
+                  null
+                ],
+                [
+                  1779840000,
+                  81,
+                  null
+                ],
+                [
+                  1779926400,
+                  117,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  156,
+                  null
+                ],
+                [
+                  1780099200,
+                  89,
+                  null
+                ],
+                [
+                  1780185600,
+                  85,
+                  null
+                ],
+                [
+                  1780272000,
+                  71,
+                  null
+                ],
+                [
+                  1780358400,
+                  79,
+                  null
+                ],
+                [
+                  1780444800,
+                  59,
+                  null
+                ],
+                [
+                  1780531200,
+                  70,
+                  null
+                ],
+                [
+                  1780617600,
+                  89,
+                  null
+                ],
+                [
+                  1780704000,
+                  180,
+                  null
+                ],
+                [
+                  1780790400,
+                  105,
+                  null
+                ],
+                [
+                  1780876800,
+                  124,
+                  null
+                ],
+                [
+                  1780963200,
+                  54,
+                  null
+                ],
+                [
+                  1781049600,
+                  62,
+                  null
+                ],
+                [
+                  1781136000,
+                  68,
+                  null
+                ],
+                [
+                  1781222400,
+                  83,
+                  null
+                ],
+                [
+                  1781308800,
+                  63,
+                  null
+                ],
+                [
+                  1781395200,
+                  69,
+                  null
+                ],
+                [
+                  1781481600,
+                  103,
+                  null
+                ],
+                [
+                  1781568000,
+                  71,
+                  null
+                ],
+                [
+                  1781654400,
+                  67,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781740800,
+                  60,
+                  null
+                ],
+                [
+                  1781827200,
+                  54,
+                  null
+                ],
+                [
+                  1781913600,
+                  76,
+                  null
+                ],
+                [
+                  1782000000,
+                  50,
+                  null
+                ],
+                [
+                  1782086400,
+                  63,
+                  null
+                ],
+                [
+                  1782172800,
+                  76,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 61
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_android_TW_20260623": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "humanized_app_name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  22,
+                  null
+                ],
+                [
+                  1779667200,
+                  21,
+                  null
+                ],
+                [
+                  1779753600,
+                  22,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  22,
+                  null
+                ],
+                [
+                  1779926400,
+                  23,
+                  null
+                ],
+                [
+                  1780012800,
+                  23,
+                  null
+                ],
+                [
+                  1780099200,
+                  21,
+                  null
+                ],
+                [
+                  1780185600,
+                  22,
+                  null
+                ],
+                [
+                  1780272000,
+                  20,
+                  null
+                ],
+                [
+                  1780358400,
+                  19,
+                  null
+                ],
+                [
+                  1780444800,
+                  18,
+                  null
+                ],
+                [
+                  1780531200,
+                  16,
+                  null
+                ],
+                [
+                  1780617600,
+                  16,
+                  null
+                ],
+                [
+                  1780704000,
+                  16,
+                  null
+                ],
+                [
+                  1780790400,
+                  16,
+                  null
+                ],
+                [
+                  1780876800,
+                  19,
+                  null
+                ],
+                [
+                  1780963200,
+                  17,
+                  null
+                ],
+                [
+                  1781049600,
+                  22,
+                  null
+                ],
+                [
+                  1781136000,
+                  18,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781222400,
+                  19,
+                  null
+                ],
+                [
+                  1781308800,
+                  18,
+                  null
+                ],
+                [
+                  1781395200,
+                  24,
+                  null
+                ],
+                [
+                  1781481600,
+                  25,
+                  null
+                ],
+                [
+                  1781568000,
+                  19,
+                  null
+                ],
+                [
+                  1781654400,
+                  20,
+                  null
+                ],
+                [
+                  1781740800,
+                  21,
+                  null
+                ],
+                [
+                  1781827200,
+                  24,
+                  null
+                ],
+                [
+                  1781913600,
+                  21,
+                  null
+                ],
+                [
+                  1782000000,
+                  23,
+                  null
+                ],
+                [
+                  1782086400,
+                  22,
+                  null
+                ],
+                [
+                  1782172800,
+                  20,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 20
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_apple_US_20260623": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  60,
+                  null
+                ],
+                [
+                  1779667200,
+                  61,
+                  null
+                ],
+                [
+                  1779753600,
+                  63,
+                  null
+                ],
+                [
+                  1779840000,
+                  65,
+                  null
+                ],
+                [
+                  1779926400,
+                  64,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  62,
+                  null
+                ],
+                [
+                  1780099200,
+                  58,
+                  null
+                ],
+                [
+                  1780185600,
+                  59,
+                  null
+                ],
+                [
+                  1780272000,
+                  49,
+                  null
+                ],
+                [
+                  1780358400,
+                  49,
+                  null
+                ],
+                [
+                  1780444800,
+                  48,
+                  null
+                ],
+                [
+                  1780531200,
+                  52,
+                  null
+                ],
+                [
+                  1780617600,
+                  50,
+                  null
+                ],
+                [
+                  1780704000,
+                  54,
+                  null
+                ],
+                [
+                  1780790400,
+                  43,
+                  null
+                ],
+                [
+                  1780876800,
+                  45,
+                  null
+                ],
+                [
+                  1780963200,
+                  56,
+                  null
+                ],
+                [
+                  1781049600,
+                  52,
+                  null
+                ],
+                [
+                  1781136000,
+                  55,
+                  null
+                ],
+                [
+                  1781222400,
+                  56,
+                  null
+                ],
+                [
+                  1781308800,
+                  62,
+                  null
+                ],
+                [
+                  1781395200,
+                  56,
+                  null
+                ],
+                [
+                  1781481600,
+                  58,
+                  null
+                ],
+                [
+                  1781568000,
+                  55,
+                  null
+                ],
+                [
+                  1781654400,
+                  57,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781740800,
+                  56,
+                  null
+                ],
+                [
+                  1781827200,
+                  51,
+                  null
+                ],
+                [
+                  1781913600,
+                  51,
+                  null
+                ],
+                [
+                  1782000000,
+                  49,
+                  null
+                ],
+                [
+                  1782086400,
+                  56,
+                  null
+                ],
+                [
+                  1782172800,
+                  57,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 59
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_android_US_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™ - Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  6,
+                  null
+                ],
+                [
+                  1779667200,
+                  6,
+                  null
+                ],
+                [
+                  1779753600,
+                  5,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  5,
+                  null
+                ],
+                [
+                  1779926400,
+                  11,
+                  null
+                ],
+                [
+                  1780012800,
+                  12,
+                  null
+                ],
+                [
+                  1780099200,
+                  8,
+                  null
+                ],
+                [
+                  1780185600,
+                  9,
+                  null
+                ],
+                [
+                  1780272000,
+                  11,
+                  null
+                ],
+                [
+                  1780358400,
+                  8,
+                  null
+                ],
+                [
+                  1780444800,
+                  8,
+                  null
+                ],
+                [
+                  1780531200,
+                  9,
+                  null
+                ],
+                [
+                  1780617600,
+                  8,
+                  null
+                ],
+                [
+                  1780704000,
+                  8,
+                  null
+                ],
+                [
+                  1780790400,
+                  10,
+                  null
+                ],
+                [
+                  1780876800,
+                  8,
+                  null
+                ],
+                [
+                  1780963200,
+                  7,
+                  null
+                ],
+                [
+                  1781049600,
+                  19,
+                  null
+                ],
+                [
+                  1781136000,
+                  7,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781222400,
+                  7,
+                  null
+                ],
+                [
+                  1781308800,
+                  7,
+                  null
+                ],
+                [
+                  1781395200,
+                  23,
+                  null
+                ],
+                [
+                  1781481600,
+                  26,
+                  null
+                ],
+                [
+                  1781568000,
+                  14,
+                  null
+                ],
+                [
+                  1781654400,
+                  12,
+                  null
+                ],
+                [
+                  1781740800,
+                  10,
+                  null
+                ],
+                [
+                  1781827200,
+                  11,
+                  null
+                ],
+                [
+                  1781913600,
+                  9,
+                  null
+                ],
+                [
+                  1782000000,
+                  13,
+                  null
+                ],
+                [
+                  1782086400,
+                  12,
+                  null
+                ],
+                [
+                  1782172800,
+                  12,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 12
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_apple_JP_20260623": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™ - スロット（カジノ）ゲーム",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  79,
+                  null
+                ],
+                [
+                  1779667200,
+                  92,
+                  null
+                ],
+                [
+                  1779753600,
+                  90,
+                  null
+                ],
+                [
+                  1779840000,
+                  99,
+                  null
+                ],
+                [
+                  1779926400,
+                  91,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  116,
+                  null
+                ],
+                [
+                  1780099200,
+                  89,
+                  null
+                ],
+                [
+                  1780185600,
+                  74,
+                  null
+                ],
+                [
+                  1780272000,
+                  84,
+                  null
+                ],
+                [
+                  1780358400,
+                  66,
+                  null
+                ],
+                [
+                  1780444800,
+                  59,
+                  null
+                ],
+                [
+                  1780531200,
+                  60,
+                  null
+                ],
+                [
+                  1780617600,
+                  64,
+                  null
+                ],
+                [
+                  1780704000,
+                  55,
+                  null
+                ],
+                [
+                  1780790400,
+                  58,
+                  null
+                ],
+                [
+                  1780876800,
+                  46,
+                  null
+                ],
+                [
+                  1780963200,
+                  52,
+                  null
+                ],
+                [
+                  1781049600,
+                  56,
+                  null
+                ],
+                [
+                  1781136000,
+                  58,
+                  null
+                ],
+                [
+                  1781222400,
+                  52,
+                  null
+                ],
+                [
+                  1781308800,
+                  53,
+                  null
+                ],
+                [
+                  1781395200,
+                  48,
+                  null
+                ],
+                [
+                  1781481600,
+                  52,
+                  null
+                ],
+                [
+                  1781568000,
+                  52,
+                  null
+                ],
+                [
+                  1781654400,
+                  57,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781740800,
+                  59,
+                  null
+                ],
+                [
+                  1781827200,
+                  59,
+                  null
+                ],
+                [
+                  1781913600,
+                  56,
+                  null
+                ],
+                [
+                  1782000000,
+                  46,
+                  null
+                ],
+                [
+                  1782086400,
+                  48,
+                  null
+                ],
+                [
+                  1782172800,
+                  62,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 65
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_android_JP_20260623": [
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "キャッシュフレンジー カジノ、 スロット、（ポーカー）ゲーム",
+              "humanized_app_name": "キャッシュフレンジー カジノ、 スロット、",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  41,
+                  null
+                ],
+                [
+                  1779667200,
+                  37,
+                  null
+                ],
+                [
+                  1779753600,
+                  38,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  35,
+                  null
+                ],
+                [
+                  1779926400,
+                  47,
+                  null
+                ],
+                [
+                  1780012800,
+                  38,
+                  null
+                ],
+                [
+                  1780099200,
+                  43,
+                  null
+                ],
+                [
+                  1780185600,
+                  48,
+                  null
+                ],
+                [
+                  1780272000,
+                  53,
+                  null
+                ],
+                [
+                  1780358400,
+                  45,
+                  null
+                ],
+                [
+                  1780444800,
+                  42,
+                  null
+                ],
+                [
+                  1780531200,
+                  45,
+                  null
+                ],
+                [
+                  1780617600,
+                  43,
+                  null
+                ],
+                [
+                  1780704000,
+                  43,
+                  null
+                ],
+                [
+                  1780790400,
+                  44,
+                  null
+                ],
+                [
+                  1780876800,
+                  44,
+                  null
+                ],
+                [
+                  1780963200,
+                  45,
+                  null
+                ],
+                [
+                  1781049600,
+                  53,
+                  null
+                ],
+                [
+                  1781136000,
+                  42,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781222400,
+                  39,
+                  null
+                ],
+                [
+                  1781308800,
+                  39,
+                  null
+                ],
+                [
+                  1781395200,
+                  41,
+                  null
+                ],
+                [
+                  1781481600,
+                  40,
+                  null
+                ],
+                [
+                  1781568000,
+                  30,
+                  null
+                ],
+                [
+                  1781654400,
+                  26,
+                  null
+                ],
+                [
+                  1781740800,
+                  26,
+                  null
+                ],
+                [
+                  1781827200,
+                  31,
+                  null
+                ],
+                [
+                  1781913600,
+                  28,
+                  null
+                ],
+                [
+                  1782000000,
+                  32,
+                  null
+                ],
+                [
+                  1782086400,
+                  31,
+                  null
+                ],
+                [
+                  1782172800,
+                  32,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 32
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_apple_GB_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1404165333",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Cash Frenzy™- 888 Slots Casino",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  49,
+                  null
+                ],
+                [
+                  1779667200,
+                  41,
+                  null
+                ],
+                [
+                  1779753600,
+                  46,
+                  null
+                ],
+                [
+                  1779840000,
+                  49,
+                  null
+                ],
+                [
+                  1779926400,
+                  52,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  57,
+                  null
+                ],
+                [
+                  1780099200,
+                  52,
+                  null
+                ],
+                [
+                  1780185600,
+                  50,
+                  null
+                ],
+                [
+                  1780272000,
+                  47,
+                  null
+                ],
+                [
+                  1780358400,
+                  52,
+                  null
+                ],
+                [
+                  1780444800,
+                  46,
+                  null
+                ],
+                [
+                  1780531200,
+                  50,
+                  null
+                ],
+                [
+                  1780617600,
+                  43,
+                  null
+                ],
+                [
+                  1780704000,
+                  42,
+                  null
+                ],
+                [
+                  1780790400,
+                  40,
+                  null
+                ],
+                [
+                  1780876800,
+                  43,
+                  null
+                ],
+                [
+                  1780963200,
+                  50,
+                  null
+                ],
+                [
+                  1781049600,
+                  53,
+                  null
+                ],
+                [
+                  1781136000,
+                  51,
+                  null
+                ],
+                [
+                  1781222400,
+                  50,
+                  null
+                ],
+                [
+                  1781308800,
+                  44,
+                  null
+                ],
+                [
+                  1781395200,
+                  36,
+                  null
+                ],
+                [
+                  1781481600,
+                  47,
+                  null
+                ],
+                [
+                  1781568000,
+                  44,
+                  null
+                ],
+                [
+                  1781654400,
+                  46,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781740800,
+                  50,
+                  null
+                ],
+                [
+                  1781827200,
+                  46,
+                  null
+                ],
+                [
+                  1781913600,
+                  47,
+                  null
+                ],
+                [
+                  1782000000,
+                  43,
+                  null
+                ],
+                [
+                  1782086400,
+                  47,
+                  null
+                ],
+                [
+                  1782172800,
+                  49,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 46
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Cash Frenzy_android_GB_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "slots.pcg.casino.games.free.android",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Cash Frenzy™- 777 Casino Slots",
+              "humanized_app_name": "Cash Frenzy",
+              "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  21,
+                  null
+                ],
+                [
+                  1779667200,
+                  21,
+                  null
+                ],
+                [
+                  1779753600,
+                  21,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  20,
+                  null
+                ],
+                [
+                  1779926400,
+                  30,
+                  null
+                ],
+                [
+                  1780012800,
+                  32,
+                  null
+                ],
+                [
+                  1780099200,
+                  32,
+                  null
+                ],
+                [
+                  1780185600,
+                  32,
+                  null
+                ],
+                [
+                  1780272000,
+                  29,
+                  null
+                ],
+                [
+                  1780358400,
+                  30,
+                  null
+                ],
+                [
+                  1780444800,
+                  32,
+                  null
+                ],
+                [
+                  1780531200,
+                  29,
+                  null
+                ],
+                [
+                  1780617600,
+                  27,
+                  null
+                ],
+                [
+                  1780704000,
+                  27,
+                  null
+                ],
+                [
+                  1780790400,
+                  26,
+                  null
+                ],
+                [
+                  1780876800,
+                  24,
+                  null
+                ],
+                [
+                  1780963200,
+                  20,
+                  null
+                ],
+                [
+                  1781049600,
+                  35,
+                  null
+                ],
+                [
+                  1781136000,
+                  28,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1781222400,
+                  31,
+                  null
+                ],
+                [
+                  1781308800,
+                  32,
+                  null
+                ],
+                [
+                  1781395200,
+                  35,
+                  null
+                ],
+                [
+                  1781481600,
+                  42,
+                  null
+                ],
+                [
+                  1781568000,
+                  30,
+                  null
+                ],
+                [
+                  1781654400,
+                  31,
+                  null
+                ],
+                [
+                  1781740800,
+                  23,
+                  null
+                ],
+                [
+                  1781827200,
+                  27,
+                  null
+                ],
+                [
+                  1781913600,
+                  20,
+                  null
+                ],
+                [
+                  1782000000,
+                  20,
+                  null
+                ],
+                [
+                  1782086400,
+                  21,
+                  null
+                ],
+                [
+                  1782172800,
+                  20,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 20
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_apple_TW_20260623": [
+    {
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1356980152",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "大福Online-老虎機、捕魚、推幣機、刮刮樂、拉霸 娛樂城",
+              "humanized_app_name": "大福Online-老虎機、捕魚、推幣機、刮刮樂、拉霸 娛樂城",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  40,
+                  null
+                ],
+                [
+                  1779667200,
+                  34,
+                  null
+                ],
+                [
+                  1779753600,
+                  34,
+                  null
+                ],
+                [
+                  1779840000,
+                  31,
+                  null
+                ],
+                [
+                  1779926400,
+                  18,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  21,
+                  null
+                ],
+                [
+                  1780099200,
+                  19,
+                  null
+                ],
+                [
+                  1780185600,
+                  23,
+                  null
+                ],
+                [
+                  1780272000,
+                  26,
+                  null
+                ],
+                [
+                  1780358400,
+                  21,
+                  null
+                ],
+                [
+                  1780444800,
+                  23,
+                  null
+                ],
+                [
+                  1780531200,
+                  22,
+                  null
+                ],
+                [
+                  1780617600,
+                  32,
+                  null
+                ],
+                [
+                  1780704000,
+                  26,
+                  null
+                ],
+                [
+                  1780790400,
+                  24,
+                  null
+                ],
+                [
+                  1780876800,
+                  28,
+                  null
+                ],
+                [
+                  1780963200,
+                  25,
+                  null
+                ],
+                [
+                  1781049600,
+                  27,
+                  null
+                ],
+                [
+                  1781136000,
+                  19,
+                  null
+                ],
+                [
+                  1781222400,
+                  17,
+                  null
+                ],
+                [
+                  1781308800,
+                  17,
+                  null
+                ],
+                [
+                  1781395200,
+                  21,
+                  null
+                ],
+                [
+                  1781481600,
+                  28,
+                  null
+                ],
+                [
+                  1781568000,
+                  21,
+                  null
+                ],
+                [
+                  1781654400,
+                  28,
+                  null
+                ],
+                [
+                  1781740800,
+                  28,
+                  null
+                ],
+                [
+                  1781827200,
+                  12,
+                  null
+                ],
+                [
+                  1781913600,
+                  17,
+                  null
+                ],
+                [
+                  1782000000,
+                  15,
+                  null
+                ],
+                [
+                  1782086400,
+                  16,
+                  null
+                ],
+                [
+                  1782172800,
+                  20,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 20
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_android_TW_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "com.grandegames.slots.dafu.casino",
+        "lines"
+      ],
+      "history_sample": {
+        "TW": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "大福Online- 老虎機、麻將、捕魚、柏青斯洛、拉霸娛樂城",
+              "humanized_app_name": "大福Online- 老虎機、麻將、捕魚、柏青斯洛、拉霸娛樂城",
+              "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  27,
+                  null
+                ],
+                [
+                  1779667200,
+                  27,
+                  null
+                ],
+                [
+                  1779753600,
+                  27,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  27,
+                  null
+                ],
+                [
+                  1779926400,
+                  26,
+                  null
+                ],
+                [
+                  1780012800,
+                  27,
+                  null
+                ],
+                [
+                  1780099200,
+                  26,
+                  null
+                ],
+                [
+                  1780185600,
+                  30,
+                  null
+                ],
+                [
+                  1780272000,
+                  31,
+                  null
+                ],
+                [
+                  1780358400,
+                  29,
+                  null
+                ],
+                [
+                  1780444800,
+                  29,
+                  null
+                ],
+                [
+                  1780531200,
+                  29,
+                  null
+                ],
+                [
+                  1780617600,
+                  27,
+                  null
+                ],
+                [
+                  1780704000,
+                  26,
+                  null
+                ],
+                [
+                  1780790400,
+                  23,
+                  null
+                ],
+                [
+                  1780876800,
+                  16,
+                  null
+                ],
+                [
+                  1780963200,
+                  15,
+                  null
+                ],
+                [
+                  1781049600,
+                  15,
+                  null
+                ],
+                [
+                  1781136000,
+                  14,
+                  null
+                ],
+                [
+                  1781222400,
+                  14,
+                  null
+                ],
+                [
+                  1781308800,
+                  14,
+                  null
+                ],
+                [
+                  1781395200,
+                  16,
+                  null
+                ],
+                [
+                  1781481600,
+                  16,
+                  null
+                ],
+                [
+                  1781568000,
+                  16,
+                  null
+                ],
+                [
+                  1781654400,
+                  16,
+                  null
+                ],
+                [
+                  1781740800,
+                  17,
+                  null
+                ],
+                [
+                  1781827200,
+                  20,
+                  null
+                ],
+                [
+                  1781913600,
+                  16,
+                  null
+                ],
+                [
+                  1782000000,
+                  16,
+                  null
+                ],
+                [
+                  1782086400,
+                  15,
+                  null
+                ],
+                [
+                  1782172800,
+                  15,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 15
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_apple_US_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1356980152",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Jackpot World™ - Casino Slots",
+              "humanized_app_name": "Jackpot World",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  62,
+                  null
+                ],
+                [
+                  1779667200,
+                  57,
+                  null
+                ],
+                [
+                  1779753600,
+                  59,
+                  null
+                ],
+                [
+                  1779840000,
+                  52,
+                  null
+                ],
+                [
+                  1779926400,
+                  55,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  52,
+                  null
+                ],
+                [
+                  1780099200,
+                  60,
+                  null
+                ],
+                [
+                  1780185600,
+                  60,
+                  null
+                ],
+                [
+                  1780272000,
+                  63,
+                  null
+                ],
+                [
+                  1780358400,
+                  66,
+                  null
+                ],
+                [
+                  1780444800,
+                  65,
+                  null
+                ],
+                [
+                  1780531200,
+                  67,
+                  null
+                ],
+                [
+                  1780617600,
+                  68,
+                  null
+                ],
+                [
+                  1780704000,
+                  72,
+                  null
+                ],
+                [
+                  1780790400,
+                  65,
+                  null
+                ],
+                [
+                  1780876800,
+                  69,
+                  null
+                ],
+                [
+                  1780963200,
+                  67,
+                  null
+                ],
+                [
+                  1781049600,
+                  64,
+                  null
+                ],
+                [
+                  1781136000,
+                  63,
+                  null
+                ],
+                [
+                  1781222400,
+                  68,
+                  null
+                ],
+                [
+                  1781308800,
+                  68,
+                  null
+                ],
+                [
+                  1781395200,
+                  72,
+                  null
+                ],
+                [
+                  1781481600,
+                  68,
+                  null
+                ],
+                [
+                  1781568000,
+                  69,
+                  null
+                ],
+                [
+                  1781654400,
+                  77,
+                  null
+                ],
+                [
+                  1781740800,
+                  70,
+                  null
+                ],
+                [
+                  1781827200,
+                  88,
+                  null
+                ],
+                [
+                  1781913600,
+                  74,
+                  null
+                ],
+                [
+                  1782000000,
+                  83,
+                  null
+                ],
+                [
+                  1782086400,
+                  84,
+                  null
+                ],
+                [
+                  1782172800,
+                  89,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 89
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_android_US_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "com.grandegames.slots.dafu.casino",
+        "lines"
+      ],
+      "history_sample": {
+        "US": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Jackpot World™ - Slots Casino",
+              "humanized_app_name": "Jackpot World",
+              "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  29,
+                  null
+                ],
+                [
+                  1779667200,
+                  28,
+                  null
+                ],
+                [
+                  1779753600,
+                  29,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  27,
+                  null
+                ],
+                [
+                  1779926400,
+                  27,
+                  null
+                ],
+                [
+                  1780012800,
+                  27,
+                  null
+                ],
+                [
+                  1780099200,
+                  27,
+                  null
+                ],
+                [
+                  1780185600,
+                  25,
+                  null
+                ],
+                [
+                  1780272000,
+                  25,
+                  null
+                ],
+                [
+                  1780358400,
+                  29,
+                  null
+                ],
+                [
+                  1780444800,
+                  31,
+                  null
+                ],
+                [
+                  1780531200,
+                  33,
+                  null
+                ],
+                [
+                  1780617600,
+                  39,
+                  null
+                ],
+                [
+                  1780704000,
+                  37,
+                  null
+                ],
+                [
+                  1780790400,
+                  35,
+                  null
+                ],
+                [
+                  1780876800,
+                  32,
+                  null
+                ],
+                [
+                  1780963200,
+                  36,
+                  null
+                ],
+                [
+                  1781049600,
+                  34,
+                  null
+                ],
+                [
+                  1781136000,
+                  29,
+                  null
+                ],
+                [
+                  1781222400,
+                  30,
+                  null
+                ],
+                [
+                  1781308800,
+                  31,
+                  null
+                ],
+                [
+                  1781395200,
+                  38,
+                  null
+                ],
+                [
+                  1781481600,
+                  31,
+                  null
+                ],
+                [
+                  1781568000,
+                  29,
+                  null
+                ],
+                [
+                  1781654400,
+                  28,
+                  null
+                ],
+                [
+                  1781740800,
+                  26,
+                  null
+                ],
+                [
+                  1781827200,
+                  28,
+                  null
+                ],
+                [
+                  1781913600,
+                  33,
+                  null
+                ],
+                [
+                  1782000000,
+                  30,
+                  null
+                ],
+                [
+                  1782086400,
+                  30,
+                  null
+                ],
+                [
+                  1782172800,
+                  29,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 29
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_apple_JP_20260623": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1356980152",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
+              "humanized_app_name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  51,
+                  null
+                ],
+                [
+                  1779667200,
+                  40,
+                  null
+                ],
+                [
+                  1779753600,
+                  45,
+                  null
+                ],
+                [
+                  1779840000,
+                  34,
+                  null
+                ],
+                [
+                  1779926400,
+                  43,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  33,
+                  null
+                ],
+                [
+                  1780099200,
+                  23,
+                  null
+                ],
+                [
+                  1780185600,
+                  22,
+                  null
+                ],
+                [
+                  1780272000,
+                  36,
+                  null
+                ],
+                [
+                  1780358400,
+                  23,
+                  null
+                ],
+                [
+                  1780444800,
+                  24,
+                  null
+                ],
+                [
+                  1780531200,
+                  24,
+                  null
+                ],
+                [
+                  1780617600,
+                  29,
+                  null
+                ],
+                [
+                  1780704000,
+                  25,
+                  null
+                ],
+                [
+                  1780790400,
+                  24,
+                  null
+                ],
+                [
+                  1780876800,
+                  30,
+                  null
+                ],
+                [
+                  1780963200,
+                  32,
+                  null
+                ],
+                [
+                  1781049600,
+                  29,
+                  null
+                ],
+                [
+                  1781136000,
+                  32,
+                  null
+                ],
+                [
+                  1781222400,
+                  32,
+                  null
+                ],
+                [
+                  1781308800,
+                  31,
+                  null
+                ],
+                [
+                  1781395200,
+                  32,
+                  null
+                ],
+                [
+                  1781481600,
+                  25,
+                  null
+                ],
+                [
+                  1781568000,
+                  31,
+                  null
+                ],
+                [
+                  1781654400,
+                  31,
+                  null
+                ],
+                [
+                  1781740800,
+                  33,
+                  null
+                ],
+                [
+                  1781827200,
+                  43,
+                  null
+                ],
+                [
+                  1781913600,
+                  48,
+                  null
+                ],
+                [
+                  1782000000,
+                  47,
+                  null
+                ],
+                [
+                  1782086400,
+                  47,
+                  null
+                ],
+                [
+                  1782172800,
+                  48,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 46
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_android_JP_20260623": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "com.grandegames.slots.dafu.casino",
+        "lines"
+      ],
+      "history_sample": {
+        "JP": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
+              "humanized_app_name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
+              "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  6,
+                  null
+                ],
+                [
+                  1779667200,
+                  7,
+                  null
+                ],
+                [
+                  1779753600,
+                  7,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  8,
+                  null
+                ],
+                [
+                  1779926400,
+                  9,
+                  null
+                ],
+                [
+                  1780012800,
+                  8,
+                  null
+                ],
+                [
+                  1780099200,
+                  8,
+                  null
+                ],
+                [
+                  1780185600,
+                  8,
+                  null
+                ],
+                [
+                  1780272000,
+                  8,
+                  null
+                ],
+                [
+                  1780358400,
+                  8,
+                  null
+                ],
+                [
+                  1780444800,
+                  9,
+                  null
+                ],
+                [
+                  1780531200,
+                  8,
+                  null
+                ],
+                [
+                  1780617600,
+                  7,
+                  null
+                ],
+                [
+                  1780704000,
+                  6,
+                  null
+                ],
+                [
+                  1780790400,
+                  6,
+                  null
+                ],
+                [
+                  1780876800,
+                  6,
+                  null
+                ],
+                [
+                  1780963200,
+                  7,
+                  null
+                ],
+                [
+                  1781049600,
+                  7,
+                  null
+                ],
+                [
+                  1781136000,
+                  5,
+                  null
+                ],
+                [
+                  1781222400,
+                  6,
+                  null
+                ],
+                [
+                  1781308800,
+                  6,
+                  null
+                ],
+                [
+                  1781395200,
+                  8,
+                  null
+                ],
+                [
+                  1781481600,
+                  8,
+                  null
+                ],
+                [
+                  1781568000,
+                  7,
+                  null
+                ],
+                [
+                  1781654400,
+                  9,
+                  null
+                ],
+                [
+                  1781740800,
+                  3,
+                  null
+                ],
+                [
+                  1781827200,
+                  8,
+                  null
+                ],
+                [
+                  1781913600,
+                  8,
+                  null
+                ],
+                [
+                  1782000000,
+                  6,
+                  null
+                ],
+                [
+                  1782086400,
+                  5,
+                  null
+                ],
+                [
+                  1782172800,
+                  3,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 3
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_apple_GB_20260623": [
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "1356980152",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "7006": {
+            "topfreeapplications": {
+              "name": "Jackpot World™ - Casino Slots",
+              "humanized_app_name": "Jackpot World",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "graphData": [
+                [
+                  1779580800,
+                  93,
+                  null
+                ],
+                [
+                  1779667200,
+                  88,
+                  null
+                ],
+                [
+                  1779753600,
+                  85,
+                  null
+                ],
+                [
+                  1779840000,
+                  76,
+                  null
+                ],
+                [
+                  1779926400,
+                  93,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1780012800,
+                  94,
+                  null
+                ],
+                [
+                  1780099200,
+                  96,
+                  null
+                ],
+                [
+                  1780185600,
+                  79,
+                  null
+                ],
+                [
+                  1780272000,
+                  82,
+                  null
+                ],
+                [
+                  1780358400,
+                  83,
+                  null
+                ],
+                [
+                  1780444800,
+                  73,
+                  null
+                ],
+                [
+                  1780531200,
+                  83,
+                  null
+                ],
+                [
+                  1780617600,
+                  85,
+                  null
+                ],
+                [
+                  1780704000,
+                  84,
+                  null
+                ],
+                [
+                  1780790400,
+                  66,
+                  null
+                ],
+                [
+                  1780876800,
+                  73,
+                  null
+                ],
+                [
+                  1780963200,
+                  81,
+                  null
+                ],
+                [
+                  1781049600,
+                  75,
+                  null
+                ],
+                [
+                  1781136000,
+                  70,
+                  null
+                ],
+                [
+                  1781222400,
+                  77,
+                  null
+                ],
+                [
+                  1781308800,
+                  81,
+                  null
+                ],
+                [
+                  1781395200,
+                  57,
+                  null
+                ],
+                [
+                  1781481600,
+                  66,
+                  null
+                ],
+                [
+                  1781568000,
+                  74,
+                  null
+                ],
+                [
+                  1781654400,
+                  102,
+                  null
+                ],
+                [
+                  1781740800,
+                  81,
+                  null
+                ],
+                [
+                  1781827200,
+                  90,
+                  null
+                ],
+                [
+                  1781913600,
+                  54,
+                  null
+                ],
+                [
+                  1782000000,
+                  59,
+                  null
+                ],
+                [
+                  1782086400,
+                  59,
+                  null
+                ],
+                [
+                  1782172800,
+                  88,
+                  null
+                ]
+              ],
+              "chart_type": "topfreeapplications",
+              "category_name": "Games/Casino",
+              "todays_rank": 96
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ],
+  "Dafu_android_GB_20260623": [
+    {
+      "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "body_keys": [
+        "com.grandegames.slots.dafu.casino",
+        "lines"
+      ],
+      "history_sample": {
+        "GB": {
+          "game_casino": {
+            "topselling_free": {
+              "name": "Jackpot World™ - Slots Casino",
+              "humanized_app_name": "Jackpot World",
+              "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
+              "graphData": [
+                [
+                  1779580800,
+                  24,
+                  null
+                ],
+                [
+                  1779667200,
+                  25,
+                  null
+                ],
+                [
+                  1779753600,
+                  24,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1779840000,
+                  25,
+                  null
+                ],
+                [
+                  1779926400,
+                  19,
+                  null
+                ],
+                [
+                  1780012800,
+                  19,
+                  null
+                ],
+                [
+                  1780099200,
+                  17,
+                  null
+                ],
+                [
+                  1780185600,
+                  16,
+                  null
+                ],
+                [
+                  1780272000,
+                  15,
+                  null
+                ],
+                [
+                  1780358400,
+                  21,
+                  null
+                ],
+                [
+                  1780444800,
+                  21,
+                  null
+                ],
+                [
+                  1780531200,
+                  21,
+                  null
+                ],
+                [
+                  1780617600,
+                  23,
+                  null
+                ],
+                [
+                  1780704000,
+                  26,
+                  null
+                ],
+                [
+                  1780790400,
+                  24,
+                  null
+                ],
+                [
+                  1780876800,
+                  22,
+                  null
+                ],
+                [
+                  1780963200,
+                  27,
+                  null
+                ],
+                [
+                  1781049600,
+                  26,
+                  null
+                ],
+                [
+                  1781136000,
+                  22,
+                  null
+                ],
+                [
+                  1781222400,
+                  32,
+                  null
+                ],
+                [
+                  1781308800,
+                  35,
+                  null
+                ],
+                [
+                  1781395200,
+                  36,
+                  null
+                ],
+                [
+                  1781481600,
+                  37,
+                  null
+                ],
+                [
+                  1781568000,
+                  32,
+                  null
+                ],
+                [
+                  1781654400,
+                  32,
+                  null
+                ],
+                [
+                  1781740800,
+                  28,
+                  null
+                ],
+                [
+                  1781827200,
+                  32,
+                  null
+                ],
+                [
+                  1781913600,
+                  35,
+                  null
+                ],
+                [
+                  1782000000,
+                  39,
+                  null
+                ],
+                [
+                  1782086400,
+                  38,
+                  null
+                ],
+                [
+                  1782172800,
+                  40,
+                  null
+                ]
+              ],
+              "chart_type": "topselling_free",
+              "category_name": "Casino",
+              "todays_rank": 40
+            }
+          }
+        }
+      }
+    },
+    {
+      "url": "https://app.sensortower-china.com/amplitude",
+      "body_keys": [
+        "code",
+        "server_upload_time",
+        "payload_size_bytes",
+        "events_ingested"
+      ]
+    }
+  ]
+}
