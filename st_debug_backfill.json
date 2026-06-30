@@ -1,5 +1,5 @@
 {
-  "Cash Frenzy_apple_TW_20260623": [
+  "Cash Frenzy_apple_TW_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/ios/internal_entities",
       "body_keys": [
@@ -15,7 +15,7 @@
       ]
     },
     {
-      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1404165333",
         "lines"
@@ -28,33 +28,6 @@
               "humanized_app_name": "爆有錢Online -老虎機、賓果、台灣明星線上拉霸 娛樂城",
               "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  94,
-                  null
-                ],
-                [
-                  1779667200,
-                  90,
-                  null
-                ],
-                [
-                  1779753600,
-                  57,
-                  null
-                ],
-                [
-                  1779840000,
-                  81,
-                  null
-                ],
-                [
-                  1779926400,
-                  117,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   156,
@@ -186,11 +159,36 @@
                   1782172800,
                   76,
                   null
+                ],
+                [
+                  1782259200,
+                  53,
+                  null
+                ],
+                [
+                  1782345600,
+                  54,
+                  null
+                ],
+                [
+                  1782432000,
+                  50,
+                  null
+                ],
+                [
+                  1782518400,
+                  76,
+                  null
+                ],
+                [
+                  1782604800,
+                  59,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 61
+              "todays_rank": 67
             }
           }
         }
@@ -206,7 +204,13 @@
       ]
     }
   ],
-  "Cash Frenzy_android_TW_20260623": [
+  "Cash Frenzy_android_TW_20260628": [
+    {
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
     {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
@@ -216,13 +220,7 @@
       ]
     },
     {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
-      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "slots.pcg.casino.games.free.android",
         "lines"
@@ -235,33 +233,6 @@
               "humanized_app_name": "爆有錢Online -老虎機、刮刮樂、賓果、撲克、娛樂城遊戲",
               "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
               "graphData": [
-                [
-                  1779580800,
-                  22,
-                  null
-                ],
-                [
-                  1779667200,
-                  21,
-                  null
-                ],
-                [
-                  1779753600,
-                  22,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  22,
-                  null
-                ],
-                [
-                  1779926400,
-                  23,
-                  null
-                ],
                 [
                   1780012800,
                   23,
@@ -393,11 +364,36 @@
                   1782172800,
                   20,
                   null
+                ],
+                [
+                  1782259200,
+                  20,
+                  null
+                ],
+                [
+                  1782345600,
+                  21,
+                  null
+                ],
+                [
+                  1782432000,
+                  28,
+                  null
+                ],
+                [
+                  1782518400,
+                  28,
+                  null
+                ],
+                [
+                  1782604800,
+                  26,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 20
+              "todays_rank": 26
             }
           }
         }
@@ -413,7 +409,7 @@
       ]
     }
   ],
-  "Cash Frenzy_apple_US_20260623": [
+  "Cash Frenzy_apple_US_20260628": [
     {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
@@ -429,7 +425,7 @@
       ]
     },
     {
-      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1404165333",
         "lines"
@@ -442,33 +438,6 @@
               "humanized_app_name": "Cash Frenzy",
               "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  60,
-                  null
-                ],
-                [
-                  1779667200,
-                  61,
-                  null
-                ],
-                [
-                  1779753600,
-                  63,
-                  null
-                ],
-                [
-                  1779840000,
-                  65,
-                  null
-                ],
-                [
-                  1779926400,
-                  64,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   62,
@@ -600,6 +569,31 @@
                   1782172800,
                   57,
                   null
+                ],
+                [
+                  1782259200,
+                  57,
+                  null
+                ],
+                [
+                  1782345600,
+                  56,
+                  null
+                ],
+                [
+                  1782432000,
+                  58,
+                  null
+                ],
+                [
+                  1782518400,
+                  54,
+                  null
+                ],
+                [
+                  1782604800,
+                  55,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
@@ -620,7 +614,7 @@
       ]
     }
   ],
-  "Cash Frenzy_android_US_20260623": [
+  "Cash Frenzy_android_US_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/android/internal_entities",
       "body_keys": [
@@ -636,7 +630,7 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "slots.pcg.casino.games.free.android",
         "lines"
@@ -649,33 +643,6 @@
               "humanized_app_name": "Cash Frenzy",
               "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
               "graphData": [
-                [
-                  1779580800,
-                  6,
-                  null
-                ],
-                [
-                  1779667200,
-                  6,
-                  null
-                ],
-                [
-                  1779753600,
-                  5,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  5,
-                  null
-                ],
-                [
-                  1779926400,
-                  11,
-                  null
-                ],
                 [
                   1780012800,
                   12,
@@ -807,11 +774,36 @@
                   1782172800,
                   12,
                   null
+                ],
+                [
+                  1782259200,
+                  13,
+                  null
+                ],
+                [
+                  1782345600,
+                  18,
+                  null
+                ],
+                [
+                  1782432000,
+                  16,
+                  null
+                ],
+                [
+                  1782518400,
+                  18,
+                  null
+                ],
+                [
+                  1782604800,
+                  16,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 12
+              "todays_rank": 14
             }
           }
         }
@@ -827,7 +819,7 @@
       ]
     }
   ],
-  "Cash Frenzy_apple_JP_20260623": [
+  "Cash Frenzy_apple_JP_20260628": [
     {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1404165333",
       "body_keys": [
@@ -843,7 +835,7 @@
       ]
     },
     {
-      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1404165333",
         "lines"
@@ -856,33 +848,6 @@
               "humanized_app_name": "Cash Frenzy",
               "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  79,
-                  null
-                ],
-                [
-                  1779667200,
-                  92,
-                  null
-                ],
-                [
-                  1779753600,
-                  90,
-                  null
-                ],
-                [
-                  1779840000,
-                  99,
-                  null
-                ],
-                [
-                  1779926400,
-                  91,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   116,
@@ -1014,11 +979,36 @@
                   1782172800,
                   62,
                   null
+                ],
+                [
+                  1782259200,
+                  70,
+                  null
+                ],
+                [
+                  1782345600,
+                  69,
+                  null
+                ],
+                [
+                  1782432000,
+                  58,
+                  null
+                ],
+                [
+                  1782518400,
+                  51,
+                  null
+                ],
+                [
+                  1782604800,
+                  50,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 65
+              "todays_rank": 45
             }
           }
         }
@@ -1034,7 +1024,7 @@
       ]
     }
   ],
-  "Cash Frenzy_android_JP_20260623": [
+  "Cash Frenzy_android_JP_20260628": [
     {
       "url": "id/category/app_category_ranking_summary?app_ids%5B%5D=slots.pcg.casino.games.free.android",
       "body_keys": [
@@ -1050,7 +1040,7 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "slots.pcg.casino.games.free.android",
         "lines"
@@ -1063,33 +1053,6 @@
               "humanized_app_name": "キャッシュフレンジー カジノ、 スロット、",
               "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
               "graphData": [
-                [
-                  1779580800,
-                  41,
-                  null
-                ],
-                [
-                  1779667200,
-                  37,
-                  null
-                ],
-                [
-                  1779753600,
-                  38,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  35,
-                  null
-                ],
-                [
-                  1779926400,
-                  47,
-                  null
-                ],
                 [
                   1780012800,
                   38,
@@ -1221,11 +1184,36 @@
                   1782172800,
                   32,
                   null
+                ],
+                [
+                  1782259200,
+                  35,
+                  null
+                ],
+                [
+                  1782345600,
+                  32,
+                  null
+                ],
+                [
+                  1782432000,
+                  31,
+                  null
+                ],
+                [
+                  1782518400,
+                  31,
+                  null
+                ],
+                [
+                  1782604800,
+                  25,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 32
+              "todays_rank": 22
             }
           }
         }
@@ -1241,7 +1229,7 @@
       ]
     }
   ],
-  "Cash Frenzy_apple_GB_20260623": [
+  "Cash Frenzy_apple_GB_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/ios/internal_entities",
       "body_keys": [
@@ -1257,7 +1245,7 @@
       ]
     },
     {
-      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1404165333",
         "lines"
@@ -1270,33 +1258,6 @@
               "humanized_app_name": "Cash Frenzy",
               "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c2/ec/67/c2ec67eb-054f-472c-bc5e-84828d000952/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  49,
-                  null
-                ],
-                [
-                  1779667200,
-                  41,
-                  null
-                ],
-                [
-                  1779753600,
-                  46,
-                  null
-                ],
-                [
-                  1779840000,
-                  49,
-                  null
-                ],
-                [
-                  1779926400,
-                  52,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   57,
@@ -1428,6 +1389,31 @@
                   1782172800,
                   49,
                   null
+                ],
+                [
+                  1782259200,
+                  48,
+                  null
+                ],
+                [
+                  1782345600,
+                  55,
+                  null
+                ],
+                [
+                  1782432000,
+                  52,
+                  null
+                ],
+                [
+                  1782518400,
+                  54,
+                  null
+                ],
+                [
+                  1782604800,
+                  49,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
@@ -1448,7 +1434,7 @@
       ]
     }
   ],
-  "Cash Frenzy_android_GB_20260623": [
+  "Cash Frenzy_android_GB_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/android/internal_entities",
       "body_keys": [
@@ -1464,7 +1450,7 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "slots.pcg.casino.games.free.android",
         "lines"
@@ -1477,33 +1463,6 @@
               "humanized_app_name": "Cash Frenzy",
               "icon": "https://assets.sensortower-china.com/sU8DvqTKPhBjccxhmxeWKCUHAyGsXz7wgjqP_yv4OjAQkCU-UZOkDRotSNAxuBYLMgE-zoQC1mRdAqs-ueyMFw=s150",
               "graphData": [
-                [
-                  1779580800,
-                  21,
-                  null
-                ],
-                [
-                  1779667200,
-                  21,
-                  null
-                ],
-                [
-                  1779753600,
-                  21,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  20,
-                  null
-                ],
-                [
-                  1779926400,
-                  30,
-                  null
-                ],
                 [
                   1780012800,
                   32,
@@ -1635,11 +1594,36 @@
                   1782172800,
                   20,
                   null
+                ],
+                [
+                  1782259200,
+                  23,
+                  null
+                ],
+                [
+                  1782345600,
+                  27,
+                  null
+                ],
+                [
+                  1782432000,
+                  31,
+                  null
+                ],
+                [
+                  1782518400,
+                  34,
+                  null
+                ],
+                [
+                  1782604800,
+                  33,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 20
+              "todays_rank": 32
             }
           }
         }
@@ -1655,9 +1639,23 @@
       ]
     }
   ],
-  "Dafu_apple_TW_20260623": [
+  "Dafu_apple_TW_20260628": [
     {
-      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
+      "body_keys": [
+        "categories",
+        "chart_types",
+        "countries"
+      ]
+    },
+    {
+      "url": "eapplications&countries%5B%5D=TW&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1356980152",
         "lines"
@@ -1668,35 +1666,8 @@
             "topfreeapplications": {
               "name": "大福Online-老虎機、捕魚、推幣機、刮刮樂、拉霸 娛樂城",
               "humanized_app_name": "大福Online-老虎機、捕魚、推幣機、刮刮樂、拉霸 娛樂城",
-              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/59/21/6f/59216f0e-5809-6c0e-acce-9cc949f12a51/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  40,
-                  null
-                ],
-                [
-                  1779667200,
-                  34,
-                  null
-                ],
-                [
-                  1779753600,
-                  34,
-                  null
-                ],
-                [
-                  1779840000,
-                  31,
-                  null
-                ],
-                [
-                  1779926400,
-                  18,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   21,
@@ -1826,29 +1797,42 @@
                   1782172800,
                   20,
                   null
+                ],
+                [
+                  1782259200,
+                  19,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1782345600,
+                  21,
+                  null
+                ],
+                [
+                  1782432000,
+                  34,
+                  null
+                ],
+                [
+                  1782518400,
+                  27,
+                  null
+                ],
+                [
+                  1782604800,
+                  33,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 20
+              "todays_rank": 33
             }
           }
         }
       }
-    },
-    {
-      "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
-      "body_keys": [
-        "categories",
-        "chart_types",
-        "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
     },
     {
       "url": "https://app.sensortower-china.com/amplitude",
@@ -1860,7 +1844,7 @@
       ]
     }
   ],
-  "Dafu_android_TW_20260623": [
+  "Dafu_android_TW_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/android/internal_entities",
       "body_keys": [
@@ -1876,7 +1860,7 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=TW&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "com.grandegames.slots.dafu.casino",
         "lines"
@@ -1889,33 +1873,6 @@
               "humanized_app_name": "大福Online- 老虎機、麻將、捕魚、柏青斯洛、拉霸娛樂城",
               "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
               "graphData": [
-                [
-                  1779580800,
-                  27,
-                  null
-                ],
-                [
-                  1779667200,
-                  27,
-                  null
-                ],
-                [
-                  1779753600,
-                  27,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  27,
-                  null
-                ],
-                [
-                  1779926400,
-                  26,
-                  null
-                ],
                 [
                   1780012800,
                   27,
@@ -2045,11 +2002,36 @@
                   1782172800,
                   15,
                   null
+                ],
+                [
+                  1782259200,
+                  15,
+                  null
+                ],
+                [
+                  1782345600,
+                  16,
+                  null
+                ],
+                [
+                  1782432000,
+                  19,
+                  null
+                ],
+                [
+                  1782518400,
+                  20,
+                  null
+                ],
+                [
+                  1782604800,
+                  19,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 15
+              "todays_rank": 20
             }
           }
         }
@@ -2065,7 +2047,7 @@
       ]
     }
   ],
-  "Dafu_apple_US_20260623": [
+  "Dafu_apple_US_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/ios/internal_entities",
       "body_keys": [
@@ -2081,7 +2063,7 @@
       ]
     },
     {
-      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=US&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1356980152",
         "lines"
@@ -2092,35 +2074,8 @@
             "topfreeapplications": {
               "name": "Jackpot World™ - Casino Slots",
               "humanized_app_name": "Jackpot World",
-              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/59/21/6f/59216f0e-5809-6c0e-acce-9cc949f12a51/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  62,
-                  null
-                ],
-                [
-                  1779667200,
-                  57,
-                  null
-                ],
-                [
-                  1779753600,
-                  59,
-                  null
-                ],
-                [
-                  1779840000,
-                  52,
-                  null
-                ],
-                [
-                  1779926400,
-                  55,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   52,
@@ -2250,11 +2205,38 @@
                   1782172800,
                   89,
                   null
+                ],
+                [
+                  1782259200,
+                  89,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1782345600,
+                  93,
+                  null
+                ],
+                [
+                  1782432000,
+                  93,
+                  null
+                ],
+                [
+                  1782518400,
+                  91,
+                  null
+                ],
+                [
+                  1782604800,
+                  90,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 89
+              "todays_rank": 85
             }
           }
         }
@@ -2270,13 +2252,7 @@
       ]
     }
   ],
-  "Dafu_android_US_20260623": [
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
+  "Dafu_android_US_20260628": [
     {
       "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
       "body_keys": [
@@ -2286,7 +2262,13 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "https://app.sensortower-china.com/api/android/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
+    {
+      "url": "pselling_free&countries%5B%5D=US&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "com.grandegames.slots.dafu.casino",
         "lines"
@@ -2299,33 +2281,6 @@
               "humanized_app_name": "Jackpot World",
               "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
               "graphData": [
-                [
-                  1779580800,
-                  29,
-                  null
-                ],
-                [
-                  1779667200,
-                  28,
-                  null
-                ],
-                [
-                  1779753600,
-                  29,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  27,
-                  null
-                ],
-                [
-                  1779926400,
-                  27,
-                  null
-                ],
                 [
                   1780012800,
                   27,
@@ -2455,11 +2410,36 @@
                   1782172800,
                   29,
                   null
+                ],
+                [
+                  1782259200,
+                  30,
+                  null
+                ],
+                [
+                  1782345600,
+                  28,
+                  null
+                ],
+                [
+                  1782432000,
+                  29,
+                  null
+                ],
+                [
+                  1782518400,
+                  44,
+                  null
+                ],
+                [
+                  1782604800,
+                  34,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 29
+              "todays_rank": 36
             }
           }
         }
@@ -2475,7 +2455,13 @@
       ]
     }
   ],
-  "Dafu_apple_JP_20260623": [
+  "Dafu_apple_JP_20260628": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
     {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
       "body_keys": [
@@ -2485,13 +2471,7 @@
       ]
     },
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
-      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=JP&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1356980152",
         "lines"
@@ -2502,35 +2482,8 @@
             "topfreeapplications": {
               "name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
               "humanized_app_name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
-              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/59/21/6f/59216f0e-5809-6c0e-acce-9cc949f12a51/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  51,
-                  null
-                ],
-                [
-                  1779667200,
-                  40,
-                  null
-                ],
-                [
-                  1779753600,
-                  45,
-                  null
-                ],
-                [
-                  1779840000,
-                  34,
-                  null
-                ],
-                [
-                  1779926400,
-                  43,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   33,
@@ -2660,11 +2613,38 @@
                   1782172800,
                   48,
                   null
+                ],
+                [
+                  1782259200,
+                  38,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1782345600,
+                  39,
+                  null
+                ],
+                [
+                  1782432000,
+                  39,
+                  null
+                ],
+                [
+                  1782518400,
+                  36,
+                  null
+                ],
+                [
+                  1782604800,
+                  34,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 46
+              "todays_rank": 26
             }
           }
         }
@@ -2680,7 +2660,7 @@
       ]
     }
   ],
-  "Dafu_android_JP_20260623": [
+  "Dafu_android_JP_20260628": [
     {
       "url": "https://app.sensortower-china.com/api/android/internal_entities",
       "body_keys": [
@@ -2696,7 +2676,7 @@
       ]
     },
     {
-      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "pselling_free&countries%5B%5D=JP&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "com.grandegames.slots.dafu.casino",
         "lines"
@@ -2709,33 +2689,6 @@
               "humanized_app_name": "スロットセブン：ジャックポットワールド、パチスロ、カジノ",
               "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
               "graphData": [
-                [
-                  1779580800,
-                  6,
-                  null
-                ],
-                [
-                  1779667200,
-                  7,
-                  null
-                ],
-                [
-                  1779753600,
-                  7,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  8,
-                  null
-                ],
-                [
-                  1779926400,
-                  9,
-                  null
-                ],
                 [
                   1780012800,
                   8,
@@ -2865,11 +2818,36 @@
                   1782172800,
                   3,
                   null
+                ],
+                [
+                  1782259200,
+                  4,
+                  null
+                ],
+                [
+                  1782345600,
+                  3,
+                  null
+                ],
+                [
+                  1782432000,
+                  5,
+                  null
+                ],
+                [
+                  1782518400,
+                  7,
+                  null
+                ],
+                [
+                  1782604800,
+                  5,
+                  null
                 ]
               ],
               "chart_type": "topselling_free",
               "category_name": "Casino",
-              "todays_rank": 3
+              "todays_rank": 5
             }
           }
         }
@@ -2885,7 +2863,13 @@
       ]
     }
   ],
-  "Dafu_apple_GB_20260623": [
+  "Dafu_apple_GB_20260628": [
+    {
+      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
+      "body_keys": [
+        "apps"
+      ]
+    },
     {
       "url": "nsortower-china.com/api/ios/category/app_category_ranking_summary?app_ids%5B%5D=1356980152",
       "body_keys": [
@@ -2895,13 +2879,7 @@
       ]
     },
     {
-      "url": "https://app.sensortower-china.com/api/ios/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
-      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
+      "url": "eapplications&countries%5B%5D=GB&end_date=2026-06-28&start_date=2026-05-29&is_hourly=false",
       "body_keys": [
         "1356980152",
         "lines"
@@ -2912,35 +2890,8 @@
             "topfreeapplications": {
               "name": "Jackpot World™ - Casino Slots",
               "humanized_app_name": "Jackpot World",
-              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/dc/c2/b1/dcc2b1d9-1e01-56c6-0d10-651ebd02aac2/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
+              "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/59/21/6f/59216f0e-5809-6c0e-acce-9cc949f12a51/dafu-icon-0-0-1x_U007emarketing-0-8-0-85-220.png/150x150bb.jpg",
               "graphData": [
-                [
-                  1779580800,
-                  93,
-                  null
-                ],
-                [
-                  1779667200,
-                  88,
-                  null
-                ],
-                [
-                  1779753600,
-                  85,
-                  null
-                ],
-                [
-                  1779840000,
-                  76,
-                  null
-                ],
-                [
-                  1779926400,
-                  93,
-                  {
-                    "type": "update"
-                  }
-                ],
                 [
                   1780012800,
                   94,
@@ -3070,11 +3021,38 @@
                   1782172800,
                   88,
                   null
+                ],
+                [
+                  1782259200,
+                  90,
+                  {
+                    "type": "update"
+                  }
+                ],
+                [
+                  1782345600,
+                  96,
+                  null
+                ],
+                [
+                  1782432000,
+                  92,
+                  null
+                ],
+                [
+                  1782518400,
+                  109,
+                  null
+                ],
+                [
+                  1782604800,
+                  121,
+                  null
                 ]
               ],
               "chart_type": "topfreeapplications",
               "category_name": "Games/Casino",
-              "todays_rank": 96
+              "todays_rank": 75
             }
           }
         }
@@ -3090,209 +3068,5 @@
       ]
     }
   ],
-  "Dafu_android_GB_20260623": [
-    {
-      "url": "roid/category/app_category_ranking_summary?app_ids%5B%5D=com.grandegames.slots.dafu.casino",
-      "body_keys": [
-        "categories",
-        "chart_types",
-        "countries"
-      ]
-    },
-    {
-      "url": "https://app.sensortower-china.com/api/android/internal_entities",
-      "body_keys": [
-        "apps"
-      ]
-    },
-    {
-      "url": "pselling_free&countries%5B%5D=GB&end_date=2026-06-23&start_date=2026-05-24&is_hourly=false",
-      "body_keys": [
-        "com.grandegames.slots.dafu.casino",
-        "lines"
-      ],
-      "history_sample": {
-        "GB": {
-          "game_casino": {
-            "topselling_free": {
-              "name": "Jackpot World™ - Slots Casino",
-              "humanized_app_name": "Jackpot World",
-              "icon": "https://assets.sensortower-china.com/GbSmufLwKwNJmOGukpGY-t0g4GLW23QL8YVDEowY3fgKZuDHrvRSivQmzsuLAsNPdVSf92GKjD6B7ON9z77YpA=s150",
-              "graphData": [
-                [
-                  1779580800,
-                  24,
-                  null
-                ],
-                [
-                  1779667200,
-                  25,
-                  null
-                ],
-                [
-                  1779753600,
-                  24,
-                  {
-                    "type": "update"
-                  }
-                ],
-                [
-                  1779840000,
-                  25,
-                  null
-                ],
-                [
-                  1779926400,
-                  19,
-                  null
-                ],
-                [
-                  1780012800,
-                  19,
-                  null
-                ],
-                [
-                  1780099200,
-                  17,
-                  null
-                ],
-                [
-                  1780185600,
-                  16,
-                  null
-                ],
-                [
-                  1780272000,
-                  15,
-                  null
-                ],
-                [
-                  1780358400,
-                  21,
-                  null
-                ],
-                [
-                  1780444800,
-                  21,
-                  null
-                ],
-                [
-                  1780531200,
-                  21,
-                  null
-                ],
-                [
-                  1780617600,
-                  23,
-                  null
-                ],
-                [
-                  1780704000,
-                  26,
-                  null
-                ],
-                [
-                  1780790400,
-                  24,
-                  null
-                ],
-                [
-                  1780876800,
-                  22,
-                  null
-                ],
-                [
-                  1780963200,
-                  27,
-                  null
-                ],
-                [
-                  1781049600,
-                  26,
-                  null
-                ],
-                [
-                  1781136000,
-                  22,
-                  null
-                ],
-                [
-                  1781222400,
-                  32,
-                  null
-                ],
-                [
-                  1781308800,
-                  35,
-                  null
-                ],
-                [
-                  1781395200,
-                  36,
-                  null
-                ],
-                [
-                  1781481600,
-                  37,
-                  null
-                ],
-                [
-                  1781568000,
-                  32,
-                  null
-                ],
-                [
-                  1781654400,
-                  32,
-                  null
-                ],
-                [
-                  1781740800,
-                  28,
-                  null
-                ],
-                [
-                  1781827200,
-                  32,
-                  null
-                ],
-                [
-                  1781913600,
-                  35,
-                  null
-                ],
-                [
-                  1782000000,
-                  39,
-                  null
-                ],
-                [
-                  1782086400,
-                  38,
-                  null
-                ],
-                [
-                  1782172800,
-                  40,
-                  null
-                ]
-              ],
-              "chart_type": "topselling_free",
-              "category_name": "Casino",
-              "todays_rank": 40
-            }
-          }
-        }
-      }
-    },
-    {
-      "url": "https://app.sensortower-china.com/amplitude",
-      "body_keys": [
-        "code",
-        "server_upload_time",
-        "payload_size_bytes",
-        "events_ingested"
-      ]
-    }
-  ]
+  "Dafu_android_GB_20260628": []
 }
