@@ -429,9 +429,13 @@
     }
   },
   "20260630": {
-    "TW": {},
+    "TW": {
+      "apple": 37,
+      "android": 20
+    },
     "US": {
-      "android": 36
+      "android": 36,
+      "apple": 81
     },
     "JP": {
       "apple": 26,
